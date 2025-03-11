@@ -1,0 +1,43 @@
+| Column | Description |
+|--------|-------------|
+| **IDENTIFICATION COLUMNS** | |
+| Season | NBA season year (e.g., 2024-25) - Used for time-based train/test splits |
+| Player | Player's full name - Can be used for grouping or removed for modeling |
+| Age | Player's age in years - Important demographic feature |
+| Team | NBA team abbreviation - Can be used for grouping or team-specific analysis |
+| **BASIC STATISTICS** | |
+| GP | Games Played - Total number of games participated in |
+| MPG | Minutes Per Game - Average playing time |
+| PPG | Points Per Game - Average scoring output |
+| RPG | Rebounds Per Game - Average total rebounds |
+| APG | Assists Per Game - Average assists |
+| SPG | Steals Per Game - Average steals |
+| BPG | Blocks Per Game - Average blocks |
+| FG% | Field Goal Percentage - (Made FG / FG Attempts) |
+| 3P% | Three-Point Percentage - (Made 3P / 3P Attempts) |
+| FT% | Free Throw Percentage - (Made FT / FT Attempts) |
+| TOV | Turnovers Per Game - Average turnovers |
+| **ADVANCED STATISTICS** | |
+| PER | Player Efficiency Rating - Overall efficiency metric |
+| TS% | True Shooting Percentage - Shooting efficiency including FG, 3P, and FT |
+| eFG% | Effective Field Goal Percentage - FG% adjusted for 3P being worth more |
+| 3PAr | Three-Point Attempt Rate - Proportion of FG attempts from 3P range |
+| FTr | Free Throw Rate - Ratio of FT attempts to FG attempts |
+| ORB% | Offensive Rebound Percentage - % of available offensive rebounds obtained |
+| DRB% | Defensive Rebound Percentage - % of available defensive rebounds obtained |
+| TRB% | Total Rebound Percentage - % of available total rebounds obtained |
+| AST% | Assist Percentage - % of teammate FG player assisted on |
+| STL% | Steal Percentage - % of opponent possessions that end with player steal |
+| BLK% | Block Percentage - % of opponent 2P attempts blocked by player |
+| TOV% | Turnover Percentage - Turnovers per 100 possessions |
+| USG% | Usage Percentage - % of team plays used by player while on court |
+| WS | Win Shares - Estimated number of wins contributed by player |
+| WS/48 | Win Shares per 48 Minutes - Win Shares normalized to per-48-minute rate |
+| OBPM | Offensive Box Plus/Minus - Offensive contribution per 100 possessions above average |
+| DBPM | Defensive Box Plus/Minus - Defensive contribution per 100 possessions above average |
+| BPM | Box Plus/Minus - Overall contribution per 100 possessions above average (OBPM + DBPM) |
+| VORP | Value Over Replacement Player - Value contributed above a replacement-level player |
+| **ENGINEERED FEATURES** | |
+| Experience | Years played in the NBA - Derived from player history |
+| AST_TOV_ratio | Assist to Turnover Ratio - Measure of playmaking efficiency (APG/TOV) |
+| USG_TS_interaction | Usage-Efficiency Interaction - USG% × TS%, measures efficient high-usage players |

@@ -7,6 +7,7 @@ import random       # For randomizing delays
 import logging      # For better error tracking
 from datetime import datetime  # For date handling
 import glob         # For finding files with patterns
+import argparse     # For command-line argument parsing
 
 # Configure logging
 logging.basicConfig(
@@ -307,6 +308,10 @@ def scrape_team_schedules(team_abbrs=None):
             games_table = soup.find('table', {'id': 'games'})
             
             if games_table:
+                # Look specifically for the game_location column
+                game_location_th = games_table.find('th', {'data-stat': 'game_location'})
+                game_location_exists = game_location_th is not None
+                
                 # Convert table to dataframe using StringIO to avoid FutureWarning
                 from io import StringIO
                 games_html = StringIO(str(games_table))
@@ -315,6 +320,46 @@ def scrape_team_schedules(team_abbrs=None):
                 # Handle multi-level columns if present
                 if isinstance(schedule_df.columns, pd.MultiIndex):
                     schedule_df.columns = schedule_df.columns.droplevel(0)
+                
+                # Check if the game location column was properly captured
+                # It might be an unnamed column or have a blank header
+                location_col_exists = False
+                for col in schedule_df.columns:
+                    if col == '' or (isinstance(col, str) and col.isspace()):
+                        location_col_exists = True
+                        break
+                
+                # Always extract game location data manually to ensure consistency
+                if game_location_exists:
+                    logging.info(f"Extracting game location data for {team_name}")
+                    # Extract game locations
+                    game_locations = []
+                    rows = games_table.find('tbody').find_all('tr')
+                    for row in rows:
+                        # Skip header rows
+                        if 'class' in row.attrs and any(c in ' '.join(row.attrs['class']) for c in ['thead', 'divider']):
+                            continue
+                        
+                        # Find the game_location cell
+                        location_cell = row.find('td', {'data-stat': 'game_location'})
+                        if location_cell:
+                            location = location_cell.text.strip()
+                            game_locations.append('@' if location == '@' else '')
+                        else:
+                            game_locations.append('')
+                    
+                    # Add to dataframe if we have matching length
+                    if len(game_locations) == len(schedule_df):
+                        schedule_df['Location'] = game_locations
+                        logging.info(f"Added {len(game_locations)} game locations for {team_name}")
+                    else:
+                        logging.warning(f"Game location count mismatch for {team_name}: {len(game_locations)} locations vs {len(schedule_df)} games")
+                        # Try to match up rows by date if possible
+                        if 'Date' in schedule_df.columns and len(game_locations) > 0:
+                            logging.info("Attempting to match game locations by row index")
+                            schedule_df['Location'] = ''
+                            for i in range(min(len(game_locations), len(schedule_df))):
+                                schedule_df.iloc[i, schedule_df.columns.get_loc('Location')] = game_locations[i]
                 
                 # Clean the dataframe
                 schedule_df = clean_schedule_data(schedule_df)
@@ -347,7 +392,28 @@ def clean_schedule_data(df):
     Returns:
         pandas.DataFrame: Cleaned dataframe with formatted columns
     """
-    # Remove unnamed columns
+    # Process the game location column if it exists
+    # Check for the unnamed column that contains '@' for away games
+    for col in df.columns:
+        if col == '' or (isinstance(col, str) and col.isspace()):
+            # Rename the unnamed column to 'Location'
+            df.rename(columns={col: 'Location'}, inplace=True)
+            logging.info("Renamed unnamed game location column to 'Location'")
+            break
+    
+    # Convert location to a clear home/away indicator
+    if 'Location' in df.columns:
+        # '@' indicates away game, empty or NaN indicates home game
+        df['Home'] = df['Location'].apply(lambda x: False if x == '@' else True)
+        # Add gameLocation column (1 for home, 0 for away)
+        df['gameLocation'] = df['Location'].apply(lambda x: 0 if x == '@' else 1)
+    else:
+        # If no location column was found, default all games to home (1)
+        # This is a fallback and should be rare
+        logging.warning("No location column found, defaulting all games to home")
+        df['gameLocation'] = 1
+    
+    # Remove other unnamed columns
     df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
     
     # Drop rows that are section headers (these typically have 'Date' as NaN)
@@ -388,7 +454,7 @@ def save_schedules_to_csv(schedules, output_dir='./data'):
     """
     # Create output directory if it doesn't exist
     os.makedirs(output_dir, exist_ok=True)
-
+    
     # Today's date for filename
     today_str = datetime.now().strftime('%Y%m%d')
     
@@ -463,56 +529,238 @@ def find_latest_data_files(pattern, data_dir='./data'):
     
     return files
 
+def scrape_player_averages(start_season=2015, end_season=2025):
+    """
+    Scrape NBA player averages per game from Basketball Reference website.
+    
+    Args:
+        start_season (int): Starting season year (default: 2015)
+        end_season (int): Ending season year (default: 2025)
+        
+    Returns:
+        dict: Dictionary with player averages dataframes for each season
+    """
+    player_averages = {}
+    
+    for season in range(start_season, end_season + 1):
+        logging.info(f"Scraping player averages for {season}-{season+1} season...")
+        
+        # NBA player averages URL
+        url = f"https://www.basketball-reference.com/leagues/NBA_{season}_per_game.html"
+        
+        # Make the throttled request
+        response = throttled_request(url, max_retries=5)
+        if not response:
+            logging.warning(f"Failed to retrieve player averages for {season} season.")
+            continue
+        
+        # Parse HTML content
+        soup = BeautifulSoup(response.content, 'html.parser')
+
+        try:
+            # Get Player Averages table - first try with the specific ID
+            player_stats_table = soup.find("table", {'id': 'per_game_stats'})
+            
+            if player_stats_table:
+                # Use StringIO to avoid FutureWarning
+                from io import StringIO
+                stats_html = StringIO(str(player_stats_table))
+                stats_df = pd.read_html(stats_html)[0]
+                
+                # Clean the data
+                stats_df = clean_player_averages_data(stats_df, season)
+                
+                # Add to dictionary
+                player_averages[season] = stats_df
+                logging.info(f"Successfully scraped player averages for {season} season. Found {len(stats_df)} player records.")
+            else:
+                # Try alternative approach - look for any table with per game stats
+                tables = soup.find_all("table")
+                found = False
+                
+                for i, table in enumerate(tables):
+                    # Check if this looks like a player stats table
+                    if table.find('th', text='PTS') and table.find('th', text='Player'):
+                        logging.info(f"Found alternative player stats table (index {i})")
+                        from io import StringIO
+                        stats_html = StringIO(str(table))
+                        stats_df = pd.read_html(stats_html)[0]
+                        
+                        # Clean the data
+                        stats_df = clean_player_averages_data(stats_df, season)
+                        
+                        # Add to dictionary
+                        player_averages[season] = stats_df
+                        logging.info(f"Successfully scraped player averages for {season} season. Found {len(stats_df)} player records.")
+                        found = True
+                        break
+                
+                if not found:
+                    logging.warning(f"No player averages table found for {season} season. The website structure might have changed.")
+        
+        except Exception as e:
+            logging.error(f"Error while scraping player averages for {season} season: {str(e)}")
+            continue
+    
+    return player_averages
+
+def clean_player_averages_data(df, season):
+    """
+    Clean and format the player averages dataframe.
+    
+    Args:
+        df (pandas.DataFrame): Raw player averages dataframe
+        season (int): Season year
+        
+    Returns:
+        pandas.DataFrame: Cleaned dataframe with formatted columns
+    """
+    # Handle potential header rows - first check if 'Rk' column exists
+    if 'Rk' in df.columns:
+        # Convert 'Rk' to string first to safely use str methods
+        df['Rk'] = df['Rk'].astype(str)
+        # Remove header rows that get included as data
+        df = df[~df['Rk'].str.contains('Rk', na=False)]
+    
+    # Handle multi-level columns if present
+    if isinstance(df.columns, pd.MultiIndex):
+        df.columns = df.columns.droplevel(0)
+    
+    # Reset index after removing rows
+    df = df.reset_index(drop=True)
+    
+    # Convert numeric columns to float, but first identify non-numeric columns
+    non_numeric_cols = ['Player', 'Pos', 'Tm']
+    # Only use columns that actually exist in the dataframe
+    existing_non_numeric = [col for col in non_numeric_cols if col in df.columns]
+    
+    # Convert numeric columns to float
+    numeric_cols = df.columns.difference(existing_non_numeric)
+    for col in numeric_cols:
+        df[col] = pd.to_numeric(df[col], errors='coerce')
+    
+    # Add season information
+    df['Season'] = f"{season}-{str(season+1)[-2:]}"
+    df['Season_Year'] = season
+    
+    # Add timestamp for when this data was collected
+    df['Scraped_Date'] = datetime.now().strftime('%Y-%m-%d')
+    
+    return df
+
+def save_player_averages_to_csv(player_averages, output_dir='./data'):
+    """
+    Save the player averages data to a single unified CSV file.
+    
+    Args:
+        player_averages (dict): Dictionary of player averages dataframes by season
+        output_dir (str): Directory to save the CSV file (default: './data')
+    """
+    # Create output directory for player stats if it doesn't exist
+    player_stats_dir = os.path.join(output_dir, 'player_stats')
+    os.makedirs(player_stats_dir, exist_ok=True)
+    
+    # Today's date for filename
+    today_str = datetime.now().strftime('%Y%m%d')
+    
+    # Combine all seasons into a single dataframe
+    if player_averages:
+        all_seasons_df = pd.concat(player_averages.values(), ignore_index=True)
+        
+        # Save the combined dataframe
+        output_path = os.path.join(player_stats_dir, f"player_averages_{today_str}.csv")
+        all_seasons_df.to_csv(output_path, index=False)
+        logging.info(f"Saved unified player averages for all seasons to {output_path}")
+        
+        # Display sample of the data
+        if not all_seasons_df.empty:
+            logging.info(f"\nPLAYER AVERAGES SAMPLE (showing first 5 rows):")
+            logging.info(all_seasons_df.head())
+    else:
+        logging.warning("No player averages data to save.")
+
 # Run when script is executed directly
 if __name__ == "__main__":
+    import argparse
+    
+    # Set up command-line argument parsing
+    parser = argparse.ArgumentParser(description='NBA Data Scraper - Collect data from Basketball Reference')
+    parser.add_argument('--standings', action='store_true', help='Scrape team standings')
+    parser.add_argument('--schedules', action='store_true', help='Scrape team schedules')
+    parser.add_argument('--players', action='store_true', help='Scrape player averages')
+    parser.add_argument('--all', action='store_true', help='Scrape all data (standings, schedules, and player averages)')
+    parser.add_argument('--start-season', type=int, default=2015, help='Starting season year for player averages (default: 2015)')
+    parser.add_argument('--end-season', type=int, default=2025, help='Ending season year for player averages (default: 2025)')
+    parser.add_argument('--output-dir', type=str, default='./data', help='Directory to save data (default: ./data)')
+    
+    args = parser.parse_args()
+    
+    # If no specific data type is selected, default to all
+    if not (args.standings or args.schedules or args.players):
+        args.all = True
+    
     logging.info("Starting NBA data scraping...")
     
-    # Set output directory - use a directory relative to the script location
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    output_dir = os.path.join(script_dir, 'data')
-    schedules_dir = os.path.join(output_dir, 'schedules')
+    # Create output directory if it doesn't exist
+    os.makedirs(args.output_dir, exist_ok=True)
     
-    # Create directories if they don't exist
-    os.makedirs(output_dir, exist_ok=True)
-    os.makedirs(schedules_dir, exist_ok=True)
+    # Scrape team standings if requested
+    if args.standings or args.all:
+        logging.info("Scraping team standings...")
+        standings_data = scrape_nba_standings()
+        if standings_data:
+            # Display sample of the data
+            logging.info("\nTEAM_RATINGS STANDINGS:")
+            if 'team_ratings' in standings_data and not standings_data['team_ratings'].empty:
+                logging.info(standings_data['team_ratings'].head())
+            
+            # Save to CSV
+            save_standings_to_csv(standings_data, args.output_dir)
+        else:
+            logging.warning("Failed to scrape team standings.")
     
-    # Scrape the standings data
-    standings = scrape_nba_standings()
+    # Scrape team schedules if requested
+    if args.schedules or args.all:
+        logging.info("\nScraping team schedules...")
+        team_schedules = scrape_team_schedules()
+        if team_schedules:
+            # Save to CSV
+            save_schedules_to_csv(team_schedules, args.output_dir)
+        else:
+            logging.warning("Failed to scrape team schedules.")
     
-    # Process and save data if scraping was successful
-    if standings:
-        # Show sample of each table
-        for name, df in standings.items():
-            logging.info(f"\n{name.upper()} STANDINGS:")
-            print(df.head())
-        
-        # Save to CSV files
-        save_standings_to_csv(standings, output_dir=output_dir)
+    # Scrape player averages if requested
+    if args.players or args.all:
+        logging.info("\nScraping player averages...")
+        player_averages = scrape_player_averages(start_season=args.start_season, end_season=args.end_season)
+        if player_averages:
+            # Save to CSV
+            save_player_averages_to_csv(player_averages, args.output_dir)
+            
+            # Display sample of the data for the first season
+            first_season = min(player_averages.keys()) if player_averages else None
+            if first_season and not player_averages[first_season].empty:
+                logging.info(f"\nPLAYER AVERAGES FOR {first_season} SEASON:")
+                logging.info(player_averages[first_season].head())
+        else:
+            logging.warning("Failed to scrape player averages.")
     
-    # Scrape team schedules
-    logging.info("\nScraping team schedules...")
-    
-    # Scrape all teams
-    schedules = scrape_team_schedules()
-    
-    # Save schedules to CSV in the schedules directory
-    if schedules:
-        save_schedules_to_csv(schedules, output_dir=schedules_dir)
-        
-        # Show sample of first team's schedule
-        first_team = next(iter(schedules))
-        logging.info(f"\n{first_team} SCHEDULE:")
-        print(schedules[first_team].head())
-    
-    # Demonstration of finding the latest data files
+    # Show latest files
     logging.info("\nLatest standings files:")
-    latest_standings = find_latest_data_files('team_ratings_*.csv', data_dir=output_dir)
-    for file in latest_standings[:3]:  # Show top 3 files
-        print(f" - {os.path.basename(file)}")
+    latest_standings = find_latest_data_files("team_ratings_*.csv", args.output_dir)
+    for file in latest_standings[:3]:  # Show top 3
+        logging.info(f" - {os.path.basename(file)}")
     
     logging.info("\nLatest schedule files:")
-    latest_schedules = find_latest_data_files('*.csv', data_dir=schedules_dir)
-    for file in latest_schedules[:3]:  # Show top 3 files
-        print(f" - {os.path.basename(file)}")
+    latest_schedules = find_latest_data_files("*_[0-9]*.csv", args.output_dir)
+    latest_schedules = [f for f in latest_schedules if not f.startswith(os.path.join(args.output_dir, "team_ratings"))]
+    latest_schedules = [f for f in latest_schedules if not os.path.dirname(f).endswith("player_stats")]
+    for file in latest_schedules[:3]:  # Show top 3
+        logging.info(f" - {os.path.basename(file)}")
+    
+    logging.info("\nLatest player averages files:")
+    latest_player_stats = find_latest_data_files("player_averages*.csv", os.path.join(args.output_dir, "player_stats"))
+    for file in latest_player_stats[:3]:  # Show top 3
+        logging.info(f" - {os.path.basename(file)}")
     
     logging.info("NBA data scraping completed successfully!")

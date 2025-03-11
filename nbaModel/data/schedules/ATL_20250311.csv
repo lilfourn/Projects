@@ -1,87 +1,87 @@
-G,Date,Start (ET),Opponent,Tm,Opp,W,L,Streak,Attend.,LOG,Notes,Result,Team,TeamAbbr,Scraped_Date
-1,2024-10-23,7:30p,Brooklyn Nets,120.0,116.0,1,0,W 1,17548,2:33,,W,Atlanta Hawks,ATL,2025-03-11
-2,2024-10-25,7:30p,Charlotte Hornets,125.0,120.0,2,0,W 2,14433,2:32,,W,Atlanta Hawks,ATL,2025-03-11
-3,2024-10-27,7:00p,Oklahoma City Thunder,104.0,128.0,2,1,L 1,18203,2:23,,L,Atlanta Hawks,ATL,2025-03-11
-4,2024-10-28,7:30p,Washington Wizards,119.0,121.0,2,2,L 2,14566,2:26,,L,Atlanta Hawks,ATL,2025-03-11
-5,2024-10-30,7:00p,Washington Wizards,120.0,133.0,2,3,L 3,14255,2:25,,L,Atlanta Hawks,ATL,2025-03-11
-6,2024-11-01,7:30p,Sacramento Kings,115.0,123.0,2,4,L 4,15156,2:16,,L,Atlanta Hawks,ATL,2025-03-11
-7,2024-11-03,7:00p,New Orleans Pelicans,126.0,111.0,3,4,W 1,15505,2:07,,W,Atlanta Hawks,ATL,2025-03-11
-8,2024-11-04,7:45p,Boston Celtics,93.0,123.0,3,5,L 1,15031,1:56,,L,Atlanta Hawks,ATL,2025-03-11
-9,2024-11-06,7:30p,New York Knicks,121.0,116.0,4,5,W 1,16072,2:16,,W,Atlanta Hawks,ATL,2025-03-11
-10,2024-11-08,7:00p,Detroit Pistons,121.0,122.0,4,6,L 1,17913,2:19,,L,Atlanta Hawks,ATL,2025-03-11
-11,2024-11-09,7:30p,Chicago Bulls,113.0,125.0,4,7,L 2,17826,2:17,,L,Atlanta Hawks,ATL,2025-03-11
-12,2024-11-12,7:00p,Boston Celtics,117.0,116.0,5,7,W 1,19156,2:13,In-Season Tournament,W,Atlanta Hawks,ATL,2025-03-11
-13,2024-11-15,7:30p,Washington Wizards,129.0,117.0,6,7,W 2,16038,2:15,In-Season Tournament,W,Atlanta Hawks,ATL,2025-03-11
-14,2024-11-17,6:00p,Portland Trail Blazers,110.0,114.0,6,8,L 1,17384,2:25,,L,Atlanta Hawks,ATL,2025-03-11
-15,2024-11-18,10:00p,Sacramento Kings,109.0,108.0,7,8,W 1,16333,2:10,,W,Atlanta Hawks,ATL,2025-03-11
-16,2024-11-20,10:00p,Golden State Warriors,97.0,120.0,7,9,L 1,18064,2:08,,L,Atlanta Hawks,ATL,2025-03-11
-17,2024-11-22,8:00p,Chicago Bulls,122.0,136.0,7,10,L 2,19979,2:08,In-Season Tournament,L,Atlanta Hawks,ATL,2025-03-11
-18,2024-11-25,7:30p,Dallas Mavericks,119.0,129.0,7,11,L 3,17186,2:07,,L,Atlanta Hawks,ATL,2025-03-11
-19,2024-11-27,7:00p,Cleveland Cavaliers,135.0,124.0,8,11,W 1,19432,2:18,,W,Atlanta Hawks,ATL,2025-03-11
-20,2024-11-29,2:30p,Cleveland Cavaliers,117.0,101.0,9,11,W 2,17881,2:12,In-Season Tournament,W,Atlanta Hawks,ATL,2025-03-11
-G,,Start (ET),Opponent,,,W,L,Streak,Attend.,LOG,Notes,,Atlanta Hawks,ATL,2025-03-11
-21,2024-11-30,6:00p,Charlotte Hornets,107.0,104.0,10,11,W 3,17969,2:20,,W,Atlanta Hawks,ATL,2025-03-11
-22,2024-12-02,7:30p,New Orleans Pelicans,124.0,112.0,11,11,W 4,15034,2:12,,W,Atlanta Hawks,ATL,2025-03-11
-23,2024-12-04,8:00p,Milwaukee Bucks,119.0,104.0,12,11,W 5,17341,2:21,,W,Atlanta Hawks,ATL,2025-03-11
-24,2024-12-06,7:30p,Los Angeles Lakers,134.0,132.0,13,11,W 6,18040,2:42,,W,Atlanta Hawks,ATL,2025-03-11
-25,2024-12-08,6:00p,Denver Nuggets,111.0,141.0,13,12,L 1,16137,2:14,,L,Atlanta Hawks,ATL,2025-03-11
-26,2024-12-11,7:00p,New York Knicks,108.0,100.0,14,12,W 1,19812,2:13,In-Season Tournament,W,Atlanta Hawks,ATL,2025-03-11
-27,2024-12-14,4:30p,Milwaukee Bucks,102.0,110.0,14,13,L 1,17113,2:30,In-Season Tournament,L,Atlanta Hawks,ATL,2025-03-11
-28,2024-12-19,8:00p,San Antonio Spurs,126.0,133.0,14,14,L 2,17852,2:36,,L,Atlanta Hawks,ATL,2025-03-11
-29,2024-12-21,7:30p,Memphis Grizzlies,112.0,128.0,14,15,L 3,16909,2:04,,L,Atlanta Hawks,ATL,2025-03-11
-30,2024-12-23,7:30p,Minnesota Timberwolves,117.0,104.0,15,15,W 1,17051,2:12,,W,Atlanta Hawks,ATL,2025-03-11
-31,2024-12-26,7:30p,Chicago Bulls,141.0,133.0,16,15,W 2,17760,2:14,,W,Atlanta Hawks,ATL,2025-03-11
-32,2024-12-28,3:00p,Miami Heat,120.0,110.0,17,15,W 3,17856,2:09,,W,Atlanta Hawks,ATL,2025-03-11
-33,2024-12-29,6:00p,Toronto Raptors,136.0,107.0,18,15,W 4,19359,2:18,,W,Atlanta Hawks,ATL,2025-03-11
-34,2025-01-01,9:00p,Denver Nuggets,120.0,139.0,18,16,L 1,19902,2:08,,L,Atlanta Hawks,ATL,2025-03-11
-35,2025-01-03,10:30p,Los Angeles Lakers,102.0,119.0,18,17,L 2,18997,2:10,,L,Atlanta Hawks,ATL,2025-03-11
-36,2025-01-04,10:30p,Los Angeles Clippers,105.0,131.0,18,18,L 3,17927,2:02,,L,Atlanta Hawks,ATL,2025-03-11
-37,2025-01-07,9:00p,Utah Jazz,124.0,121.0,19,18,W 1,18175,2:18,,W,Atlanta Hawks,ATL,2025-03-11
-38,2025-01-09,9:00p,Phoenix Suns,115.0,123.0,19,19,L 1,17071,2:12,,L,Atlanta Hawks,ATL,2025-03-11
-39,2025-01-14,7:30p,Phoenix Suns,122.0,117.0,20,19,W 1,16221,2:11,,W,Atlanta Hawks,ATL,2025-03-11
-40,2025-01-15,8:00p,Chicago Bulls,110.0,94.0,21,19,W 2,17692,2:06,,W,Atlanta Hawks,ATL,2025-03-11
-G,,Start (ET),Opponent,,,W,L,Streak,Attend.,LOG,Notes,,Atlanta Hawks,ATL,2025-03-11
-41,2025-01-18,7:00p,Boston Celtics,119.0,115.0,22,19,W 3,19156,2:40,,W,Atlanta Hawks,ATL,2025-03-11
-42,2025-01-20,3:00p,New York Knicks,110.0,119.0,22,20,L 1,19812,2:24,,L,Atlanta Hawks,ATL,2025-03-11
-43,2025-01-22,7:30p,Detroit Pistons,104.0,114.0,22,21,L 2,13983,2:07,,L,Atlanta Hawks,ATL,2025-03-11
-44,2025-01-23,7:30p,Toronto Raptors,119.0,122.0,22,22,L 3,14662,2:15,,L,Atlanta Hawks,ATL,2025-03-11
-45,2025-01-25,7:30p,Toronto Raptors,94.0,117.0,22,23,L 4,17868,2:21,,L,Atlanta Hawks,ATL,2025-03-11
-46,2025-01-27,8:00p,Minnesota Timberwolves,92.0,100.0,22,24,L 5,18978,2:20,,L,Atlanta Hawks,ATL,2025-03-11
-47,2025-01-28,7:30p,Houston Rockets,96.0,100.0,22,25,L 6,15553,2:15,,L,Atlanta Hawks,ATL,2025-03-11
-48,2025-01-30,7:00p,Cleveland Cavaliers,115.0,137.0,22,26,L 7,19432,2:11,,L,Atlanta Hawks,ATL,2025-03-11
-49,2025-02-01,5:00p,Indiana Pacers,127.0,132.0,22,27,L 8,17274,2:28,,L,Atlanta Hawks,ATL,2025-03-11
-50,2025-02-03,7:00p,Detroit Pistons,132.0,130.0,23,27,W 1,15988,2:28,,W,Atlanta Hawks,ATL,2025-03-11
-51,2025-02-05,7:00p,San Antonio Spurs,125.0,126.0,23,28,L 1,17191,2:19,,L,Atlanta Hawks,ATL,2025-03-11
-52,2025-02-07,7:30p,Milwaukee Bucks,115.0,110.0,24,28,W 1,16378,2:11,,W,Atlanta Hawks,ATL,2025-03-11
-53,2025-02-08,7:00p,Washington Wizards,125.0,111.0,25,28,W 2,16835,2:08,,W,Atlanta Hawks,ATL,2025-03-11
-54,2025-02-10,7:00p,Orlando Magic,112.0,106.0,26,28,W 3,18055,2:21,,W,Atlanta Hawks,ATL,2025-03-11
-55,2025-02-12,7:30p,New York Knicks,148.0,149.0,26,29,L 1,19812,2:54,,L,Atlanta Hawks,ATL,2025-03-11
-56,2025-02-20,7:30p,Orlando Magic,108.0,114.0,26,30,L 2,16436,2:28,,L,Atlanta Hawks,ATL,2025-03-11
-57,2025-02-23,6:00p,Detroit Pistons,143.0,148.0,26,31,L 3,17051,2:30,,L,Atlanta Hawks,ATL,2025-03-11
-58,2025-02-24,7:30p,Miami Heat,98.0,86.0,27,31,W 1,16189,2:14,,W,Atlanta Hawks,ATL,2025-03-11
-59,2025-02-26,7:30p,Miami Heat,109.0,131.0,27,32,L 1,19600,2:02,,L,Atlanta Hawks,ATL,2025-03-11
-60,2025-02-28,7:30p,Oklahoma City Thunder,119.0,135.0,27,33,L 2,17712,2:04,,L,Atlanta Hawks,ATL,2025-03-11
-G,,Start (ET),Opponent,,,W,L,Streak,Attend.,LOG,Notes,,Atlanta Hawks,ATL,2025-03-11
-61,2025-03-03,8:00p,Memphis Grizzlies,132.0,130.0,28,33,W 1,15719,2:13,,W,Atlanta Hawks,ATL,2025-03-11
-62,2025-03-04,7:30p,Milwaukee Bucks,121.0,127.0,28,34,L 1,16008,2:12,,L,Atlanta Hawks,ATL,2025-03-11
-63,2025-03-06,7:30p,Indiana Pacers,124.0,118.0,29,34,W 1,15656,2:14,,W,Atlanta Hawks,ATL,2025-03-11
-64,2025-03-08,7:30p,Indiana Pacers,120.0,118.0,30,34,W 2,17057,2:32,,W,Atlanta Hawks,ATL,2025-03-11
-65,2025-03-10,7:30p,Philadelphia 76ers,132.0,123.0,31,34,W 3,15269,2:12,,W,Atlanta Hawks,ATL,2025-03-11
-66,2025-03-12,7:30p,Charlotte Hornets,,,,,,,,,,Atlanta Hawks,ATL,2025-03-11
-67,2025-03-14,7:30p,Los Angeles Clippers,,,,,,,,,,Atlanta Hawks,ATL,2025-03-11
-68,2025-03-16,6:00p,Brooklyn Nets,,,,,,,,,,Atlanta Hawks,ATL,2025-03-11
-69,2025-03-18,7:00p,Charlotte Hornets,,,,,,,,,,Atlanta Hawks,ATL,2025-03-11
-70,2025-03-22,7:00p,Golden State Warriors,,,,,,,,,,Atlanta Hawks,ATL,2025-03-11
-71,2025-03-23,6:00p,Philadelphia 76ers,,,,,,,,,,Atlanta Hawks,ATL,2025-03-11
-72,2025-03-25,8:00p,Houston Rockets,,,,,,,,,,Atlanta Hawks,ATL,2025-03-11
-73,2025-03-27,7:30p,Miami Heat,,,,,,,,,,Atlanta Hawks,ATL,2025-03-11
-74,2025-03-30,7:00p,Milwaukee Bucks,,,,,,,,,,Atlanta Hawks,ATL,2025-03-11
-75,2025-04-01,7:30p,Portland Trail Blazers,,,,,,,,,,Atlanta Hawks,ATL,2025-03-11
-76,2025-04-02,8:30p,Dallas Mavericks,,,,,,,,,,Atlanta Hawks,ATL,2025-03-11
-77,2025-04-05,3:00p,New York Knicks,,,,,,,,,,Atlanta Hawks,ATL,2025-03-11
-78,2025-04-06,6:00p,Utah Jazz,,,,,,,,,,Atlanta Hawks,ATL,2025-03-11
-79,2025-04-08,7:00p,Orlando Magic,,,,,,,,,,Atlanta Hawks,ATL,2025-03-11
-80,2025-04-10,7:30p,Brooklyn Nets,,,,,,,,,,Atlanta Hawks,ATL,2025-03-11
-G,,Start (ET),Opponent,,,W,L,Streak,Attend.,LOG,Notes,,Atlanta Hawks,ATL,2025-03-11
-81,2025-04-11,7:00p,Philadelphia 76ers,,,,,,,,,,Atlanta Hawks,ATL,2025-03-11
-82,2025-04-13,1:00p,Orlando Magic,,,,,,,,,,Atlanta Hawks,ATL,2025-03-11
+G,Date,Start (ET),Opponent,Tm,Opp,W,L,Streak,Attend.,LOG,Notes,Result,Team,TeamAbbr,Scraped_Date,Location,Home,gameLocation
+1,2024-10-23,7:30p,Brooklyn Nets,120.0,116.0,1,0,W 1,17548,2:33,,W,Atlanta Hawks,ATL,2025-03-11,,True,1.0
+2,2024-10-25,7:30p,Charlotte Hornets,125.0,120.0,2,0,W 2,14433,2:32,,W,Atlanta Hawks,ATL,2025-03-11,,True,1.0
+3,2024-10-27,7:00p,Oklahoma City Thunder,104.0,128.0,2,1,L 1,18203,2:23,,L,Atlanta Hawks,ATL,2025-03-11,@,False,0.0
+4,2024-10-28,7:30p,Washington Wizards,119.0,121.0,2,2,L 2,14566,2:26,,L,Atlanta Hawks,ATL,2025-03-11,,True,1.0
+5,2024-10-30,7:00p,Washington Wizards,120.0,133.0,2,3,L 3,14255,2:25,,L,Atlanta Hawks,ATL,2025-03-11,@,False,0.0
+6,2024-11-01,7:30p,Sacramento Kings,115.0,123.0,2,4,L 4,15156,2:16,,L,Atlanta Hawks,ATL,2025-03-11,,True,1.0
+7,2024-11-03,7:00p,New Orleans Pelicans,126.0,111.0,3,4,W 1,15505,2:07,,W,Atlanta Hawks,ATL,2025-03-11,@,False,0.0
+8,2024-11-04,7:45p,Boston Celtics,93.0,123.0,3,5,L 1,15031,1:56,,L,Atlanta Hawks,ATL,2025-03-11,,True,1.0
+9,2024-11-06,7:30p,New York Knicks,121.0,116.0,4,5,W 1,16072,2:16,,W,Atlanta Hawks,ATL,2025-03-11,,True,1.0
+10,2024-11-08,7:00p,Detroit Pistons,121.0,122.0,4,6,L 1,17913,2:19,,L,Atlanta Hawks,ATL,2025-03-11,@,False,0.0
+11,2024-11-09,7:30p,Chicago Bulls,113.0,125.0,4,7,L 2,17826,2:17,,L,Atlanta Hawks,ATL,2025-03-11,,True,1.0
+12,2024-11-12,7:00p,Boston Celtics,117.0,116.0,5,7,W 1,19156,2:13,In-Season Tournament,W,Atlanta Hawks,ATL,2025-03-11,@,False,0.0
+13,2024-11-15,7:30p,Washington Wizards,129.0,117.0,6,7,W 2,16038,2:15,In-Season Tournament,W,Atlanta Hawks,ATL,2025-03-11,,True,1.0
+14,2024-11-17,6:00p,Portland Trail Blazers,110.0,114.0,6,8,L 1,17384,2:25,,L,Atlanta Hawks,ATL,2025-03-11,@,False,0.0
+15,2024-11-18,10:00p,Sacramento Kings,109.0,108.0,7,8,W 1,16333,2:10,,W,Atlanta Hawks,ATL,2025-03-11,@,False,0.0
+16,2024-11-20,10:00p,Golden State Warriors,97.0,120.0,7,9,L 1,18064,2:08,,L,Atlanta Hawks,ATL,2025-03-11,@,False,0.0
+17,2024-11-22,8:00p,Chicago Bulls,122.0,136.0,7,10,L 2,19979,2:08,In-Season Tournament,L,Atlanta Hawks,ATL,2025-03-11,@,False,0.0
+18,2024-11-25,7:30p,Dallas Mavericks,119.0,129.0,7,11,L 3,17186,2:07,,L,Atlanta Hawks,ATL,2025-03-11,,True,1.0
+19,2024-11-27,7:00p,Cleveland Cavaliers,135.0,124.0,8,11,W 1,19432,2:18,,W,Atlanta Hawks,ATL,2025-03-11,@,False,0.0
+20,2024-11-29,2:30p,Cleveland Cavaliers,117.0,101.0,9,11,W 2,17881,2:12,In-Season Tournament,W,Atlanta Hawks,ATL,2025-03-11,,True,1.0
+21,2024-11-30,6:00p,Charlotte Hornets,107.0,104.0,10,11,W 3,17969,2:20,,W,Atlanta Hawks,ATL,2025-03-11,,True,1.0
+22,2024-12-02,7:30p,New Orleans Pelicans,124.0,112.0,11,11,W 4,15034,2:12,,W,Atlanta Hawks,ATL,2025-03-11,@,False,0.0
+23,2024-12-04,8:00p,Milwaukee Bucks,119.0,104.0,12,11,W 5,17341,2:21,,W,Atlanta Hawks,ATL,2025-03-11,,True,1.0
+24,2024-12-06,7:30p,Los Angeles Lakers,134.0,132.0,13,11,W 6,18040,2:42,,W,Atlanta Hawks,ATL,2025-03-11,,True,1.0
+25,2024-12-08,6:00p,Denver Nuggets,111.0,141.0,13,12,L 1,16137,2:14,,L,Atlanta Hawks,ATL,2025-03-11,@,False,0.0
+26,2024-12-11,7:00p,New York Knicks,108.0,100.0,14,12,W 1,19812,2:13,In-Season Tournament,W,Atlanta Hawks,ATL,2025-03-11,@,False,0.0
+27,2024-12-14,4:30p,Milwaukee Bucks,102.0,110.0,14,13,L 1,17113,2:30,In-Season Tournament,L,Atlanta Hawks,ATL,2025-03-11,@,False,0.0
+28,2024-12-19,8:00p,San Antonio Spurs,126.0,133.0,14,14,L 2,17852,2:36,,L,Atlanta Hawks,ATL,2025-03-11,,True,1.0
+29,2024-12-21,7:30p,Memphis Grizzlies,112.0,128.0,14,15,L 3,16909,2:04,,L,Atlanta Hawks,ATL,2025-03-11,,True,1.0
+30,2024-12-23,7:30p,Minnesota Timberwolves,117.0,104.0,15,15,W 1,17051,2:12,,W,Atlanta Hawks,ATL,2025-03-11,,True,1.0
+31,2024-12-26,7:30p,Chicago Bulls,141.0,133.0,16,15,W 2,17760,2:14,,W,Atlanta Hawks,ATL,2025-03-11,,True,1.0
+32,2024-12-28,3:00p,Miami Heat,120.0,110.0,17,15,W 3,17856,2:09,,W,Atlanta Hawks,ATL,2025-03-11,@,False,0.0
+33,2024-12-29,6:00p,Toronto Raptors,136.0,107.0,18,15,W 4,19359,2:18,,W,Atlanta Hawks,ATL,2025-03-11,@,False,0.0
+34,2025-01-01,9:00p,Denver Nuggets,120.0,139.0,18,16,L 1,19902,2:08,,L,Atlanta Hawks,ATL,2025-03-11,@,False,0.0
+35,2025-01-03,10:30p,Los Angeles Lakers,102.0,119.0,18,17,L 2,18997,2:10,,L,Atlanta Hawks,ATL,2025-03-11,@,False,0.0
+36,2025-01-04,10:30p,Los Angeles Clippers,105.0,131.0,18,18,L 3,17927,2:02,,L,Atlanta Hawks,ATL,2025-03-11,@,False,0.0
+37,2025-01-07,9:00p,Utah Jazz,124.0,121.0,19,18,W 1,18175,2:18,,W,Atlanta Hawks,ATL,2025-03-11,@,False,0.0
+38,2025-01-09,9:00p,Phoenix Suns,115.0,123.0,19,19,L 1,17071,2:12,,L,Atlanta Hawks,ATL,2025-03-11,,True,1.0
+39,2025-01-14,7:30p,Phoenix Suns,122.0,117.0,20,19,W 1,16221,2:11,,W,Atlanta Hawks,ATL,2025-03-11,@,False,0.0
+40,2025-01-15,8:00p,Chicago Bulls,110.0,94.0,21,19,W 2,17692,2:06,,W,Atlanta Hawks,ATL,2025-03-11,@,False,0.0
+41,2025-01-18,7:00p,Boston Celtics,119.0,115.0,22,19,W 3,19156,2:40,,W,Atlanta Hawks,ATL,2025-03-11,,True,1.0
+42,2025-01-20,3:00p,New York Knicks,110.0,119.0,22,20,L 1,19812,2:24,,L,Atlanta Hawks,ATL,2025-03-11,,True,1.0
+43,2025-01-22,7:30p,Detroit Pistons,104.0,114.0,22,21,L 2,13983,2:07,,L,Atlanta Hawks,ATL,2025-03-11,,True,1.0
+44,2025-01-23,7:30p,Toronto Raptors,119.0,122.0,22,22,L 3,14662,2:15,,L,Atlanta Hawks,ATL,2025-03-11,@,False,0.0
+45,2025-01-25,7:30p,Toronto Raptors,94.0,117.0,22,23,L 4,17868,2:21,,L,Atlanta Hawks,ATL,2025-03-11,,True,1.0
+46,2025-01-27,8:00p,Minnesota Timberwolves,92.0,100.0,22,24,L 5,18978,2:20,,L,Atlanta Hawks,ATL,2025-03-11,@,False,0.0
+47,2025-01-28,7:30p,Houston Rockets,96.0,100.0,22,25,L 6,15553,2:15,,L,Atlanta Hawks,ATL,2025-03-11,@,False,0.0
+48,2025-01-30,7:00p,Cleveland Cavaliers,115.0,137.0,22,26,L 7,19432,2:11,,L,Atlanta Hawks,ATL,2025-03-11,@,False,0.0
+49,2025-02-01,5:00p,Indiana Pacers,127.0,132.0,22,27,L 8,17274,2:28,,L,Atlanta Hawks,ATL,2025-03-11,,True,1.0
+50,2025-02-03,7:00p,Detroit Pistons,132.0,130.0,23,27,W 1,15988,2:28,,W,Atlanta Hawks,ATL,2025-03-11,,True,1.0
+51,2025-02-05,7:00p,San Antonio Spurs,125.0,126.0,23,28,L 1,17191,2:19,,L,Atlanta Hawks,ATL,2025-03-11,@,False,0.0
+52,2025-02-07,7:30p,Milwaukee Bucks,115.0,110.0,24,28,W 1,16378,2:11,,W,Atlanta Hawks,ATL,2025-03-11,@,False,0.0
+53,2025-02-08,7:00p,Washington Wizards,125.0,111.0,25,28,W 2,16835,2:08,,W,Atlanta Hawks,ATL,2025-03-11,@,False,0.0
+54,2025-02-10,7:00p,Orlando Magic,112.0,106.0,26,28,W 3,18055,2:21,,W,Atlanta Hawks,ATL,2025-03-11,,True,1.0
+55,2025-02-12,7:30p,New York Knicks,148.0,149.0,26,29,L 1,19812,2:54,,L,Atlanta Hawks,ATL,2025-03-11,,True,1.0
+56,2025-02-20,7:30p,Orlando Magic,108.0,114.0,26,30,L 2,16436,2:28,,L,Atlanta Hawks,ATL,2025-03-11,,True,1.0
+57,2025-02-23,6:00p,Detroit Pistons,143.0,148.0,26,31,L 3,17051,2:30,,L,Atlanta Hawks,ATL,2025-03-11,@,False,0.0
+58,2025-02-24,7:30p,Miami Heat,98.0,86.0,27,31,W 1,16189,2:14,,W,Atlanta Hawks,ATL,2025-03-11,,True,1.0
+59,2025-02-26,7:30p,Miami Heat,109.0,131.0,27,32,L 1,19600,2:02,,L,Atlanta Hawks,ATL,2025-03-11,@,False,0.0
+60,2025-02-28,7:30p,Oklahoma City Thunder,119.0,135.0,27,33,L 2,17712,2:04,,L,Atlanta Hawks,ATL,2025-03-11,,True,1.0
+61,2025-03-03,8:00p,Memphis Grizzlies,132.0,130.0,28,33,W 1,15719,2:13,,W,Atlanta Hawks,ATL,2025-03-11,,True,1.0
+62,2025-03-04,7:30p,Milwaukee Bucks,121.0,127.0,28,34,L 1,16008,2:12,,L,Atlanta Hawks,ATL,2025-03-11,,True,1.0
+63,2025-03-06,7:30p,Indiana Pacers,124.0,118.0,29,34,W 1,15656,2:14,,W,Atlanta Hawks,ATL,2025-03-11,,True,1.0
+64,2025-03-08,7:30p,Indiana Pacers,120.0,118.0,30,34,W 2,17057,2:32,,W,Atlanta Hawks,ATL,2025-03-11,,True,1.0
+65,2025-03-10,7:30p,Philadelphia 76ers,132.0,123.0,31,34,W 3,15269,2:12,,W,Atlanta Hawks,ATL,2025-03-11,@,False,0.0
+66,2025-03-12,7:30p,Charlotte Hornets,,,,,,,,,,Atlanta Hawks,ATL,2025-03-11,@,False,0.0
+67,2025-03-14,7:30p,Los Angeles Clippers,,,,,,,,,,Atlanta Hawks,ATL,2025-03-11,,True,1.0
+68,2025-03-16,6:00p,Brooklyn Nets,,,,,,,,,,Atlanta Hawks,ATL,2025-03-11,,True,1.0
+69,2025-03-18,7:00p,Charlotte Hornets,,,,,,,,,,Atlanta Hawks,ATL,2025-03-11,@,False,0.0
+70,2025-03-22,7:00p,Golden State Warriors,,,,,,,,,,Atlanta Hawks,ATL,2025-03-11,@,False,0.0
+71,2025-03-23,6:00p,Philadelphia 76ers,,,,,,,,,,Atlanta Hawks,ATL,2025-03-11,@,False,0.0
+72,2025-03-25,8:00p,Houston Rockets,,,,,,,,,,Atlanta Hawks,ATL,2025-03-11,,True,1.0
+73,2025-03-27,7:30p,Miami Heat,,,,,,,,,,Atlanta Hawks,ATL,2025-03-11,@,False,0.0
+74,2025-03-30,7:00p,Milwaukee Bucks,,,,,,,,,,Atlanta Hawks,ATL,2025-03-11,,True,1.0
+75,2025-04-01,7:30p,Portland Trail Blazers,,,,,,,,,,Atlanta Hawks,ATL,2025-03-11,,True,1.0
+76,2025-04-02,8:30p,Dallas Mavericks,,,,,,,,,,Atlanta Hawks,ATL,2025-03-11,@,False,0.0
+77,2025-04-05,3:00p,New York Knicks,,,,,,,,,,Atlanta Hawks,ATL,2025-03-11,@,False,0.0
+78,2025-04-06,6:00p,Utah Jazz,,,,,,,,,,Atlanta Hawks,ATL,2025-03-11,@,False,0.0
+79,2025-04-08,7:00p,Orlando Magic,,,,,,,,,,Atlanta Hawks,ATL,2025-03-11,,True,1.0
+80,2025-04-10,7:30p,Brooklyn Nets,,,,,,,,,,Atlanta Hawks,ATL,2025-03-11,,True,1.0
+81,2025-04-11,7:00p,Philadelphia 76ers,,,,,,,,,,Atlanta Hawks,ATL,2025-03-11,,True,1.0
+82,2025-04-13,1:00p,Orlando Magic,,,,,,,,,,Atlanta Hawks,ATL,2025-03-11,,True,1.0
+G,,Start (ET),Opponent,,,W,L,Streak,Attend.,LOG,Notes,,Atlanta Hawks,ATL,2025-03-11,@,False,0.0
+G,,Start (ET),Opponent,,,W,L,Streak,Attend.,LOG,Notes,,Atlanta Hawks,ATL,2025-03-11,@,False,0.0
+G,,Start (ET),Opponent,,,W,L,Streak,Attend.,LOG,Notes,,Atlanta Hawks,ATL,2025-03-11,,True,1.0
+G,,Start (ET),Opponent,,,W,L,Streak,Attend.,LOG,Notes,,Atlanta Hawks,ATL,2025-03-11,,True,1.0

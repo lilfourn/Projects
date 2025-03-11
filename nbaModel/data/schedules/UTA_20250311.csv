@@ -1,87 +1,87 @@
-G,Date,Start (ET),Opponent,Tm,Opp,W,L,Streak,Attend.,LOG,Notes,Result,Team,TeamAbbr,Scraped_Date
-1,2024-10-23,9:00p,Memphis Grizzlies,124.0,126.0,0,1,L 1,18175,2:33,,L,Utah Jazz,UTA,2025-03-11
-2,2024-10-25,9:30p,Golden State Warriors,86.0,127.0,0,2,L 2,18175,2:07,,L,Utah Jazz,UTA,2025-03-11
-3,2024-10-28,8:30p,Dallas Mavericks,102.0,110.0,0,3,L 3,19811,2:16,,L,Utah Jazz,UTA,2025-03-11
-4,2024-10-29,9:00p,Sacramento Kings,96.0,113.0,0,4,L 4,18175,1:59,,L,Utah Jazz,UTA,2025-03-11
-5,2024-10-31,9:00p,San Antonio Spurs,88.0,106.0,0,5,L 5,18175,2:10,,L,Utah Jazz,UTA,2025-03-11
-6,2024-11-02,10:00p,Denver Nuggets,103.0,129.0,0,6,L 6,19702,2:28,,L,Utah Jazz,UTA,2025-03-11
-7,2024-11-04,8:30p,Chicago Bulls,135.0,126.0,1,6,W 1,19621,2:22,,W,Utah Jazz,UTA,2025-03-11
-8,2024-11-07,8:00p,Milwaukee Bucks,100.0,123.0,1,7,L 1,17341,2:14,,L,Utah Jazz,UTA,2025-03-11
-9,2024-11-09,5:00p,San Antonio Spurs,111.0,110.0,2,7,W 1,18354,2:22,,W,Utah Jazz,UTA,2025-03-11
-10,2024-11-12,9:00p,Phoenix Suns,112.0,120.0,2,8,L 1,18175,2:05,In-Season Tournament,L,Utah Jazz,UTA,2025-03-11
-11,2024-11-14,9:00p,Dallas Mavericks,115.0,113.0,3,8,W 1,18175,2:10,,W,Utah Jazz,UTA,2025-03-11
-12,2024-11-16,10:00p,Sacramento Kings,117.0,121.0,3,9,L 1,16568,2:35,,L,Utah Jazz,UTA,2025-03-11
-13,2024-11-17,9:00p,Los Angeles Clippers,105.0,116.0,3,10,L 2,15500,2:02,,L,Utah Jazz,UTA,2025-03-11
-14,2024-11-19,10:30p,Los Angeles Lakers,118.0,124.0,3,11,L 3,18997,2:16,In-Season Tournament,L,Utah Jazz,UTA,2025-03-11
-15,2024-11-21,8:00p,San Antonio Spurs,118.0,126.0,3,12,L 4,17087,2:22,,L,Utah Jazz,UTA,2025-03-11
-16,2024-11-23,5:00p,New York Knicks,121.0,106.0,4,12,W 1,18175,2:07,,W,Utah Jazz,UTA,2025-03-11
-17,2024-11-26,9:00p,San Antonio Spurs,115.0,128.0,4,13,L 1,18175,2:19,In-Season Tournament,L,Utah Jazz,UTA,2025-03-11
-18,2024-11-27,9:00p,Denver Nuggets,103.0,122.0,4,14,L 2,18175,2:05,,L,Utah Jazz,UTA,2025-03-11
-19,2024-11-30,9:30p,Dallas Mavericks,94.0,106.0,4,15,L 3,18175,2:04,,L,Utah Jazz,UTA,2025-03-11
-20,2024-12-01,8:00p,Los Angeles Lakers,104.0,105.0,4,16,L 4,18175,2:09,,L,Utah Jazz,UTA,2025-03-11
-G,,Start (ET),Opponent,,,W,L,Streak,Attend.,LOG,Notes,,Utah Jazz,UTA,2025-03-11
-21,2024-12-03,8:00p,Oklahoma City Thunder,106.0,133.0,4,17,L 5,17711,2:13,In-Season Tournament,L,Utah Jazz,UTA,2025-03-11
-22,2024-12-06,10:00p,Portland Trail Blazers,141.0,99.0,5,17,W 1,16446,2:07,,W,Utah Jazz,UTA,2025-03-11
-23,2024-12-08,9:00p,Sacramento Kings,97.0,141.0,5,18,L 1,15706,2:09,,L,Utah Jazz,UTA,2025-03-11
-24,2024-12-13,9:30p,Phoenix Suns,126.0,134.0,5,19,L 2,18175,2:11,,L,Utah Jazz,UTA,2025-03-11
-25,2024-12-16,10:30p,Los Angeles Clippers,107.0,144.0,5,20,L 3,14651,2:16,,L,Utah Jazz,UTA,2025-03-11
-26,2024-12-19,7:00p,Detroit Pistons,126.0,119.0,6,20,W 1,18022,2:32,,W,Utah Jazz,UTA,2025-03-11
-27,2024-12-21,7:30p,Brooklyn Nets,105.0,94.0,7,20,W 2,17926,2:06,,W,Utah Jazz,UTA,2025-03-11
-28,2024-12-23,7:00p,Cleveland Cavaliers,113.0,124.0,7,21,L 1,19432,2:09,,L,Utah Jazz,UTA,2025-03-11
-29,2024-12-26,10:00p,Portland Trail Blazers,120.0,122.0,7,22,L 2,16934,2:07,,L,Utah Jazz,UTA,2025-03-11
-30,2024-12-28,9:30p,Philadelphia 76ers,111.0,114.0,7,23,L 3,18175,2:31,,L,Utah Jazz,UTA,2025-03-11
-31,2024-12-30,9:00p,Denver Nuggets,121.0,132.0,7,24,L 4,18175,2:06,,L,Utah Jazz,UTA,2025-03-11
-32,2025-01-01,7:30p,New York Knicks,103.0,119.0,7,25,L 5,19812,2:06,,L,Utah Jazz,UTA,2025-03-11
-33,2025-01-04,8:00p,Miami Heat,136.0,100.0,8,25,W 1,19934,2:07,,W,Utah Jazz,UTA,2025-03-11
-34,2025-01-05,6:30p,Orlando Magic,105.0,92.0,9,25,W 2,19198,2:03,,W,Utah Jazz,UTA,2025-03-11
-35,2025-01-07,9:00p,Atlanta Hawks,121.0,124.0,9,26,L 1,18175,2:18,,L,Utah Jazz,UTA,2025-03-11
-36,2025-01-09,9:00p,Miami Heat,92.0,97.0,9,27,L 2,18175,2:11,,L,Utah Jazz,UTA,2025-03-11
-37,2025-01-11,5:00p,Phoenix Suns,106.0,114.0,9,28,L 3,17071,2:10,,L,Utah Jazz,UTA,2025-03-11
-38,2025-01-12,8:00p,Brooklyn Nets,112.0,111.0,10,28,W 1,18175,2:44,,W,Utah Jazz,UTA,2025-03-11
-39,2025-01-15,9:00p,Charlotte Hornets,112.0,117.0,10,29,L 1,18175,2:09,,L,Utah Jazz,UTA,2025-03-11
-40,2025-01-17,8:00p,New Orleans Pelicans,123.0,136.0,10,30,L 2,18321,2:23,,L,Utah Jazz,UTA,2025-03-11
-G,,Start (ET),Opponent,,,W,L,Streak,Attend.,LOG,Notes,,Utah Jazz,UTA,2025-03-11
-41,2025-01-20,8:00p,New Orleans Pelicans,119.0,123.0,10,31,L 3,14830,2:30,,L,Utah Jazz,UTA,2025-03-11
-42,2025-01-22,8:00p,Oklahoma City Thunder,114.0,123.0,10,32,L 4,17509,2:18,,L,Utah Jazz,UTA,2025-03-11
-43,2025-01-25,8:00p,Memphis Grizzlies,103.0,125.0,10,33,L 5,17011,2:20,,L,Utah Jazz,UTA,2025-03-11
-44,2025-01-27,9:00p,Milwaukee Bucks,110.0,125.0,10,34,L 6,18175,2:13,,L,Utah Jazz,UTA,2025-03-11
-45,2025-01-28,10:00p,Golden State Warriors,103.0,114.0,10,35,L 7,18064,2:19,,L,Utah Jazz,UTA,2025-03-11
-46,2025-01-30,9:00p,Minnesota Timberwolves,113.0,138.0,10,36,L 8,18175,2:12,,L,Utah Jazz,UTA,2025-03-11
-47,2025-02-01,5:00p,Orlando Magic,113.0,99.0,11,36,W 1,18175,2:16,,W,Utah Jazz,UTA,2025-03-11
-48,2025-02-03,9:00p,Indiana Pacers,111.0,112.0,11,37,L 1,18175,2:23,,L,Utah Jazz,UTA,2025-03-11
-49,2025-02-05,9:00p,Golden State Warriors,131.0,128.0,12,37,W 1,18175,2:27,,W,Utah Jazz,UTA,2025-03-11
-50,2025-02-07,10:00p,Phoenix Suns,127.0,135.0,12,38,L 1,17071,2:24,,L,Utah Jazz,UTA,2025-03-11
-51,2025-02-08,10:30p,Los Angeles Clippers,110.0,130.0,12,39,L 2,15892,2:09,,L,Utah Jazz,UTA,2025-03-11
-52,2025-02-10,10:30p,Los Angeles Lakers,113.0,132.0,12,40,L 3,18997,2:14,,L,Utah Jazz,UTA,2025-03-11
-53,2025-02-12,9:00p,Los Angeles Lakers,131.0,119.0,13,40,W 1,18175,2:11,,W,Utah Jazz,UTA,2025-03-11
-54,2025-02-13,9:00p,Los Angeles Clippers,116.0,120.0,13,41,L 1,18175,2:40,,L,Utah Jazz,UTA,2025-03-11
-55,2025-02-21,9:30p,Oklahoma City Thunder,107.0,130.0,13,42,L 2,18175,2:03,,L,Utah Jazz,UTA,2025-03-11
-56,2025-02-22,9:30p,Houston Rockets,124.0,115.0,14,42,W 1,18175,2:08,,W,Utah Jazz,UTA,2025-03-11
-57,2025-02-24,9:00p,Portland Trail Blazers,112.0,114.0,14,43,L 1,18175,2:25,,L,Utah Jazz,UTA,2025-03-11
-58,2025-02-26,9:00p,Sacramento Kings,101.0,118.0,14,44,L 2,18175,2:03,,L,Utah Jazz,UTA,2025-03-11
-59,2025-02-28,9:30p,Minnesota Timberwolves,117.0,116.0,15,44,W 1,18175,2:02,,W,Utah Jazz,UTA,2025-03-11
-60,2025-03-02,8:00p,New Orleans Pelicans,121.0,128.0,15,45,L 1,18175,2:10,,L,Utah Jazz,UTA,2025-03-11
-G,,Start (ET),Opponent,,,W,L,Streak,Attend.,LOG,Notes,,Utah Jazz,UTA,2025-03-11
-61,2025-03-03,9:00p,Detroit Pistons,106.0,134.0,15,46,L 2,18175,2:19,,L,Utah Jazz,UTA,2025-03-11
-62,2025-03-05,7:00p,Washington Wizards,122.0,125.0,15,47,L 3,14761,2:20,,L,Utah Jazz,UTA,2025-03-11
-63,2025-03-07,7:30p,Toronto Raptors,109.0,118.0,15,48,L 4,18258,2:19,,L,Utah Jazz,UTA,2025-03-11
-64,2025-03-09,7:30p,Philadelphia 76ers,122.0,126.0,15,49,L 5,19757,2:20,,L,Utah Jazz,UTA,2025-03-11
-65,2025-03-10,7:30p,Boston Celtics,108.0,114.0,15,50,L 6,19156,2:07,,L,Utah Jazz,UTA,2025-03-11
-66,2025-03-12,8:00p,Memphis Grizzlies,,,,,,,,,,Utah Jazz,UTA,2025-03-11
-67,2025-03-14,9:30p,Toronto Raptors,,,,,,,,,,Utah Jazz,UTA,2025-03-11
-68,2025-03-16,7:00p,Minnesota Timberwolves,,,,,,,,,,Utah Jazz,UTA,2025-03-11
-69,2025-03-17,9:00p,Chicago Bulls,,,,,,,,,,Utah Jazz,UTA,2025-03-11
-70,2025-03-19,9:00p,Washington Wizards,,,,,,,,,,Utah Jazz,UTA,2025-03-11
-71,2025-03-21,9:30p,Boston Celtics,,,,,,,,,,Utah Jazz,UTA,2025-03-11
-72,2025-03-23,3:30p,Cleveland Cavaliers,,,,,,,,,,Utah Jazz,UTA,2025-03-11
-73,2025-03-25,9:00p,Memphis Grizzlies,,,,,,,,,,Utah Jazz,UTA,2025-03-11
-74,2025-03-27,9:00p,Houston Rockets,,,,,,,,,,Utah Jazz,UTA,2025-03-11
-75,2025-03-28,9:00p,Denver Nuggets,,,,,,,,,,Utah Jazz,UTA,2025-03-11
-76,2025-03-31,7:00p,Charlotte Hornets,,,,,,,,,,Utah Jazz,UTA,2025-03-11
-77,2025-04-02,8:00p,Houston Rockets,,,,,,,,,,Utah Jazz,UTA,2025-03-11
-78,2025-04-04,7:00p,Indiana Pacers,,,,,,,,,,Utah Jazz,UTA,2025-03-11
-79,2025-04-06,6:00p,Atlanta Hawks,,,,,,,,,,Utah Jazz,UTA,2025-03-11
-80,2025-04-09,9:00p,Portland Trail Blazers,,,,,,,,,,Utah Jazz,UTA,2025-03-11
-G,,Start (ET),Opponent,,,W,L,Streak,Attend.,LOG,Notes,,Utah Jazz,UTA,2025-03-11
-81,2025-04-11,9:30p,Oklahoma City Thunder,,,,,,,,,,Utah Jazz,UTA,2025-03-11
-82,2025-04-13,3:30p,Minnesota Timberwolves,,,,,,,,,,Utah Jazz,UTA,2025-03-11
+G,Date,Start (ET),Opponent,Tm,Opp,W,L,Streak,Attend.,LOG,Notes,Result,Team,TeamAbbr,Scraped_Date,Location,Home,gameLocation
+1,2024-10-23,9:00p,Memphis Grizzlies,124.0,126.0,0,1,L 1,18175,2:33,,L,Utah Jazz,UTA,2025-03-11,,True,1.0
+2,2024-10-25,9:30p,Golden State Warriors,86.0,127.0,0,2,L 2,18175,2:07,,L,Utah Jazz,UTA,2025-03-11,,True,1.0
+3,2024-10-28,8:30p,Dallas Mavericks,102.0,110.0,0,3,L 3,19811,2:16,,L,Utah Jazz,UTA,2025-03-11,@,False,0.0
+4,2024-10-29,9:00p,Sacramento Kings,96.0,113.0,0,4,L 4,18175,1:59,,L,Utah Jazz,UTA,2025-03-11,,True,1.0
+5,2024-10-31,9:00p,San Antonio Spurs,88.0,106.0,0,5,L 5,18175,2:10,,L,Utah Jazz,UTA,2025-03-11,,True,1.0
+6,2024-11-02,10:00p,Denver Nuggets,103.0,129.0,0,6,L 6,19702,2:28,,L,Utah Jazz,UTA,2025-03-11,@,False,0.0
+7,2024-11-04,8:30p,Chicago Bulls,135.0,126.0,1,6,W 1,19621,2:22,,W,Utah Jazz,UTA,2025-03-11,@,False,0.0
+8,2024-11-07,8:00p,Milwaukee Bucks,100.0,123.0,1,7,L 1,17341,2:14,,L,Utah Jazz,UTA,2025-03-11,@,False,0.0
+9,2024-11-09,5:00p,San Antonio Spurs,111.0,110.0,2,7,W 1,18354,2:22,,W,Utah Jazz,UTA,2025-03-11,@,False,0.0
+10,2024-11-12,9:00p,Phoenix Suns,112.0,120.0,2,8,L 1,18175,2:05,In-Season Tournament,L,Utah Jazz,UTA,2025-03-11,,True,1.0
+11,2024-11-14,9:00p,Dallas Mavericks,115.0,113.0,3,8,W 1,18175,2:10,,W,Utah Jazz,UTA,2025-03-11,,True,1.0
+12,2024-11-16,10:00p,Sacramento Kings,117.0,121.0,3,9,L 1,16568,2:35,,L,Utah Jazz,UTA,2025-03-11,@,False,0.0
+13,2024-11-17,9:00p,Los Angeles Clippers,105.0,116.0,3,10,L 2,15500,2:02,,L,Utah Jazz,UTA,2025-03-11,@,False,0.0
+14,2024-11-19,10:30p,Los Angeles Lakers,118.0,124.0,3,11,L 3,18997,2:16,In-Season Tournament,L,Utah Jazz,UTA,2025-03-11,@,False,0.0
+15,2024-11-21,8:00p,San Antonio Spurs,118.0,126.0,3,12,L 4,17087,2:22,,L,Utah Jazz,UTA,2025-03-11,@,False,0.0
+16,2024-11-23,5:00p,New York Knicks,121.0,106.0,4,12,W 1,18175,2:07,,W,Utah Jazz,UTA,2025-03-11,,True,1.0
+17,2024-11-26,9:00p,San Antonio Spurs,115.0,128.0,4,13,L 1,18175,2:19,In-Season Tournament,L,Utah Jazz,UTA,2025-03-11,,True,1.0
+18,2024-11-27,9:00p,Denver Nuggets,103.0,122.0,4,14,L 2,18175,2:05,,L,Utah Jazz,UTA,2025-03-11,,True,1.0
+19,2024-11-30,9:30p,Dallas Mavericks,94.0,106.0,4,15,L 3,18175,2:04,,L,Utah Jazz,UTA,2025-03-11,,True,1.0
+20,2024-12-01,8:00p,Los Angeles Lakers,104.0,105.0,4,16,L 4,18175,2:09,,L,Utah Jazz,UTA,2025-03-11,,True,1.0
+21,2024-12-03,8:00p,Oklahoma City Thunder,106.0,133.0,4,17,L 5,17711,2:13,In-Season Tournament,L,Utah Jazz,UTA,2025-03-11,@,False,0.0
+22,2024-12-06,10:00p,Portland Trail Blazers,141.0,99.0,5,17,W 1,16446,2:07,,W,Utah Jazz,UTA,2025-03-11,@,False,0.0
+23,2024-12-08,9:00p,Sacramento Kings,97.0,141.0,5,18,L 1,15706,2:09,,L,Utah Jazz,UTA,2025-03-11,,True,1.0
+24,2024-12-13,9:30p,Phoenix Suns,126.0,134.0,5,19,L 2,18175,2:11,,L,Utah Jazz,UTA,2025-03-11,@,False,0.0
+25,2024-12-16,10:30p,Los Angeles Clippers,107.0,144.0,5,20,L 3,14651,2:16,,L,Utah Jazz,UTA,2025-03-11,@,False,0.0
+26,2024-12-19,7:00p,Detroit Pistons,126.0,119.0,6,20,W 1,18022,2:32,,W,Utah Jazz,UTA,2025-03-11,@,False,0.0
+27,2024-12-21,7:30p,Brooklyn Nets,105.0,94.0,7,20,W 2,17926,2:06,,W,Utah Jazz,UTA,2025-03-11,@,False,0.0
+28,2024-12-23,7:00p,Cleveland Cavaliers,113.0,124.0,7,21,L 1,19432,2:09,,L,Utah Jazz,UTA,2025-03-11,@,False,0.0
+29,2024-12-26,10:00p,Portland Trail Blazers,120.0,122.0,7,22,L 2,16934,2:07,,L,Utah Jazz,UTA,2025-03-11,,True,1.0
+30,2024-12-28,9:30p,Philadelphia 76ers,111.0,114.0,7,23,L 3,18175,2:31,,L,Utah Jazz,UTA,2025-03-11,,True,1.0
+31,2024-12-30,9:00p,Denver Nuggets,121.0,132.0,7,24,L 4,18175,2:06,,L,Utah Jazz,UTA,2025-03-11,@,False,0.0
+32,2025-01-01,7:30p,New York Knicks,103.0,119.0,7,25,L 5,19812,2:06,,L,Utah Jazz,UTA,2025-03-11,@,False,0.0
+33,2025-01-04,8:00p,Miami Heat,136.0,100.0,8,25,W 1,19934,2:07,,W,Utah Jazz,UTA,2025-03-11,@,False,0.0
+34,2025-01-05,6:30p,Orlando Magic,105.0,92.0,9,25,W 2,19198,2:03,,W,Utah Jazz,UTA,2025-03-11,,True,1.0
+35,2025-01-07,9:00p,Atlanta Hawks,121.0,124.0,9,26,L 1,18175,2:18,,L,Utah Jazz,UTA,2025-03-11,,True,1.0
+36,2025-01-09,9:00p,Miami Heat,92.0,97.0,9,27,L 2,18175,2:11,,L,Utah Jazz,UTA,2025-03-11,@,False,0.0
+37,2025-01-11,5:00p,Phoenix Suns,106.0,114.0,9,28,L 3,17071,2:10,,L,Utah Jazz,UTA,2025-03-11,,True,1.0
+38,2025-01-12,8:00p,Brooklyn Nets,112.0,111.0,10,28,W 1,18175,2:44,,W,Utah Jazz,UTA,2025-03-11,,True,1.0
+39,2025-01-15,9:00p,Charlotte Hornets,112.0,117.0,10,29,L 1,18175,2:09,,L,Utah Jazz,UTA,2025-03-11,@,False,0.0
+40,2025-01-17,8:00p,New Orleans Pelicans,123.0,136.0,10,30,L 2,18321,2:23,,L,Utah Jazz,UTA,2025-03-11,@,False,0.0
+41,2025-01-20,8:00p,New Orleans Pelicans,119.0,123.0,10,31,L 3,14830,2:30,,L,Utah Jazz,UTA,2025-03-11,@,False,0.0
+42,2025-01-22,8:00p,Oklahoma City Thunder,114.0,123.0,10,32,L 4,17509,2:18,,L,Utah Jazz,UTA,2025-03-11,,True,1.0
+43,2025-01-25,8:00p,Memphis Grizzlies,103.0,125.0,10,33,L 5,17011,2:20,,L,Utah Jazz,UTA,2025-03-11,@,False,0.0
+44,2025-01-27,9:00p,Milwaukee Bucks,110.0,125.0,10,34,L 6,18175,2:13,,L,Utah Jazz,UTA,2025-03-11,,True,1.0
+45,2025-01-28,10:00p,Golden State Warriors,103.0,114.0,10,35,L 7,18064,2:19,,L,Utah Jazz,UTA,2025-03-11,,True,1.0
+46,2025-01-30,9:00p,Minnesota Timberwolves,113.0,138.0,10,36,L 8,18175,2:12,,L,Utah Jazz,UTA,2025-03-11,,True,1.0
+47,2025-02-01,5:00p,Orlando Magic,113.0,99.0,11,36,W 1,18175,2:16,,W,Utah Jazz,UTA,2025-03-11,,True,1.0
+48,2025-02-03,9:00p,Indiana Pacers,111.0,112.0,11,37,L 1,18175,2:23,,L,Utah Jazz,UTA,2025-03-11,@,False,0.0
+49,2025-02-05,9:00p,Golden State Warriors,131.0,128.0,12,37,W 1,18175,2:27,,W,Utah Jazz,UTA,2025-03-11,@,False,0.0
+50,2025-02-07,10:00p,Phoenix Suns,127.0,135.0,12,38,L 1,17071,2:24,,L,Utah Jazz,UTA,2025-03-11,@,False,0.0
+51,2025-02-08,10:30p,Los Angeles Clippers,110.0,130.0,12,39,L 2,15892,2:09,,L,Utah Jazz,UTA,2025-03-11,,True,1.0
+52,2025-02-10,10:30p,Los Angeles Lakers,113.0,132.0,12,40,L 3,18997,2:14,,L,Utah Jazz,UTA,2025-03-11,,True,1.0
+53,2025-02-12,9:00p,Los Angeles Lakers,131.0,119.0,13,40,W 1,18175,2:11,,W,Utah Jazz,UTA,2025-03-11,,True,1.0
+54,2025-02-13,9:00p,Los Angeles Clippers,116.0,120.0,13,41,L 1,18175,2:40,,L,Utah Jazz,UTA,2025-03-11,,True,1.0
+55,2025-02-21,9:30p,Oklahoma City Thunder,107.0,130.0,13,42,L 2,18175,2:03,,L,Utah Jazz,UTA,2025-03-11,,True,1.0
+56,2025-02-22,9:30p,Houston Rockets,124.0,115.0,14,42,W 1,18175,2:08,,W,Utah Jazz,UTA,2025-03-11,,True,1.0
+57,2025-02-24,9:00p,Portland Trail Blazers,112.0,114.0,14,43,L 1,18175,2:25,,L,Utah Jazz,UTA,2025-03-11,,True,1.0
+58,2025-02-26,9:00p,Sacramento Kings,101.0,118.0,14,44,L 2,18175,2:03,,L,Utah Jazz,UTA,2025-03-11,,True,1.0
+59,2025-02-28,9:30p,Minnesota Timberwolves,117.0,116.0,15,44,W 1,18175,2:02,,W,Utah Jazz,UTA,2025-03-11,,True,1.0
+60,2025-03-02,8:00p,New Orleans Pelicans,121.0,128.0,15,45,L 1,18175,2:10,,L,Utah Jazz,UTA,2025-03-11,@,False,0.0
+61,2025-03-03,9:00p,Detroit Pistons,106.0,134.0,15,46,L 2,18175,2:19,,L,Utah Jazz,UTA,2025-03-11,@,False,0.0
+62,2025-03-05,7:00p,Washington Wizards,122.0,125.0,15,47,L 3,14761,2:20,,L,Utah Jazz,UTA,2025-03-11,@,False,0.0
+63,2025-03-07,7:30p,Toronto Raptors,109.0,118.0,15,48,L 4,18258,2:19,,L,Utah Jazz,UTA,2025-03-11,@,False,0.0
+64,2025-03-09,7:30p,Philadelphia 76ers,122.0,126.0,15,49,L 5,19757,2:20,,L,Utah Jazz,UTA,2025-03-11,,True,1.0
+65,2025-03-10,7:30p,Boston Celtics,108.0,114.0,15,50,L 6,19156,2:07,,L,Utah Jazz,UTA,2025-03-11,@,False,0.0
+66,2025-03-12,8:00p,Memphis Grizzlies,,,,,,,,,,Utah Jazz,UTA,2025-03-11,,True,1.0
+67,2025-03-14,9:30p,Toronto Raptors,,,,,,,,,,Utah Jazz,UTA,2025-03-11,,True,1.0
+68,2025-03-16,7:00p,Minnesota Timberwolves,,,,,,,,,,Utah Jazz,UTA,2025-03-11,,True,1.0
+69,2025-03-17,9:00p,Chicago Bulls,,,,,,,,,,Utah Jazz,UTA,2025-03-11,,True,1.0
+70,2025-03-19,9:00p,Washington Wizards,,,,,,,,,,Utah Jazz,UTA,2025-03-11,,True,1.0
+71,2025-03-21,9:30p,Boston Celtics,,,,,,,,,,Utah Jazz,UTA,2025-03-11,,True,1.0
+72,2025-03-23,3:30p,Cleveland Cavaliers,,,,,,,,,,Utah Jazz,UTA,2025-03-11,@,False,0.0
+73,2025-03-25,9:00p,Memphis Grizzlies,,,,,,,,,,Utah Jazz,UTA,2025-03-11,@,False,0.0
+74,2025-03-27,9:00p,Houston Rockets,,,,,,,,,,Utah Jazz,UTA,2025-03-11,@,False,0.0
+75,2025-03-28,9:00p,Denver Nuggets,,,,,,,,,,Utah Jazz,UTA,2025-03-11,@,False,0.0
+76,2025-03-31,7:00p,Charlotte Hornets,,,,,,,,,,Utah Jazz,UTA,2025-03-11,@,False,0.0
+77,2025-04-02,8:00p,Houston Rockets,,,,,,,,,,Utah Jazz,UTA,2025-03-11,,True,1.0
+78,2025-04-04,7:00p,Indiana Pacers,,,,,,,,,,Utah Jazz,UTA,2025-03-11,,True,1.0
+79,2025-04-06,6:00p,Atlanta Hawks,,,,,,,,,,Utah Jazz,UTA,2025-03-11,@,False,0.0
+80,2025-04-09,9:00p,Portland Trail Blazers,,,,,,,,,,Utah Jazz,UTA,2025-03-11,,True,1.0
+81,2025-04-11,9:30p,Oklahoma City Thunder,,,,,,,,,,Utah Jazz,UTA,2025-03-11,,True,1.0
+82,2025-04-13,3:30p,Minnesota Timberwolves,,,,,,,,,,Utah Jazz,UTA,2025-03-11,,True,1.0
+G,,Start (ET),Opponent,,,W,L,Streak,Attend.,LOG,Notes,,Utah Jazz,UTA,2025-03-11,@,False,0.0
+G,,Start (ET),Opponent,,,W,L,Streak,Attend.,LOG,Notes,,Utah Jazz,UTA,2025-03-11,@,False,0.0
+G,,Start (ET),Opponent,,,W,L,Streak,Attend.,LOG,Notes,,Utah Jazz,UTA,2025-03-11,@,False,0.0
+G,,Start (ET),Opponent,,,W,L,Streak,Attend.,LOG,Notes,,Utah Jazz,UTA,2025-03-11,,True,1.0
