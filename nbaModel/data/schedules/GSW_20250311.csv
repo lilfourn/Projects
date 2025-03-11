@@ -1,0 +1,87 @@
+G,Date,Start (ET),Opponent,Tm,Opp,W,L,Streak,Attend.,LOG,Notes,Result,Team,TeamAbbr,Scraped_Date
+1,2024-10-23,10:00p,Portland Trail Blazers,140.0,104.0,1,0,W 1,19480,2:17,,W,Golden State Warriors,GSW,2025-03-11
+2,2024-10-25,9:30p,Utah Jazz,127.0,86.0,2,0,W 2,18175,2:07,,W,Golden State Warriors,GSW,2025-03-11
+3,2024-10-27,8:30p,Los Angeles Clippers,104.0,112.0,2,1,L 1,18064,2:22,,L,Golden State Warriors,GSW,2025-03-11
+4,2024-10-29,10:00p,New Orleans Pelicans,124.0,106.0,3,1,W 1,18064,2:20,,W,Golden State Warriors,GSW,2025-03-11
+5,2024-10-30,10:00p,New Orleans Pelicans,104.0,89.0,4,1,W 2,18064,2:19,,W,Golden State Warriors,GSW,2025-03-11
+6,2024-11-02,8:00p,Houston Rockets,127.0,121.0,5,1,W 3,18055,2:43,,W,Golden State Warriors,GSW,2025-03-11
+7,2024-11-04,7:15p,Washington Wizards,125.0,112.0,6,1,W 4,15674,2:20,,W,Golden State Warriors,GSW,2025-03-11
+8,2024-11-06,7:30p,Boston Celtics,118.0,112.0,7,1,W 5,19156,2:21,,W,Golden State Warriors,GSW,2025-03-11
+9,2024-11-08,7:30p,Cleveland Cavaliers,117.0,136.0,7,2,L 1,19432,2:10,,L,Golden State Warriors,GSW,2025-03-11
+10,2024-11-10,7:00p,Oklahoma City Thunder,127.0,116.0,8,2,W 1,18203,2:20,,W,Golden State Warriors,GSW,2025-03-11
+11,2024-11-12,10:00p,Dallas Mavericks,120.0,117.0,9,2,W 2,18064,2:25,In-Season Tournament,W,Golden State Warriors,GSW,2025-03-11
+12,2024-11-15,10:00p,Memphis Grizzlies,123.0,118.0,10,2,W 3,18064,2:35,In-Season Tournament,W,Golden State Warriors,GSW,2025-03-11
+13,2024-11-18,10:30p,Los Angeles Clippers,99.0,102.0,10,3,L 1,17927,2:11,,L,Golden State Warriors,GSW,2025-03-11
+14,2024-11-20,10:00p,Atlanta Hawks,120.0,97.0,11,3,W 1,18064,2:08,,W,Golden State Warriors,GSW,2025-03-11
+15,2024-11-22,7:30p,New Orleans Pelicans,112.0,108.0,12,3,W 2,16820,2:28,In-Season Tournament,W,Golden State Warriors,GSW,2025-03-11
+16,2024-11-23,8:30p,San Antonio Spurs,94.0,104.0,12,4,L 1,18847,2:10,,L,Golden State Warriors,GSW,2025-03-11
+17,2024-11-25,10:00p,Brooklyn Nets,120.0,128.0,12,5,L 2,18064,2:22,,L,Golden State Warriors,GSW,2025-03-11
+18,2024-11-27,10:00p,Oklahoma City Thunder,101.0,105.0,12,6,L 3,18064,2:24,,L,Golden State Warriors,GSW,2025-03-11
+19,2024-11-30,9:00p,Phoenix Suns,105.0,113.0,12,7,L 4,17071,2:11,,L,Golden State Warriors,GSW,2025-03-11
+20,2024-12-03,10:00p,Denver Nuggets,115.0,119.0,12,8,L 5,19912,2:26,In-Season Tournament,L,Golden State Warriors,GSW,2025-03-11
+G,,Start (ET),Opponent,,,W,L,Streak,Attend.,LOG,Notes,,Golden State Warriors,GSW,2025-03-11
+21,2024-12-05,10:00p,Houston Rockets,99.0,93.0,13,8,W 1,18064,2:19,,W,Golden State Warriors,GSW,2025-03-11
+22,2024-12-06,10:00p,Minnesota Timberwolves,90.0,107.0,13,9,L 1,18064,2:18,,L,Golden State Warriors,GSW,2025-03-11
+23,2024-12-08,8:30p,Minnesota Timberwolves,114.0,106.0,14,9,W 1,18064,2:18,,W,Golden State Warriors,GSW,2025-03-11
+24,2024-12-11,9:30p,Houston Rockets,90.0,91.0,14,10,L 1,18055,2:17,In-Season Tournament,L,Golden State Warriors,GSW,2025-03-11
+25,2024-12-15,8:30p,Dallas Mavericks,133.0,143.0,14,11,L 2,18064,2:14,,L,Golden State Warriors,GSW,2025-03-11
+26,2024-12-19,8:00p,Memphis Grizzlies,93.0,144.0,14,12,L 3,17729,2:06,,L,Golden State Warriors,GSW,2025-03-11
+27,2024-12-21,8:00p,Minnesota Timberwolves,113.0,103.0,15,12,W 1,18978,2:47,,W,Golden State Warriors,GSW,2025-03-11
+28,2024-12-23,10:00p,Indiana Pacers,105.0,111.0,15,13,L 1,18064,2:13,,L,Golden State Warriors,GSW,2025-03-11
+29,2024-12-25,8:00p,Los Angeles Lakers,113.0,115.0,15,14,L 2,18064,2:25,,L,Golden State Warriors,GSW,2025-03-11
+30,2024-12-27,10:00p,Los Angeles Clippers,92.0,102.0,15,15,L 3,17927,2:17,,L,Golden State Warriors,GSW,2025-03-11
+31,2024-12-28,8:30p,Phoenix Suns,109.0,105.0,16,15,W 1,18064,2:18,,W,Golden State Warriors,GSW,2025-03-11
+32,2024-12-30,10:00p,Cleveland Cavaliers,95.0,113.0,16,16,L 1,18064,2:10,,L,Golden State Warriors,GSW,2025-03-11
+33,2025-01-02,10:00p,Philadelphia 76ers,139.0,105.0,17,16,W 1,18064,2:16,,W,Golden State Warriors,GSW,2025-03-11
+34,2025-01-04,8:30p,Memphis Grizzlies,121.0,113.0,18,16,W 2,18064,2:18,,W,Golden State Warriors,GSW,2025-03-11
+35,2025-01-05,8:30p,Sacramento Kings,99.0,129.0,18,17,L 1,18064,2:08,,L,Golden State Warriors,GSW,2025-03-11
+36,2025-01-07,10:00p,Miami Heat,98.0,114.0,18,18,L 2,18064,2:01,,L,Golden State Warriors,GSW,2025-03-11
+37,2025-01-09,7:00p,Detroit Pistons,107.0,104.0,19,18,W 1,20062,2:25,,W,Golden State Warriors,GSW,2025-03-11
+38,2025-01-10,7:00p,Indiana Pacers,96.0,108.0,19,19,L 1,17274,2:03,,L,Golden State Warriors,GSW,2025-03-11
+39,2025-01-13,7:30p,Toronto Raptors,101.0,104.0,19,20,L 2,19165,2:12,,L,Golden State Warriors,GSW,2025-03-11
+40,2025-01-15,9:30p,Minnesota Timberwolves,116.0,115.0,20,20,W 1,18978,2:34,,W,Golden State Warriors,GSW,2025-03-11
+G,,Start (ET),Opponent,,,W,L,Streak,Attend.,LOG,Notes,,Golden State Warriors,GSW,2025-03-11
+41,2025-01-18,8:30p,Washington Wizards,122.0,114.0,21,20,W 2,18064,2:21,,W,Golden State Warriors,GSW,2025-03-11
+42,2025-01-20,5:00p,Boston Celtics,85.0,125.0,21,21,L 1,18064,2:06,,L,Golden State Warriors,GSW,2025-03-11
+43,2025-01-22,10:00p,Sacramento Kings,117.0,123.0,21,22,L 2,17832,2:22,,L,Golden State Warriors,GSW,2025-03-11
+44,2025-01-23,10:00p,Chicago Bulls,131.0,106.0,22,22,W 1,18064,2:10,,W,Golden State Warriors,GSW,2025-03-11
+45,2025-01-25,8:30p,Los Angeles Lakers,108.0,118.0,22,23,L 1,18064,2:16,,L,Golden State Warriors,GSW,2025-03-11
+46,2025-01-28,10:00p,Utah Jazz,114.0,103.0,23,23,W 1,18064,2:19,,W,Golden State Warriors,GSW,2025-03-11
+47,2025-01-29,10:00p,Oklahoma City Thunder,116.0,109.0,24,23,W 2,18064,2:30,,W,Golden State Warriors,GSW,2025-03-11
+48,2025-01-31,10:00p,Phoenix Suns,105.0,130.0,24,24,L 1,18064,,,L,Golden State Warriors,GSW,2025-03-11
+49,2025-02-03,10:00p,Orlando Magic,104.0,99.0,25,24,W 1,18064,2:19,,W,Golden State Warriors,GSW,2025-03-11
+50,2025-02-05,9:00p,Utah Jazz,128.0,131.0,25,25,L 1,18175,2:27,,L,Golden State Warriors,GSW,2025-03-11
+51,2025-02-06,10:00p,Los Angeles Lakers,112.0,120.0,25,26,L 2,18997,2:30,,L,Golden State Warriors,GSW,2025-03-11
+52,2025-02-08,8:00p,Chicago Bulls,132.0,111.0,26,26,W 1,21297,2:22,,W,Golden State Warriors,GSW,2025-03-11
+53,2025-02-10,8:00p,Milwaukee Bucks,125.0,111.0,27,26,W 2,17341,2:23,,W,Golden State Warriors,GSW,2025-03-11
+54,2025-02-12,9:30p,Dallas Mavericks,107.0,111.0,27,27,L 1,20311,2:29,,L,Golden State Warriors,GSW,2025-03-11
+55,2025-02-13,8:00p,Houston Rockets,105.0,98.0,28,27,W 1,18055,2:17,,W,Golden State Warriors,GSW,2025-03-11
+56,2025-02-21,10:00p,Sacramento Kings,132.0,108.0,29,27,W 2,18098,2:08,,W,Golden State Warriors,GSW,2025-03-11
+57,2025-02-23,3:30p,Dallas Mavericks,126.0,102.0,30,27,W 3,18064,2:15,,W,Golden State Warriors,GSW,2025-03-11
+58,2025-02-25,10:00p,Charlotte Hornets,128.0,92.0,31,27,W 4,18064,2:05,,W,Golden State Warriors,GSW,2025-03-11
+59,2025-02-27,7:00p,Orlando Magic,121.0,115.0,32,27,W 5,18846,2:22,,W,Golden State Warriors,GSW,2025-03-11
+60,2025-03-01,8:30p,Philadelphia 76ers,119.0,126.0,32,28,L 1,20159,2:30,,L,Golden State Warriors,GSW,2025-03-11
+G,,Start (ET),Opponent,,,W,L,Streak,Attend.,LOG,Notes,,Golden State Warriors,GSW,2025-03-11
+61,2025-03-03,7:00p,Charlotte Hornets,119.0,101.0,33,28,W 1,19223,2:24,,W,Golden State Warriors,GSW,2025-03-11
+62,2025-03-04,7:30p,New York Knicks,114.0,102.0,34,28,W 2,19812,2:22,,W,Golden State Warriors,GSW,2025-03-11
+63,2025-03-06,7:30p,Brooklyn Nets,121.0,119.0,35,28,W 3,18413,2:30,,W,Golden State Warriors,GSW,2025-03-11
+64,2025-03-08,8:30p,Detroit Pistons,115.0,110.0,36,28,W 4,18064,2:44,,W,Golden State Warriors,GSW,2025-03-11
+65,2025-03-10,10:00p,Portland Trail Blazers,130.0,120.0,37,28,W 5,18064,2:12,,W,Golden State Warriors,GSW,2025-03-11
+66,2025-03-13,10:00p,Sacramento Kings,,,,,,,,,,Golden State Warriors,GSW,2025-03-11
+67,2025-03-15,8:30p,New York Knicks,,,,,,,,,,Golden State Warriors,GSW,2025-03-11
+68,2025-03-17,10:00p,Denver Nuggets,,,,,,,,,,Golden State Warriors,GSW,2025-03-11
+69,2025-03-18,10:00p,Milwaukee Bucks,,,,,,,,,,Golden State Warriors,GSW,2025-03-11
+70,2025-03-20,10:00p,Toronto Raptors,,,,,,,,,,Golden State Warriors,GSW,2025-03-11
+71,2025-03-22,7:00p,Atlanta Hawks,,,,,,,,,,Golden State Warriors,GSW,2025-03-11
+72,2025-03-25,7:30p,Miami Heat,,,,,,,,,,Golden State Warriors,GSW,2025-03-11
+73,2025-03-28,8:00p,New Orleans Pelicans,,,,,,,,,,Golden State Warriors,GSW,2025-03-11
+74,2025-03-30,7:00p,San Antonio Spurs,,,,,,,,,,Golden State Warriors,GSW,2025-03-11
+75,2025-04-01,8:00p,Memphis Grizzlies,,,,,,,,,,Golden State Warriors,GSW,2025-03-11
+76,2025-04-03,10:00p,Los Angeles Lakers,,,,,,,,,,Golden State Warriors,GSW,2025-03-11
+77,2025-04-04,10:00p,Denver Nuggets,,,,,,,,,,Golden State Warriors,GSW,2025-03-11
+78,2025-04-06,8:30p,Houston Rockets,,,,,,,,,,Golden State Warriors,GSW,2025-03-11
+79,2025-04-08,10:00p,Phoenix Suns,,,,,,,,,,Golden State Warriors,GSW,2025-03-11
+80,2025-04-09,10:00p,San Antonio Spurs,,,,,,,,,,Golden State Warriors,GSW,2025-03-11
+G,,Start (ET),Opponent,,,W,L,Streak,Attend.,LOG,Notes,,Golden State Warriors,GSW,2025-03-11
+81,2025-04-11,10:00p,Portland Trail Blazers,,,,,,,,,,Golden State Warriors,GSW,2025-03-11
+82,2025-04-13,3:30p,Los Angeles Clippers,,,,,,,,,,Golden State Warriors,GSW,2025-03-11

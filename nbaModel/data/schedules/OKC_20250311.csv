@@ -1,0 +1,87 @@
+G,Date,Start (ET),Opponent,Tm,Opp,W,L,Streak,Attend.,LOG,Notes,Result,Team,TeamAbbr,Scraped_Date
+1,2024-10-24,10:00p,Denver Nuggets,102.0,87.0,1,0,W 1,19786,2:10,,W,Oklahoma City Thunder,OKC,2025-03-11
+2,2024-10-26,8:00p,Chicago Bulls,114.0,95.0,2,0,W 2,20923,2:09,,W,Oklahoma City Thunder,OKC,2025-03-11
+3,2024-10-27,7:00p,Atlanta Hawks,128.0,104.0,3,0,W 3,18203,2:23,,W,Oklahoma City Thunder,OKC,2025-03-11
+4,2024-10-30,9:30p,San Antonio Spurs,105.0,93.0,4,0,W 4,17136,2:01,,W,Oklahoma City Thunder,OKC,2025-03-11
+5,2024-11-01,10:00p,Portland Trail Blazers,137.0,114.0,5,0,W 5,17815,2:11,,W,Oklahoma City Thunder,OKC,2025-03-11
+6,2024-11-02,10:30p,Los Angeles Clippers,105.0,92.0,6,0,W 6,16827,2:11,,W,Oklahoma City Thunder,OKC,2025-03-11
+7,2024-11-04,9:15p,Orlando Magic,102.0,86.0,7,0,W 7,17044,2:15,,W,Oklahoma City Thunder,OKC,2025-03-11
+8,2024-11-06,9:00p,Denver Nuggets,122.0,124.0,7,1,L 1,19522,2:19,,L,Oklahoma City Thunder,OKC,2025-03-11
+9,2024-11-08,8:00p,Houston Rockets,126.0,107.0,8,1,W 1,18203,2:14,,W,Oklahoma City Thunder,OKC,2025-03-11
+10,2024-11-10,7:00p,Golden State Warriors,116.0,127.0,8,2,L 1,18203,2:20,,L,Oklahoma City Thunder,OKC,2025-03-11
+11,2024-11-11,8:00p,Los Angeles Clippers,134.0,128.0,9,2,W 1,17430,2:25,,W,Oklahoma City Thunder,OKC,2025-03-11
+12,2024-11-13,7:30p,New Orleans Pelicans,106.0,88.0,10,2,W 2,17180,2:12,,W,Oklahoma City Thunder,OKC,2025-03-11
+13,2024-11-15,8:00p,Phoenix Suns,99.0,83.0,11,2,W 3,18203,2:17,In-Season Tournament,W,Oklahoma City Thunder,OKC,2025-03-11
+14,2024-11-17,7:00p,Dallas Mavericks,119.0,121.0,11,3,L 1,18203,2:33,,L,Oklahoma City Thunder,OKC,2025-03-11
+15,2024-11-19,9:30p,San Antonio Spurs,104.0,110.0,11,4,L 2,16667,2:16,In-Season Tournament,L,Oklahoma City Thunder,OKC,2025-03-11
+16,2024-11-20,8:00p,Portland Trail Blazers,109.0,99.0,12,4,W 1,17752,2:17,,W,Oklahoma City Thunder,OKC,2025-03-11
+17,2024-11-25,10:00p,Sacramento Kings,130.0,109.0,13,4,W 2,17832,2:11,,W,Oklahoma City Thunder,OKC,2025-03-11
+18,2024-11-27,10:00p,Golden State Warriors,105.0,101.0,14,4,W 3,18064,2:24,,W,Oklahoma City Thunder,OKC,2025-03-11
+19,2024-11-29,10:00p,Los Angeles Lakers,101.0,93.0,15,4,W 4,18997,2:16,In-Season Tournament,W,Oklahoma City Thunder,OKC,2025-03-11
+20,2024-12-01,7:00p,Houston Rockets,116.0,119.0,15,5,L 1,18055,2:35,,L,Oklahoma City Thunder,OKC,2025-03-11
+G,,Start (ET),Opponent,,,W,L,Streak,Attend.,LOG,Notes,,Oklahoma City Thunder,OKC,2025-03-11
+21,2024-12-03,8:00p,Utah Jazz,133.0,106.0,16,5,W 1,17711,2:13,In-Season Tournament,W,Oklahoma City Thunder,OKC,2025-03-11
+22,2024-12-05,7:30p,Toronto Raptors,129.0,92.0,17,5,W 2,18356,2:02,,W,Oklahoma City Thunder,OKC,2025-03-11
+23,2024-12-07,7:00p,New Orleans Pelicans,119.0,109.0,18,5,W 3,15718,2:17,,W,Oklahoma City Thunder,OKC,2025-03-11
+24,2024-12-10,9:30p,Dallas Mavericks,118.0,104.0,19,5,W 4,17724,2:08,In-Season Tournament,W,Oklahoma City Thunder,OKC,2025-03-11
+25,2024-12-14,8:30p,Houston Rockets,111.0,96.0,20,5,W 5,17937,2:24,In-Season Tournament,W,Oklahoma City Thunder,OKC,2025-03-11
+26,2024-12-19,7:00p,Orlando Magic,105.0,99.0,21,5,W 6,18896,2:26,,W,Oklahoma City Thunder,OKC,2025-03-11
+27,2024-12-20,8:00p,Miami Heat,104.0,97.0,22,5,W 7,19801,2:17,,W,Oklahoma City Thunder,OKC,2025-03-11
+28,2024-12-23,8:00p,Washington Wizards,123.0,105.0,23,5,W 8,18203,2:17,,W,Oklahoma City Thunder,OKC,2025-03-11
+29,2024-12-26,7:00p,Indiana Pacers,120.0,114.0,24,5,W 9,17274,2:11,,W,Oklahoma City Thunder,OKC,2025-03-11
+30,2024-12-28,6:00p,Charlotte Hornets,106.0,94.0,25,5,W 10,19325,2:09,,W,Oklahoma City Thunder,OKC,2025-03-11
+31,2024-12-29,7:00p,Memphis Grizzlies,130.0,106.0,26,5,W 11,18203,2:08,,W,Oklahoma City Thunder,OKC,2025-03-11
+32,2024-12-31,8:00p,Minnesota Timberwolves,113.0,105.0,27,5,W 12,18203,2:09,,W,Oklahoma City Thunder,OKC,2025-03-11
+33,2025-01-02,8:00p,Los Angeles Clippers,116.0,98.0,28,5,W 13,18203,2:04,,W,Oklahoma City Thunder,OKC,2025-03-11
+34,2025-01-03,8:00p,New York Knicks,117.0,107.0,29,5,W 14,18203,2:13,,W,Oklahoma City Thunder,OKC,2025-03-11
+35,2025-01-05,3:30p,Boston Celtics,105.0,92.0,30,5,W 15,18203,2:08,,W,Oklahoma City Thunder,OKC,2025-03-11
+36,2025-01-08,7:00p,Cleveland Cavaliers,122.0,129.0,30,6,L 1,19432,2:19,,L,Oklahoma City Thunder,OKC,2025-03-11
+37,2025-01-10,7:30p,New York Knicks,126.0,101.0,31,6,W 1,19812,2:06,,W,Oklahoma City Thunder,OKC,2025-03-11
+38,2025-01-12,6:00p,Washington Wizards,136.0,95.0,32,6,W 2,15711,2:18,,W,Oklahoma City Thunder,OKC,2025-03-11
+39,2025-01-14,7:00p,Philadelphia 76ers,118.0,102.0,33,6,W 3,19771,2:05,,W,Oklahoma City Thunder,OKC,2025-03-11
+40,2025-01-16,7:30p,Cleveland Cavaliers,134.0,114.0,34,6,W 4,18203,2:12,,W,Oklahoma City Thunder,OKC,2025-03-11
+G,,Start (ET),Opponent,,,W,L,Streak,Attend.,LOG,Notes,,Oklahoma City Thunder,OKC,2025-03-11
+41,2025-01-17,8:30p,Dallas Mavericks,98.0,106.0,34,7,L 1,20311,2:31,,L,Oklahoma City Thunder,OKC,2025-03-11
+42,2025-01-19,7:00p,Brooklyn Nets,127.0,101.0,35,7,W 1,18203,2:03,,W,Oklahoma City Thunder,OKC,2025-03-11
+43,2025-01-22,8:00p,Utah Jazz,123.0,114.0,36,7,W 2,17509,2:18,,W,Oklahoma City Thunder,OKC,2025-03-11
+44,2025-01-23,8:00p,Dallas Mavericks,115.0,121.0,36,8,L 1,18203,2:31,,L,Oklahoma City Thunder,OKC,2025-03-11
+45,2025-01-26,6:00p,Portland Trail Blazers,118.0,108.0,37,8,W 1,17619,2:19,,W,Oklahoma City Thunder,OKC,2025-03-11
+46,2025-01-29,10:00p,Golden State Warriors,109.0,116.0,37,9,L 1,18064,2:30,,L,Oklahoma City Thunder,OKC,2025-03-11
+47,2025-02-01,8:00p,Sacramento Kings,144.0,110.0,38,9,W 1,18203,2:02,,W,Oklahoma City Thunder,OKC,2025-03-11
+48,2025-02-03,8:00p,Milwaukee Bucks,125.0,96.0,39,9,W 2,17677,2:00,,W,Oklahoma City Thunder,OKC,2025-03-11
+49,2025-02-05,9:30p,Phoenix Suns,140.0,109.0,40,9,W 3,17451,2:19,,W,Oklahoma City Thunder,OKC,2025-03-11
+50,2025-02-07,8:00p,Toronto Raptors,121.0,109.0,41,9,W 4,18203,2:18,,W,Oklahoma City Thunder,OKC,2025-03-11
+51,2025-02-08,8:00p,Memphis Grizzlies,125.0,112.0,42,9,W 5,17794,2:20,,W,Oklahoma City Thunder,OKC,2025-03-11
+52,2025-02-10,8:00p,New Orleans Pelicans,137.0,101.0,43,9,W 6,17340,2:09,,W,Oklahoma City Thunder,OKC,2025-03-11
+53,2025-02-12,8:00p,Miami Heat,115.0,101.0,44,9,W 7,17835,2:10,,W,Oklahoma City Thunder,OKC,2025-03-11
+54,2025-02-13,8:30p,Minnesota Timberwolves,101.0,116.0,44,10,L 1,18978,2:20,,L,Oklahoma City Thunder,OKC,2025-03-11
+55,2025-02-21,9:30p,Utah Jazz,130.0,107.0,45,10,W 1,18175,2:03,,W,Oklahoma City Thunder,OKC,2025-03-11
+56,2025-02-23,9:30p,Minnesota Timberwolves,130.0,123.0,46,10,W 2,18978,2:25,,W,Oklahoma City Thunder,OKC,2025-03-11
+57,2025-02-24,8:00p,Minnesota Timberwolves,128.0,131.0,46,11,L 1,18203,2:35,,L,Oklahoma City Thunder,OKC,2025-03-11
+58,2025-02-26,7:30p,Brooklyn Nets,129.0,121.0,47,11,W 1,17926,2:30,,W,Oklahoma City Thunder,OKC,2025-03-11
+59,2025-02-28,7:30p,Atlanta Hawks,135.0,119.0,48,11,W 2,17712,2:04,,W,Oklahoma City Thunder,OKC,2025-03-11
+60,2025-03-02,7:00p,San Antonio Spurs,146.0,132.0,49,11,W 3,17745,2:21,,W,Oklahoma City Thunder,OKC,2025-03-11
+G,,Start (ET),Opponent,,,W,L,Streak,Attend.,LOG,Notes,,Oklahoma City Thunder,OKC,2025-03-11
+61,2025-03-03,8:00p,Houston Rockets,137.0,128.0,50,11,W 4,17714,2:06,,W,Oklahoma City Thunder,OKC,2025-03-11
+62,2025-03-05,9:30p,Memphis Grizzlies,120.0,103.0,51,11,W 5,16723,2:26,,W,Oklahoma City Thunder,OKC,2025-03-11
+63,2025-03-07,8:00p,Portland Trail Blazers,107.0,89.0,52,11,W 6,17911,2:07,,W,Oklahoma City Thunder,OKC,2025-03-11
+64,2025-03-09,1:00p,Denver Nuggets,127.0,103.0,53,11,W 7,18203,2:17,,W,Oklahoma City Thunder,OKC,2025-03-11
+65,2025-03-10,8:00p,Denver Nuggets,127.0,140.0,53,12,L 1,18203,2:09,,L,Oklahoma City Thunder,OKC,2025-03-11
+66,2025-03-12,7:30p,Boston Celtics,,,,,,,,,,Oklahoma City Thunder,OKC,2025-03-11
+67,2025-03-15,7:00p,Detroit Pistons,,,,,,,,,,Oklahoma City Thunder,OKC,2025-03-11
+68,2025-03-16,9:00p,Milwaukee Bucks,,,,,,,,,,Oklahoma City Thunder,OKC,2025-03-11
+69,2025-03-19,8:00p,Philadelphia 76ers,,,,,,,,,,Oklahoma City Thunder,OKC,2025-03-11
+70,2025-03-21,8:00p,Charlotte Hornets,,,,,,,,,,Oklahoma City Thunder,OKC,2025-03-11
+71,2025-03-23,9:00p,Los Angeles Clippers,,,,,,,,,,Oklahoma City Thunder,OKC,2025-03-11
+72,2025-03-25,10:00p,Sacramento Kings,,,,,,,,,,Oklahoma City Thunder,OKC,2025-03-11
+73,2025-03-27,8:00p,Memphis Grizzlies,,,,,,,,,,Oklahoma City Thunder,OKC,2025-03-11
+74,2025-03-29,8:00p,Indiana Pacers,,,,,,,,,,Oklahoma City Thunder,OKC,2025-03-11
+75,2025-03-31,8:00p,Chicago Bulls,,,,,,,,,,Oklahoma City Thunder,OKC,2025-03-11
+76,2025-04-02,8:00p,Detroit Pistons,,,,,,,,,,Oklahoma City Thunder,OKC,2025-03-11
+77,2025-04-04,8:00p,Houston Rockets,,,,,,,,,,Oklahoma City Thunder,OKC,2025-03-11
+78,2025-04-06,3:30p,Los Angeles Lakers,,,,,,,,,,Oklahoma City Thunder,OKC,2025-03-11
+79,2025-04-08,8:00p,Los Angeles Lakers,,,,,,,,,,Oklahoma City Thunder,OKC,2025-03-11
+80,2025-04-09,10:00p,Phoenix Suns,,,,,,,,,,Oklahoma City Thunder,OKC,2025-03-11
+G,,Start (ET),Opponent,,,W,L,Streak,Attend.,LOG,Notes,,Oklahoma City Thunder,OKC,2025-03-11
+81,2025-04-11,9:30p,Utah Jazz,,,,,,,,,,Oklahoma City Thunder,OKC,2025-03-11
+82,2025-04-13,3:30p,New Orleans Pelicans,,,,,,,,,,Oklahoma City Thunder,OKC,2025-03-11

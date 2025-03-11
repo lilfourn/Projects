@@ -1,0 +1,87 @@
+G,Date,Start (ET),Opponent,Tm,Opp,W,L,Streak,Attend.,LOG,Notes,Result,Team,TeamAbbr,Scraped_Date
+1,2024-10-23,7:30p,Philadelphia 76ers,124.0,109.0,1,0,W 1,19754,2:28,,W,Milwaukee Bucks,MIL,2025-03-11
+2,2024-10-25,8:00p,Chicago Bulls,122.0,133.0,1,1,L 1,17790,2:13,,L,Milwaukee Bucks,MIL,2025-03-11
+3,2024-10-27,6:00p,Brooklyn Nets,102.0,115.0,1,2,L 2,17926,2:19,,L,Milwaukee Bucks,MIL,2025-03-11
+4,2024-10-28,7:30p,Boston Celtics,108.0,119.0,1,3,L 3,19156,2:18,,L,Milwaukee Bucks,MIL,2025-03-11
+5,2024-10-31,8:00p,Memphis Grizzlies,99.0,122.0,1,4,L 4,15377,2:12,,L,Milwaukee Bucks,MIL,2025-03-11
+6,2024-11-02,8:00p,Cleveland Cavaliers,113.0,114.0,1,5,L 5,17341,2:15,,L,Milwaukee Bucks,MIL,2025-03-11
+7,2024-11-04,7:00p,Cleveland Cavaliers,114.0,116.0,1,6,L 6,19432,2:02,,L,Milwaukee Bucks,MIL,2025-03-11
+8,2024-11-07,8:00p,Utah Jazz,123.0,100.0,2,6,W 1,17341,2:14,,W,Milwaukee Bucks,MIL,2025-03-11
+9,2024-11-08,7:30p,New York Knicks,94.0,116.0,2,7,L 1,19812,2:07,,L,Milwaukee Bucks,MIL,2025-03-11
+10,2024-11-10,3:30p,Boston Celtics,107.0,113.0,2,8,L 2,17341,2:16,,L,Milwaukee Bucks,MIL,2025-03-11
+11,2024-11-12,8:00p,Toronto Raptors,99.0,85.0,3,8,W 1,17341,2:14,In-Season Tournament,W,Milwaukee Bucks,MIL,2025-03-11
+12,2024-11-13,8:00p,Detroit Pistons,127.0,120.0,4,8,W 2,17341,2:43,,W,Milwaukee Bucks,MIL,2025-03-11
+13,2024-11-16,3:00p,Charlotte Hornets,114.0,115.0,4,9,L 1,19145,2:15,,L,Milwaukee Bucks,MIL,2025-03-11
+14,2024-11-18,8:00p,Houston Rockets,101.0,100.0,5,9,W 1,17341,2:12,,W,Milwaukee Bucks,MIL,2025-03-11
+15,2024-11-20,7:30p,Chicago Bulls,122.0,106.0,6,9,W 2,17341,2:18,,W,Milwaukee Bucks,MIL,2025-03-11
+16,2024-11-22,8:00p,Indiana Pacers,129.0,117.0,7,9,W 3,17341,2:16,In-Season Tournament,W,Milwaukee Bucks,MIL,2025-03-11
+17,2024-11-23,8:00p,Charlotte Hornets,125.0,119.0,8,9,W 4,17341,2:21,,W,Milwaukee Bucks,MIL,2025-03-11
+18,2024-11-26,7:30p,Miami Heat,106.0,103.0,9,9,W 5,19622,2:21,In-Season Tournament,W,Milwaukee Bucks,MIL,2025-03-11
+19,2024-11-30,8:00p,Washington Wizards,124.0,114.0,10,9,W 6,17341,2:20,,W,Milwaukee Bucks,MIL,2025-03-11
+20,2024-12-03,7:00p,Detroit Pistons,128.0,107.0,11,9,W 7,17988,2:10,In-Season Tournament,W,Milwaukee Bucks,MIL,2025-03-11
+G,,Start (ET),Opponent,,,W,L,Streak,Attend.,LOG,Notes,,Milwaukee Bucks,MIL,2025-03-11
+21,2024-12-04,8:00p,Atlanta Hawks,104.0,119.0,11,10,L 1,17341,2:21,,L,Milwaukee Bucks,MIL,2025-03-11
+22,2024-12-06,7:30p,Boston Celtics,105.0,111.0,11,11,L 2,19156,2:16,,L,Milwaukee Bucks,MIL,2025-03-11
+23,2024-12-08,3:30p,Brooklyn Nets,118.0,113.0,12,11,W 1,17926,2:19,,W,Milwaukee Bucks,MIL,2025-03-11
+24,2024-12-10,7:00p,Orlando Magic,114.0,109.0,13,11,W 2,17341,2:35,In-Season Tournament,W,Milwaukee Bucks,MIL,2025-03-11
+25,2024-12-14,4:30p,Atlanta Hawks,110.0,102.0,14,11,W 3,17113,2:30,In-Season Tournament,W,Milwaukee Bucks,MIL,2025-03-11
+26,2024-12-20,7:30p,Cleveland Cavaliers,101.0,124.0,14,12,L 1,19432,2:03,,L,Milwaukee Bucks,MIL,2025-03-11
+27,2024-12-21,8:00p,Washington Wizards,112.0,101.0,15,12,W 1,17341,1:54,,W,Milwaukee Bucks,MIL,2025-03-11
+28,2024-12-23,8:00p,Chicago Bulls,112.0,91.0,16,12,W 2,21234,2:02,,W,Milwaukee Bucks,MIL,2025-03-11
+29,2024-12-26,8:00p,Brooklyn Nets,105.0,111.0,16,13,L 1,17957,2:16,,L,Milwaukee Bucks,MIL,2025-03-11
+30,2024-12-28,8:00p,Chicago Bulls,111.0,116.0,16,14,L 2,21511,2:10,,L,Milwaukee Bucks,MIL,2025-03-11
+31,2024-12-31,3:00p,Indiana Pacers,120.0,112.0,17,14,W 1,17274,2:24,,W,Milwaukee Bucks,MIL,2025-03-11
+32,2025-01-02,8:00p,Brooklyn Nets,110.0,113.0,17,15,L 1,17341,2:27,,L,Milwaukee Bucks,MIL,2025-03-11
+33,2025-01-04,8:00p,Portland Trail Blazers,102.0,105.0,17,16,L 2,17595,2:01,,L,Milwaukee Bucks,MIL,2025-03-11
+34,2025-01-06,7:30p,Toronto Raptors,128.0,104.0,18,16,W 1,17829,2:05,,W,Milwaukee Bucks,MIL,2025-03-11
+35,2025-01-08,9:30p,San Antonio Spurs,121.0,105.0,19,16,W 2,17341,2:10,,W,Milwaukee Bucks,MIL,2025-03-11
+36,2025-01-10,7:00p,Orlando Magic,109.0,106.0,20,16,W 3,18846,2:24,,W,Milwaukee Bucks,MIL,2025-03-11
+37,2025-01-12,3:00p,New York Knicks,106.0,140.0,20,17,L 1,19812,2:14,,L,Milwaukee Bucks,MIL,2025-03-11
+38,2025-01-14,8:00p,Sacramento Kings,130.0,115.0,21,17,W 1,17341,2:08,,W,Milwaukee Bucks,MIL,2025-03-11
+39,2025-01-15,8:00p,Orlando Magic,122.0,93.0,22,17,W 2,17341,2:13,,W,Milwaukee Bucks,MIL,2025-03-11
+40,2025-01-17,8:00p,Toronto Raptors,130.0,112.0,23,17,W 3,17341,2:17,,W,Milwaukee Bucks,MIL,2025-03-11
+G,,Start (ET),Opponent,,,W,L,Streak,Attend.,LOG,Notes,,Milwaukee Bucks,MIL,2025-03-11
+41,2025-01-19,7:00p,Philadelphia 76ers,123.0,109.0,24,17,W 4,17345,2:09,,W,Milwaukee Bucks,MIL,2025-03-11
+42,2025-01-23,8:30p,Miami Heat,125.0,96.0,25,17,W 5,17341,2:16,,W,Milwaukee Bucks,MIL,2025-03-11
+43,2025-01-25,10:30p,Los Angeles Clippers,117.0,127.0,25,18,L 1,17927,2:22,,L,Milwaukee Bucks,MIL,2025-03-11
+44,2025-01-27,9:00p,Utah Jazz,125.0,110.0,26,18,W 1,18175,2:13,,W,Milwaukee Bucks,MIL,2025-03-11
+45,2025-01-28,10:00p,Portland Trail Blazers,112.0,125.0,26,19,L 1,17030,2:20,,L,Milwaukee Bucks,MIL,2025-03-11
+46,2025-01-31,8:00p,San Antonio Spurs,118.0,144.0,26,20,L 2,17804,2:21,,L,Milwaukee Bucks,MIL,2025-03-11
+47,2025-02-02,8:30p,Memphis Grizzlies,119.0,132.0,26,21,L 3,17341,2:18,,L,Milwaukee Bucks,MIL,2025-03-11
+48,2025-02-03,8:00p,Oklahoma City Thunder,96.0,125.0,26,22,L 4,17677,2:00,,L,Milwaukee Bucks,MIL,2025-03-11
+49,2025-02-05,7:00p,Charlotte Hornets,112.0,102.0,27,22,W 1,14385,2:00,,W,Milwaukee Bucks,MIL,2025-03-11
+50,2025-02-07,7:30p,Atlanta Hawks,110.0,115.0,27,23,L 1,16378,2:11,,L,Milwaukee Bucks,MIL,2025-03-11
+51,2025-02-09,2:00p,Philadelphia 76ers,135.0,127.0,28,23,W 1,17341,2:20,,W,Milwaukee Bucks,MIL,2025-03-11
+52,2025-02-10,8:00p,Golden State Warriors,111.0,125.0,28,24,L 1,17341,2:23,,L,Milwaukee Bucks,MIL,2025-03-11
+53,2025-02-12,8:00p,Minnesota Timberwolves,103.0,101.0,29,24,W 1,18978,2:06,,W,Milwaukee Bucks,MIL,2025-03-11
+54,2025-02-20,8:00p,Los Angeles Clippers,116.0,110.0,30,24,W 2,17341,2:20,,W,Milwaukee Bucks,MIL,2025-03-11
+55,2025-02-21,7:00p,Washington Wizards,104.0,101.0,31,24,W 3,18865,2:23,,W,Milwaukee Bucks,MIL,2025-03-11
+56,2025-02-23,6:00p,Miami Heat,120.0,113.0,32,24,W 4,17442,2:18,,W,Milwaukee Bucks,MIL,2025-03-11
+57,2025-02-25,8:00p,Houston Rockets,97.0,100.0,32,25,L 1,18055,2:14,,L,Milwaukee Bucks,MIL,2025-03-11
+58,2025-02-27,8:00p,Denver Nuggets,121.0,112.0,33,25,W 1,17566,2:15,,W,Milwaukee Bucks,MIL,2025-03-11
+59,2025-03-01,8:30p,Dallas Mavericks,132.0,117.0,34,25,W 2,20272,2:16,,W,Milwaukee Bucks,MIL,2025-03-11
+60,2025-03-04,7:30p,Atlanta Hawks,127.0,121.0,35,25,W 3,16008,2:12,,W,Milwaukee Bucks,MIL,2025-03-11
+G,,Start (ET),Opponent,,,W,L,Streak,Attend.,LOG,Notes,,Milwaukee Bucks,MIL,2025-03-11
+61,2025-03-05,8:00p,Dallas Mavericks,137.0,107.0,36,25,W 4,17341,1:55,,W,Milwaukee Bucks,MIL,2025-03-11
+62,2025-03-08,8:00p,Orlando Magic,109.0,111.0,36,26,L 1,17815,2:27,,L,Milwaukee Bucks,MIL,2025-03-11
+63,2025-03-09,8:00p,Cleveland Cavaliers,100.0,112.0,36,27,L 2,17355,2:12,,L,Milwaukee Bucks,MIL,2025-03-11
+64,2025-03-11,7:30p,Indiana Pacers,,,,,,,,,,Milwaukee Bucks,MIL,2025-03-11
+65,2025-03-13,7:30p,Los Angeles Lakers,,,,,,,,,,Milwaukee Bucks,MIL,2025-03-11
+66,2025-03-15,8:00p,Indiana Pacers,,,,,,,,,,Milwaukee Bucks,MIL,2025-03-11
+67,2025-03-16,9:00p,Oklahoma City Thunder,,,,,,,,,,Milwaukee Bucks,MIL,2025-03-11
+68,2025-03-18,10:00p,Golden State Warriors,,,,,,,,,,Milwaukee Bucks,MIL,2025-03-11
+69,2025-03-20,10:30p,Los Angeles Lakers,,,,,,,,,,Milwaukee Bucks,MIL,2025-03-11
+70,2025-03-22,10:00p,Sacramento Kings,,,,,,,,,,Milwaukee Bucks,MIL,2025-03-11
+71,2025-03-24,10:00p,Phoenix Suns,,,,,,,,,,Milwaukee Bucks,MIL,2025-03-11
+72,2025-03-26,9:00p,Denver Nuggets,,,,,,,,,,Milwaukee Bucks,MIL,2025-03-11
+73,2025-03-28,8:00p,New York Knicks,,,,,,,,,,Milwaukee Bucks,MIL,2025-03-11
+74,2025-03-30,7:00p,Atlanta Hawks,,,,,,,,,,Milwaukee Bucks,MIL,2025-03-11
+75,2025-04-01,8:00p,Phoenix Suns,,,,,,,,,,Milwaukee Bucks,MIL,2025-03-11
+76,2025-04-03,7:30p,Philadelphia 76ers,,,,,,,,,,Milwaukee Bucks,MIL,2025-03-11
+77,2025-04-05,8:00p,Miami Heat,,,,,,,,,,Milwaukee Bucks,MIL,2025-03-11
+78,2025-04-06,8:30p,New Orleans Pelicans,,,,,,,,,,Milwaukee Bucks,MIL,2025-03-11
+79,2025-04-08,8:00p,Minnesota Timberwolves,,,,,,,,,,Milwaukee Bucks,MIL,2025-03-11
+80,2025-04-10,8:00p,New Orleans Pelicans,,,,,,,,,,Milwaukee Bucks,MIL,2025-03-11
+G,,Start (ET),Opponent,,,W,L,Streak,Attend.,LOG,Notes,,Milwaukee Bucks,MIL,2025-03-11
+81,2025-04-11,7:00p,Detroit Pistons,,,,,,,,,,Milwaukee Bucks,MIL,2025-03-11
+82,2025-04-13,1:00p,Detroit Pistons,,,,,,,,,,Milwaukee Bucks,MIL,2025-03-11

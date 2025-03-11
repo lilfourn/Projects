@@ -5,11 +5,8 @@ import time         # For adding delays
 import os           # For file operations
 import random       # For randomizing delays
 import logging      # For better error tracking
-import asyncio      # For asynchronous processing
-import aiohttp      # For async HTTP requests
-from io import StringIO  # For handling HTML strings
-from fake_useragent import UserAgent  # For rotating user agents
-from urllib.parse import urlparse  # For parsing URLs
+from datetime import datetime  # For date handling
+import glob         # For finding files with patterns
 
 # Configure logging
 logging.basicConfig(
@@ -17,167 +14,96 @@ logging.basicConfig(
     format='%(asctime)s - %(levelname)s - %(message)s'
 )
 
-# Create a session-wide user agent rotator
-try:
-    ua = UserAgent()
-except:
-    logging.warning("Could not initialize UserAgent, using default user agents")
-    # Fallback list of user agents if fake_useragent fails
-    USER_AGENTS = [
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
-        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.1 Safari/605.1.15",
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:89.0) Gecko/20100101 Firefox/89.0",
-        "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36",
-        "Mozilla/5.0 (iPhone; CPU iPhone OS 14_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Mobile/15E148 Safari/604.1",
-        "Mozilla/5.0 (iPad; CPU OS 14_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Mobile/15E148 Safari/604.1",
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36 Edg/91.0.864.59"
-    ]
+# User agent list for rotation - helps avoid detection as a bot
+USER_AGENTS = [
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Safari/605.1.15",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:85.0) Gecko/20100101 Firefox/85.0",
+    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.96 Safari/537.36"
+]
 
-# Global rate limiter for each domain
-class DomainRateLimiter:
-    """Rate limiter that tracks and limits requests per domain"""
-    
-    def __init__(self):
-        self.domains = {}
-        self.lock = asyncio.Lock()
-    
-    async def acquire(self, url, requests_per_minute=20):
-        """Acquire permission to make a request to the domain"""
-        domain = urlparse(url).netloc
-        
-        async with self.lock:
-            if domain not in self.domains:
-                self.domains[domain] = {
-                    'last_request': 0,
-                    'semaphore': asyncio.Semaphore(3),  # Max 3 concurrent requests per domain
-                    'request_times': []
-                }
-            
-            domain_data = self.domains[domain]
-            
-            # Calculate time since last request
-            now = time.time()
-            time_since_last = now - domain_data['last_request']
-            
-            # Update request times list and remove old ones
-            domain_data['request_times'] = [t for t in domain_data['request_times'] 
-                                           if now - t < 60]  # Keep only last minute
-            
-            # Check if we're exceeding rate limit
-            if len(domain_data['request_times']) >= requests_per_minute:
-                # Calculate time to wait until we're under the limit
-                wait_time = 60 - (now - domain_data['request_times'][0]) + 1
-                logging.info(f"Rate limit reached for {domain}. Waiting {wait_time:.2f} seconds")
-                await asyncio.sleep(wait_time)
-            
-            # Add jitter to avoid patterns (1-3 seconds)
-            jitter = 1 + random.random() * 2
-            
-            # Ensure minimum delay between requests to same domain (3-5 seconds)
-            if time_since_last < 3:
-                delay = 3 - time_since_last + jitter
-                logging.info(f"Adding delay of {delay:.2f}s for {domain}")
-                await asyncio.sleep(delay)
-            
-            # Update tracking data
-            domain_data['last_request'] = time.time()
-            domain_data['request_times'].append(time.time())
-            
-            # Acquire semaphore for concurrent request limiting
-            await domain_data['semaphore'].acquire()
-            return domain_data['semaphore']
-    
-    def release(self, url):
-        """Release the semaphore after request is complete"""
-        domain = urlparse(url).netloc
-        if domain in self.domains:
-            self.domains[domain]['semaphore'].release()
-
-# Create global rate limiter instance
-domain_limiter = DomainRateLimiter()
+# Global session to maintain cookies and connection efficiency
+session = requests.Session()
 
 def get_random_user_agent():
-    """Get a random user agent string"""
-    try:
-        return ua.random
-    except:
-        return random.choice(USER_AGENTS)
+    """
+    Get a random user agent from the predefined list.
+    
+    Returns:
+        str: A randomly selected user agent string
+    """
+    return random.choice(USER_AGENTS)
 
-def get_request_headers():
-    """Generate request headers that mimic a real browser"""
-    return {
+def throttled_request(url, max_retries=5, base_delay=3):
+    """
+    Make a throttled HTTP request with automatic retries and exponential backoff.
+    
+    Args:
+        url (str): The URL to request
+        max_retries (int): Maximum number of retry attempts
+        base_delay (int): Base delay between retries in seconds
+        
+    Returns:
+        requests.Response or None: Response object if successful, None otherwise
+    """
+    # Rotate user agent for each request to avoid detection patterns
+    headers = {
         "User-Agent": get_random_user_agent(),
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
         "Accept-Language": "en-US,en;q=0.5",
-        "Accept-Encoding": "gzip, deflate, br",
         "Connection": "keep-alive",
         "Upgrade-Insecure-Requests": "1",
-        "Cache-Control": "max-age=0",
-        "TE": "Trailers",
-        "DNT": "1"  # Do Not Track
+        "Cache-Control": "max-age=0"
     }
-
-async def make_request(url, max_retries=3, initial_retry_delay=5):
-    """
-    Make an HTTP request with retry logic, rate limiting, and exponential backoff
     
-    Args:
-        url (str): URL to request
-        max_retries (int): Maximum number of retry attempts
-        initial_retry_delay (int): Initial delay between retries in seconds
-        
-    Returns:
-        tuple: (success, response_or_error)
-    """
-    # Get semaphore from rate limiter
-    semaphore = await domain_limiter.acquire(url)
+    # Add initial random delay (1-3 seconds) to simulate human browsing
+    initial_delay = 1 + random.random() * 2
+    logging.info(f"Waiting {initial_delay:.2f} seconds before requesting {url}...")
+    time.sleep(initial_delay)
     
-    try:
-        for attempt in range(max_retries):
-            try:
-                # Get fresh headers for each attempt
-                headers = get_request_headers()
+    # Try making the request with exponential backoff for retries
+    for attempt in range(max_retries):
+        try:
+            logging.info(f"Requesting {url} (attempt {attempt+1}/{max_retries})...")
+            response = session.get(url, headers=headers, timeout=30)
+            
+            # Success case
+            if response.status_code == 200:
+                return response
                 
-                # Make request with custom headers
-                async with aiohttp.ClientSession() as session:
-                    async with session.get(url, headers=headers, timeout=30) as response:
-                        if response.status == 200:
-                            # Success - return content
-                            content = await response.text()
-                            return True, content
-                        
-                        elif response.status == 429:  # Too Many Requests
-                            # Calculate exponential backoff with jitter
-                            wait_time = initial_retry_delay * (2 ** attempt) + random.uniform(1, 5)
-                            logging.warning(f"Rate limited (429) for {url}. Waiting {wait_time:.2f} seconds before retry.")
-                            await asyncio.sleep(wait_time)
-                        
-                        elif response.status in (403, 503):  # Forbidden or Service Unavailable
-                            # These often indicate anti-scraping measures
-                            wait_time = initial_retry_delay * (2 ** attempt) + random.uniform(10, 20)
-                            logging.warning(f"Possible scraping protection ({response.status}) for {url}. Waiting {wait_time:.2f} seconds.")
-                            await asyncio.sleep(wait_time)
-                        
-                        else:
-                            logging.error(f"Failed to retrieve data: Status code: {response.status} for {url}")
-                            # For other errors, shorter retry delay
-                            await asyncio.sleep(initial_retry_delay)
+            # Handle different status codes
+            elif response.status_code == 404:  # Not Found - page doesn't exist
+                logging.warning(f"Page not found (404): {url}")
+                # No need to retry for 404s, just return None
+                return None
+            elif response.status_code == 429:  # Too Many Requests
+                wait_time = base_delay * (2 ** attempt)  # Exponential backoff
+                # Add jitter to prevent synchronized requests
+                jitter = random.uniform(0.5, 1.5)
+                wait_time = wait_time * jitter
+                logging.warning(f"Rate limited (429). Waiting {wait_time:.2f} seconds before retry.")
+                time.sleep(wait_time)
+            elif response.status_code == 403:  # Forbidden
+                logging.error(f"Access forbidden (403). The site may have blocked requests.")
+                # Add a much longer delay for 403 errors
+                time.sleep(60 + random.random() * 60)  # 1-2 minute delay
+            else:
+                logging.error(f"Failed to retrieve data: Status code: {response.status_code}")
+                wait_time = base_delay * (2 ** attempt)
+                time.sleep(wait_time)
                 
-            except (aiohttp.ClientError, asyncio.TimeoutError) as e:
-                logging.error(f"Error during request for {url}: {str(e)}")
-                # Network errors get a shorter retry delay
-                await asyncio.sleep(initial_retry_delay)
-        
-        # If we get here, all retries failed
-        return False, f"Max retries exceeded for {url}"
+        except requests.exceptions.RequestException as e:
+            logging.error(f"Request error: {str(e)}")
+            wait_time = base_delay * (2 ** attempt)
+            time.sleep(wait_time)
     
-    finally:
-        # Always release the semaphore
-        domain_limiter.release(url)
+    # If all retries fail
+    logging.error(f"Max retries exceeded. Could not retrieve data from {url}")
+    return None
 
-async def scrape_nba_standings_async():
+def scrape_nba_standings():
     """
-    Scrape NBA standings data from Basketball Reference website asynchronously.
+    Scrape NBA standings data from Basketball Reference website.
     
     Returns:
         dict: Dictionary with dataframes for different standings tables
@@ -185,15 +111,13 @@ async def scrape_nba_standings_async():
     # NBA standings URL
     url = "https://www.basketball-reference.com/leagues/NBA_2025_ratings.html"
     
-    # Make HTTP request with retry logic
-    success, result = await make_request(url)
-    
-    if not success:
-        logging.error(result)
+    # Make the throttled request
+    response = throttled_request(url)
+    if not response:
         return None
     
     # Parse HTML content
-    soup = BeautifulSoup(result, 'html.parser')
+    soup = BeautifulSoup(response.content, 'html.parser')
 
     # Dictionary to store the standings data
     standings_data = {}
@@ -203,6 +127,7 @@ async def scrape_nba_standings_async():
         team_ratings_table = soup.find("table", {'id': 'ratings'})
         if team_ratings_table:
             # Use StringIO to avoid FutureWarning
+            from io import StringIO
             ratings_html = StringIO(str(team_ratings_table))
             ratings_df = pd.read_html(ratings_html)[0]
             
@@ -210,6 +135,10 @@ async def scrape_nba_standings_async():
             if isinstance(ratings_df.columns, pd.MultiIndex):
                 ratings_df.columns = ratings_df.columns.droplevel(0)
             ratings_df = clean_standings_data(ratings_df)
+            
+            # Add timestamp for when this data was collected
+            ratings_df['Scraped_Date'] = datetime.now().strftime('%Y-%m-%d')
+            
             standings_data['team_ratings'] = ratings_df
             logging.info("Successfully scraped Team Ratings")
         
@@ -228,15 +157,6 @@ async def scrape_nba_standings_async():
         return None
     
     return standings_data
-
-def scrape_nba_standings():
-    """
-    Synchronous wrapper for scrape_nba_standings_async
-    
-    Returns:
-        dict: Dictionary with dataframes for different standings tables
-    """
-    return asyncio.run(scrape_nba_standings_async())
     
 def clean_standings_data(df):
     """
@@ -259,7 +179,7 @@ def clean_standings_data(df):
 
 def save_standings_to_csv(standings_data, output_dir='./data'):
     """
-    Save the standings data to CSV files.
+    Save the standings data to CSV files with update support for existing files.
     
     Args:
         standings_data (dict): Dictionary of standings dataframes
@@ -280,6 +200,9 @@ def save_standings_to_csv(standings_data, output_dir='./data'):
         'NRtg/A': 'Net_Rating_Adjusted'
     }
 
+    # Today's date for filename and data tracking
+    today_str = datetime.now().strftime('%Y%m%d')
+    
     # Save each dataframe to a CSV file
     for name, df in standings_data.items():
         # Create a copy of the dataframe to avoid modifying the original
@@ -290,75 +213,40 @@ def save_standings_to_csv(standings_data, output_dir='./data'):
             if old_col in df_to_save.columns:
                 df_to_save.rename(columns={old_col: new_col}, inplace=True)
         
-        # Create output path with current date
-        output_path = os.path.join(output_dir, f"{name}_{time.strftime('%Y%m%d')}.csv")
+        # Create output path
+        output_path = os.path.join(output_dir, f"{name}_{today_str}.csv")
         
+        # Check if file already exists and handle it
+        if os.path.exists(output_path):
+            # Read existing file
+            logging.info(f"Found existing file {output_path}. Updating with new data...")
+            existing_df = pd.read_csv(output_path)
+            
+            # Combine with new data (giving priority to new data)
+            # Use 'Team' as the key for merging if it exists
+            if 'Team' in existing_df.columns and 'Team' in df_to_save.columns:
+                # Remove rows with same teams in existing data (to be replaced with new data)
+                existing_teams = df_to_save['Team'].unique()
+                existing_df = existing_df[~existing_df['Team'].isin(existing_teams)]
+                # Combine old and new data
+                df_to_save = pd.concat([existing_df, df_to_save], ignore_index=True)
+                logging.info(f"Updated {len(existing_teams)} teams with fresh data.")
+            else:
+                # If no 'Team' column for merging, just overwrite with new data
+                logging.info("No common key for merging. Replacing file with new data.")
+            
         # Save to CSV
         df_to_save.to_csv(output_path, index=False)
         logging.info(f"Saved {name} to {output_path}")
 
-async def scrape_team_schedule_async(abbr, team_name):
+def scrape_team_schedules(team_abbrs=None):
     """
-    Scrape schedule for a single team asynchronously
+    Scrape NBA team schedules and game stats.
     
     Args:
-        abbr (str): Team abbreviation
-        team_name (str): Full team name
-        
-    Returns:
-        tuple: (success, DataFrame or error message)
-    """
-    # Construct URL for team schedule
-    url = f"https://www.basketball-reference.com/teams/{abbr}/2025_games.html"
+        team_abbrs (dict, optional): Dictionary of team abbreviations to scrape.
+                                    If None, all teams will be scraped.
     
-    # Make HTTP request with retry logic
-    success, result = await make_request(url)
-    
-    if not success:
-        return False, result
-    
-    try:
-        # Parse HTML content
-        soup = BeautifulSoup(result, 'html.parser')
-        
-        # Find the games table
-        games_table = soup.find('table', {'id': 'games'})
-        
-        if games_table:
-            # Convert table to dataframe using StringIO to avoid FutureWarning
-            games_html = StringIO(str(games_table))
-            schedule_df = pd.read_html(games_html)[0]
-            
-            # Handle multi-level columns if present
-            if isinstance(schedule_df.columns, pd.MultiIndex):
-                schedule_df.columns = schedule_df.columns.droplevel(0)
-            
-            # Clean the dataframe
-            schedule_df = clean_schedule_data(schedule_df)
-            
-            # Add team name and abbreviation columns
-            schedule_df['Team'] = team_name
-            schedule_df['TeamAbbr'] = abbr
-            
-            logging.info(f"Successfully scraped schedule for {team_name}")
-            return True, schedule_df
-        else:
-            logging.warning(f"No games table found for {team_name}")
-            return False, f"No games table found for {team_name}"
-    
-    except Exception as e:
-        error_msg = f"Error scraping {team_name}: {str(e)}"
-        logging.error(error_msg)
-        return False, error_msg
-
-async def scrape_team_schedules_async(team_abbrs=None, max_concurrent=3):
-    """
-    Scrape NBA team schedules and game stats for all teams asynchronously.
-    
-    Args:
-        team_abbrs (dict): Dictionary of team abbreviations to team names
-        max_concurrent (int): Maximum number of concurrent requests
-        
     Returns:
         dict: Dictionary with team schedules dataframes
     """
@@ -366,9 +254,9 @@ async def scrape_team_schedules_async(team_abbrs=None, max_concurrent=3):
     if team_abbrs is None:
         team_abbrs = {
             'ATL': 'Atlanta Hawks',
-            'BKN': 'Brooklyn Nets',
+            'BRK': 'Brooklyn Nets',
             'BOS': 'Boston Celtics',
-            'CHA': 'Charlotte Hornets',
+            'CHO': 'Charlotte Hornets',
             'CHI': 'Chicago Bulls',
             'CLE': 'Cleveland Cavaliers',
             'DAL': 'Dallas Mavericks',
@@ -388,7 +276,7 @@ async def scrape_team_schedules_async(team_abbrs=None, max_concurrent=3):
             'OKC': 'Oklahoma City Thunder',
             'ORL': 'Orlando Magic',
             'PHI': 'Philadelphia 76ers',
-            'PHX': 'Phoenix Suns',
+            'PHO': 'Phoenix Suns',
             'POR': 'Portland Trail Blazers',
             'SAC': 'Sacramento Kings',
             'SAS': 'San Antonio Spurs',
@@ -400,39 +288,54 @@ async def scrape_team_schedules_async(team_abbrs=None, max_concurrent=3):
     # Dictionary to store team schedules
     team_schedules = {}
     
-    # Create a semaphore to limit concurrent tasks
-    semaphore = asyncio.Semaphore(max_concurrent)
-    
-    async def scrape_with_semaphore(abbr, name):
-        async with semaphore:
-            return await scrape_team_schedule_async(abbr, name)
-    
-    # Create tasks for each team
-    tasks = []
+    # Scrape schedule for each team
     for abbr, team_name in team_abbrs.items():
-        task = asyncio.create_task(scrape_with_semaphore(abbr, team_name))
-        tasks.append((abbr, task))
-    
-    # Wait for all tasks to complete
-    for abbr, task in tasks:
-        success, result = await task
-        if success:
-            team_schedules[abbr] = result
+        try:
+            # Construct URL for team schedule
+            url = f"https://www.basketball-reference.com/teams/{abbr}/2025_games.html"
+            
+            # Make throttled request
+            response = throttled_request(url, max_retries=4, base_delay=5)
+            if not response:
+                logging.warning(f"Skipping {team_name} due to request failure.")
+                continue
+                
+            # Parse HTML content
+            soup = BeautifulSoup(response.content, 'html.parser')
+            
+            # Find the games table
+            games_table = soup.find('table', {'id': 'games'})
+            
+            if games_table:
+                # Convert table to dataframe using StringIO to avoid FutureWarning
+                from io import StringIO
+                games_html = StringIO(str(games_table))
+                schedule_df = pd.read_html(games_html)[0]
+                
+                # Handle multi-level columns if present
+                if isinstance(schedule_df.columns, pd.MultiIndex):
+                    schedule_df.columns = schedule_df.columns.droplevel(0)
+                
+                # Clean the dataframe
+                schedule_df = clean_schedule_data(schedule_df)
+                
+                # Add team name and abbreviation columns
+                schedule_df['Team'] = team_name
+                schedule_df['TeamAbbr'] = abbr
+                
+                # Add timestamp for when this data was collected
+                schedule_df['Scraped_Date'] = datetime.now().strftime('%Y-%m-%d')
+                
+                # Store in dictionary
+                team_schedules[abbr] = schedule_df
+                logging.info(f"Successfully scraped schedule for {team_name}")
+            else:
+                logging.warning(f"No games table found for {team_name}")
+        
+        except Exception as e:
+            logging.error(f"Error scraping {team_name}: {str(e)}")
     
     return team_schedules
-
-def scrape_team_schedules(team_abbrs=None, max_concurrent=3):
-    """
-    Synchronous wrapper for scrape_team_schedules_async
-    
-    Args:
-        team_abbrs (dict): Dictionary of team abbreviations to team names
-        max_concurrent (int): Maximum number of concurrent requests
-        
-    Returns:
-        dict: Dictionary with team schedules dataframes
-    """
-    return asyncio.run(scrape_team_schedules_async(team_abbrs, max_concurrent))
 
 def clean_schedule_data(df):
     """
@@ -475,21 +378,105 @@ def clean_schedule_data(df):
     
     return df
 
+def save_schedules_to_csv(schedules, output_dir='./data'):
+    """
+    Save team schedules to CSV files with update support for existing files.
+    
+    Args:
+        schedules (dict): Dictionary of team schedule dataframes
+        output_dir (str): Directory to save the CSV files (default: './data')
+    """
+    # Create output directory if it doesn't exist
+    os.makedirs(output_dir, exist_ok=True)
+
+    # Today's date for filename
+    today_str = datetime.now().strftime('%Y%m%d')
+    
+    # Process each team's schedule
+    for abbr, schedule_df in schedules.items():
+        # Create a copy of the dataframe to avoid modifying the original
+        df_to_save = schedule_df.copy()
+        
+        # Create output path
+        output_path = os.path.join(output_dir, f"{abbr}_{today_str}.csv")
+        
+        # Check if this team's schedule file already exists for today and handle it
+        if os.path.exists(output_path):
+            logging.info(f"Found existing file {output_path}. Updating with new data...")
+            existing_df = pd.read_csv(output_path)
+            
+            # Convert date column for proper merging
+            if 'Date' in existing_df.columns:
+                existing_df['Date'] = pd.to_datetime(existing_df['Date'], errors='coerce')
+            
+            # Merge existing and new data
+            # Use 'Date' as the key for identifying unique games
+            if 'Date' in existing_df.columns and 'Date' in df_to_save.columns:
+                # Select only non-overlapping dates from the existing data
+                existing_dates = df_to_save['Date'].dt.date.unique() if hasattr(df_to_save['Date'], 'dt') else []
+                existing_df = existing_df[~pd.to_datetime(existing_df['Date']).dt.date.isin(existing_dates)]
+                
+                # Combine old and new data
+                df_to_save = pd.concat([existing_df, df_to_save], ignore_index=True)
+                
+                # Sort by date
+                if 'Date' in df_to_save.columns:
+                    df_to_save = df_to_save.sort_values('Date')
+                    
+                logging.info(f"Updated with fresh data for {len(existing_dates)} game dates.")
+            else:
+                # If no 'Date' column for merging, just use the new data
+                logging.info("No common key for merging. Replacing file with new data.")
+        
+        # Save to CSV
+        df_to_save.to_csv(output_path, index=False)
+        logging.info(f"Saved {abbr} schedule to {output_path}")
+
+def find_latest_data_files(pattern, data_dir='./data'):
+    """
+    Find the latest data files matching a pattern.
+    
+    Args:
+        pattern (str): File pattern to search for (e.g., 'team_ratings_*.csv')
+        data_dir (str): Directory to search in
+        
+    Returns:
+        list: List of the latest data files matching the pattern
+    """
+    # Ensure the data directory exists
+    if not os.path.exists(data_dir):
+        logging.warning(f"Data directory {data_dir} does not exist.")
+        return []
+    
+    # Create the full search pattern
+    search_pattern = os.path.join(data_dir, pattern)
+    
+    # Find all files matching the pattern
+    files = glob.glob(search_pattern)
+    
+    if not files:
+        logging.info(f"No files found matching pattern {search_pattern}")
+        return []
+    
+    # Sort files by modification time (newest first)
+    files.sort(key=os.path.getmtime, reverse=True)
+    
+    return files
+
 # Run when script is executed directly
 if __name__ == "__main__":
     logging.info("Starting NBA data scraping...")
     
-    # Install required packages if not already installed
-    try:
-        import fake_useragent
-    except ImportError:
-        logging.info("Installing required packages...")
-        import subprocess
-        subprocess.check_call(["pip3", "install", "fake-useragent", "aiohttp"])
-        logging.info("Packages installed successfully.")
+    # Set output directory - use a directory relative to the script location
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    output_dir = os.path.join(script_dir, 'data')
+    schedules_dir = os.path.join(output_dir, 'schedules')
+    
+    # Create directories if they don't exist
+    os.makedirs(output_dir, exist_ok=True)
+    os.makedirs(schedules_dir, exist_ok=True)
     
     # Scrape the standings data
-    logging.info("Scraping NBA standings...")
     standings = scrape_nba_standings()
     
     # Process and save data if scraping was successful
@@ -500,31 +487,32 @@ if __name__ == "__main__":
             print(df.head())
         
         # Save to CSV files
-        save_standings_to_csv(standings)
+        save_standings_to_csv(standings, output_dir=output_dir)
     
-    # Scrape team schedules - limit to just a few teams for testing
+    # Scrape team schedules
     logging.info("\nScraping team schedules...")
     
-    # For testing, just scrape 3 teams to avoid rate limiting
-    test_teams = {
-        'BOS': 'Boston Celtics', 
-        'LAL': 'Los Angeles Lakers', 
-        'GSW': 'Golden State Warriors'
-    }
+    # Scrape all teams
+    schedules = scrape_team_schedules()
     
-    # Scrape the test teams with a low concurrency limit
-    schedules = scrape_team_schedules(test_teams, max_concurrent=1)
-    
-    # Process and save schedule data if scraping was successful
+    # Save schedules to CSV in the schedules directory
     if schedules:
+        save_schedules_to_csv(schedules, output_dir=schedules_dir)
+        
         # Show sample of first team's schedule
         first_team = next(iter(schedules))
         logging.info(f"\n{first_team} SCHEDULE:")
         print(schedules[first_team].head())
-        
-        # Save to CSV files
-        save_standings_to_csv(schedules)
-    else:
-        logging.error("Failed to scrape team schedules.")
-        
-    logging.info("NBA data scraping completed.")
+    
+    # Demonstration of finding the latest data files
+    logging.info("\nLatest standings files:")
+    latest_standings = find_latest_data_files('team_ratings_*.csv', data_dir=output_dir)
+    for file in latest_standings[:3]:  # Show top 3 files
+        print(f" - {os.path.basename(file)}")
+    
+    logging.info("\nLatest schedule files:")
+    latest_schedules = find_latest_data_files('*.csv', data_dir=schedules_dir)
+    for file in latest_schedules[:3]:  # Show top 3 files
+        print(f" - {os.path.basename(file)}")
+    
+    logging.info("NBA data scraping completed successfully!")

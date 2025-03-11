@@ -1,0 +1,87 @@
+G,Date,Start (ET),Opponent,Tm,Opp,W,L,Streak,Attend.,LOG,Notes,Result,Team,TeamAbbr,Scraped_Date
+1,2024-10-23,8:00p,Houston Rockets,110.0,105.0,1,0,W 1,18055,2:20,,W,Charlotte Hornets,CHO,2025-03-11
+2,2024-10-25,7:30p,Atlanta Hawks,120.0,125.0,1,1,L 1,14433,2:32,,L,Charlotte Hornets,CHO,2025-03-11
+3,2024-10-26,7:00p,Miami Heat,106.0,114.0,1,2,L 2,19102,2:23,,L,Charlotte Hornets,CHO,2025-03-11
+4,2024-10-30,7:00p,Toronto Raptors,138.0,133.0,2,2,W 1,13113,2:18,,W,Charlotte Hornets,CHO,2025-03-11
+5,2024-11-01,7:00p,Boston Celtics,109.0,124.0,2,3,L 1,18557,2:17,,L,Charlotte Hornets,CHO,2025-03-11
+6,2024-11-02,6:00p,Boston Celtics,103.0,113.0,2,4,L 2,19253,2:09,,L,Charlotte Hornets,CHO,2025-03-11
+7,2024-11-04,9:00p,Minnesota Timberwolves,93.0,114.0,2,5,L 3,18978,2:15,,L,Charlotte Hornets,CHO,2025-03-11
+8,2024-11-06,7:00p,Detroit Pistons,108.0,107.0,3,5,W 1,13247,2:11,,W,Charlotte Hornets,CHO,2025-03-11
+9,2024-11-08,7:00p,Indiana Pacers,103.0,83.0,4,5,W 2,17024,2:13,,W,Charlotte Hornets,CHO,2025-03-11
+10,2024-11-10,7:00p,Philadelphia 76ers,105.0,107.0,4,6,L 1,19764,2:47,,L,Charlotte Hornets,CHO,2025-03-11
+11,2024-11-12,7:00p,Orlando Magic,89.0,114.0,4,7,L 2,17541,2:12,In-Season Tournament,L,Charlotte Hornets,CHO,2025-03-11
+12,2024-11-16,3:00p,Milwaukee Bucks,115.0,114.0,5,7,W 1,19145,2:15,,W,Charlotte Hornets,CHO,2025-03-11
+13,2024-11-17,6:00p,Cleveland Cavaliers,114.0,128.0,5,8,L 1,19432,2:16,,L,Charlotte Hornets,CHO,2025-03-11
+14,2024-11-19,7:30p,Brooklyn Nets,115.0,116.0,5,9,L 2,18117,2:32,In-Season Tournament,L,Charlotte Hornets,CHO,2025-03-11
+15,2024-11-21,7:00p,Detroit Pistons,123.0,121.0,6,9,W 1,14671,2:39,,W,Charlotte Hornets,CHO,2025-03-11
+16,2024-11-23,8:00p,Milwaukee Bucks,119.0,125.0,6,10,L 1,17341,2:21,,L,Charlotte Hornets,CHO,2025-03-11
+17,2024-11-25,7:00p,Orlando Magic,84.0,95.0,6,11,L 2,14898,2:20,,L,Charlotte Hornets,CHO,2025-03-11
+18,2024-11-27,7:00p,Miami Heat,94.0,98.0,6,12,L 3,17710,2:14,,L,Charlotte Hornets,CHO,2025-03-11
+19,2024-11-29,12:00p,New York Knicks,98.0,99.0,6,13,L 4,19313,2:17,In-Season Tournament,L,Charlotte Hornets,CHO,2025-03-11
+20,2024-11-30,6:00p,Atlanta Hawks,104.0,107.0,6,14,L 5,17969,2:20,,L,Charlotte Hornets,CHO,2025-03-11
+G,,Start (ET),Opponent,,,W,L,Streak,Attend.,LOG,Notes,,Charlotte Hornets,CHO,2025-03-11
+21,2024-12-03,7:00p,Philadelphia 76ers,104.0,110.0,6,15,L 6,14956,2:18,In-Season Tournament,L,Charlotte Hornets,CHO,2025-03-11
+22,2024-12-05,7:30p,New York Knicks,101.0,125.0,6,16,L 7,19812,2:08,,L,Charlotte Hornets,CHO,2025-03-11
+23,2024-12-07,1:00p,Cleveland Cavaliers,102.0,116.0,6,17,L 8,18832,2:14,,L,Charlotte Hornets,CHO,2025-03-11
+24,2024-12-08,5:00p,Indiana Pacers,113.0,109.0,7,17,W 1,17274,2:22,,W,Charlotte Hornets,CHO,2025-03-11
+25,2024-12-13,8:00p,Chicago Bulls,95.0,109.0,7,18,L 1,19543,2:08,,L,Charlotte Hornets,CHO,2025-03-11
+26,2024-12-16,7:00p,Philadelphia 76ers,108.0,121.0,7,19,L 2,14677,2:22,,L,Charlotte Hornets,CHO,2025-03-11
+27,2024-12-19,7:00p,Washington Wizards,114.0,123.0,7,20,L 3,15256,2:24,,L,Charlotte Hornets,CHO,2025-03-11
+28,2024-12-20,7:00p,Philadelphia 76ers,98.0,108.0,7,21,L 4,20291,2:16,,L,Charlotte Hornets,CHO,2025-03-11
+29,2024-12-23,7:00p,Houston Rockets,101.0,114.0,7,22,L 5,19134,2:03,,L,Charlotte Hornets,CHO,2025-03-11
+30,2024-12-26,7:00p,Washington Wizards,110.0,113.0,7,23,L 6,17193,2:25,,L,Charlotte Hornets,CHO,2025-03-11
+31,2024-12-28,6:00p,Oklahoma City Thunder,94.0,106.0,7,24,L 7,19325,2:09,,L,Charlotte Hornets,CHO,2025-03-11
+32,2024-12-30,7:00p,Chicago Bulls,108.0,115.0,7,25,L 8,19197,2:24,,L,Charlotte Hornets,CHO,2025-03-11
+33,2025-01-03,7:00p,Detroit Pistons,94.0,98.0,7,26,L 9,18866,2:22,,L,Charlotte Hornets,CHO,2025-03-11
+34,2025-01-05,6:00p,Cleveland Cavaliers,105.0,115.0,7,27,L 10,19432,2:06,,L,Charlotte Hornets,CHO,2025-03-11
+35,2025-01-07,7:00p,Phoenix Suns,115.0,104.0,8,27,W 1,16647,2:16,,W,Charlotte Hornets,CHO,2025-03-11
+36,2025-01-12,9:00p,Phoenix Suns,113.0,120.0,8,28,L 1,17071,2:16,,L,Charlotte Hornets,CHO,2025-03-11
+37,2025-01-15,9:00p,Utah Jazz,117.0,112.0,9,28,W 1,18175,2:09,,W,Charlotte Hornets,CHO,2025-03-11
+38,2025-01-17,8:00p,Chicago Bulls,125.0,123.0,10,28,W 2,20598,2:11,,W,Charlotte Hornets,CHO,2025-03-11
+39,2025-01-20,12:00p,Dallas Mavericks,110.0,105.0,11,28,W 3,19314,2:21,,W,Charlotte Hornets,CHO,2025-03-11
+40,2025-01-22,8:00p,Memphis Grizzlies,120.0,132.0,11,29,L 1,15971,2:14,,L,Charlotte Hornets,CHO,2025-03-11
+G,,Start (ET),Opponent,,,W,L,Streak,Attend.,LOG,Notes,,Charlotte Hornets,CHO,2025-03-11
+41,2025-01-24,7:00p,Portland Trail Blazers,97.0,102.0,11,30,L 2,16228,2:20,,L,Charlotte Hornets,CHO,2025-03-11
+42,2025-01-25,7:00p,New Orleans Pelicans,123.0,92.0,12,30,W 1,18461,2:07,,W,Charlotte Hornets,CHO,2025-03-11
+43,2025-01-27,7:00p,Los Angeles Lakers,107.0,112.0,12,31,L 1,19483,2:16,,L,Charlotte Hornets,CHO,2025-03-11
+44,2025-01-29,7:00p,Brooklyn Nets,83.0,104.0,12,32,L 2,14307,2:09,,L,Charlotte Hornets,CHO,2025-03-11
+45,2025-01-31,7:00p,Los Angeles Clippers,104.0,112.0,12,33,L 3,15342,2:14,,L,Charlotte Hornets,CHO,2025-03-11
+46,2025-02-01,7:00p,Denver Nuggets,104.0,107.0,12,34,L 4,19106,2:10,,L,Charlotte Hornets,CHO,2025-03-11
+47,2025-02-03,7:00p,Washington Wizards,114.0,124.0,12,35,L 5,14129,2:13,,L,Charlotte Hornets,CHO,2025-03-11
+48,2025-02-05,7:00p,Milwaukee Bucks,102.0,112.0,12,36,L 6,14385,2:00,,L,Charlotte Hornets,CHO,2025-03-11
+49,2025-02-07,7:00p,San Antonio Spurs,117.0,116.0,13,36,W 1,19290,2:20,,W,Charlotte Hornets,CHO,2025-03-11
+50,2025-02-09,1:00p,Detroit Pistons,102.0,112.0,13,37,L 1,18740,2:15,,L,Charlotte Hornets,CHO,2025-03-11
+51,2025-02-10,7:30p,Brooklyn Nets,89.0,97.0,13,38,L 2,16013,2:14,,L,Charlotte Hornets,CHO,2025-03-11
+52,2025-02-12,7:00p,Orlando Magic,86.0,102.0,13,39,L 3,18947,2:04,,L,Charlotte Hornets,CHO,2025-03-11
+53,2025-02-19,10:00p,Los Angeles Lakers,100.0,97.0,14,39,W 1,18997,2:15,,W,Charlotte Hornets,CHO,2025-03-11
+54,2025-02-20,9:00p,Denver Nuggets,115.0,129.0,14,40,L 1,19870,1:58,,L,Charlotte Hornets,CHO,2025-03-11
+55,2025-02-22,10:00p,Portland Trail Blazers,88.0,141.0,14,41,L 2,18501,2:04,,L,Charlotte Hornets,CHO,2025-03-11
+56,2025-02-24,10:00p,Sacramento Kings,88.0,130.0,14,42,L 3,17832,2:13,,L,Charlotte Hornets,CHO,2025-03-11
+57,2025-02-25,10:00p,Golden State Warriors,92.0,128.0,14,43,L 4,18064,2:05,,L,Charlotte Hornets,CHO,2025-03-11
+58,2025-02-27,8:30p,Dallas Mavericks,96.0,103.0,14,44,L 5,20009,2:08,,L,Charlotte Hornets,CHO,2025-03-11
+59,2025-03-01,6:00p,Washington Wizards,100.0,113.0,14,45,L 6,17904,1:59,,L,Charlotte Hornets,CHO,2025-03-11
+60,2025-03-03,7:00p,Golden State Warriors,101.0,119.0,14,46,L 7,19223,2:24,,L,Charlotte Hornets,CHO,2025-03-11
+G,,Start (ET),Opponent,,,W,L,Streak,Attend.,LOG,Notes,,Charlotte Hornets,CHO,2025-03-11
+61,2025-03-05,7:00p,Minnesota Timberwolves,110.0,125.0,14,47,L 8,17578,2:10,,L,Charlotte Hornets,CHO,2025-03-11
+62,2025-03-07,7:00p,Cleveland Cavaliers,117.0,118.0,14,48,L 9,19296,2:34,,L,Charlotte Hornets,CHO,2025-03-11
+63,2025-03-08,6:00p,Brooklyn Nets,105.0,102.0,15,48,W 1,18652,2:11,,W,Charlotte Hornets,CHO,2025-03-11
+64,2025-03-10,7:30p,Miami Heat,105.0,102.0,16,48,W 2,19600,2:15,,W,Charlotte Hornets,CHO,2025-03-11
+65,2025-03-12,7:30p,Atlanta Hawks,,,,,,,,,,Charlotte Hornets,CHO,2025-03-11
+66,2025-03-14,8:00p,San Antonio Spurs,,,,,,,,,,Charlotte Hornets,CHO,2025-03-11
+67,2025-03-16,7:00p,Los Angeles Clippers,,,,,,,,,,Charlotte Hornets,CHO,2025-03-11
+68,2025-03-18,7:00p,Atlanta Hawks,,,,,,,,,,Charlotte Hornets,CHO,2025-03-11
+69,2025-03-20,7:00p,New York Knicks,,,,,,,,,,Charlotte Hornets,CHO,2025-03-11
+70,2025-03-21,8:00p,Oklahoma City Thunder,,,,,,,,,,Charlotte Hornets,CHO,2025-03-11
+71,2025-03-23,6:00p,Miami Heat,,,,,,,,,,Charlotte Hornets,CHO,2025-03-11
+72,2025-03-25,7:00p,Orlando Magic,,,,,,,,,,Charlotte Hornets,CHO,2025-03-11
+73,2025-03-28,7:30p,Toronto Raptors,,,,,,,,,,Charlotte Hornets,CHO,2025-03-11
+74,2025-03-30,7:00p,New Orleans Pelicans,,,,,,,,,,Charlotte Hornets,CHO,2025-03-11
+75,2025-03-31,7:00p,Utah Jazz,,,,,,,,,,Charlotte Hornets,CHO,2025-03-11
+76,2025-04-02,7:00p,Indiana Pacers,,,,,,,,,,Charlotte Hornets,CHO,2025-03-11
+77,2025-04-04,7:00p,Sacramento Kings,,,,,,,,,,Charlotte Hornets,CHO,2025-03-11
+78,2025-04-06,1:00p,Chicago Bulls,,,,,,,,,,Charlotte Hornets,CHO,2025-03-11
+79,2025-04-08,7:00p,Memphis Grizzlies,,,,,,,,,,Charlotte Hornets,CHO,2025-03-11
+80,2025-04-09,7:30p,Toronto Raptors,,,,,,,,,,Charlotte Hornets,CHO,2025-03-11
+G,,Start (ET),Opponent,,,W,L,Streak,Attend.,LOG,Notes,,Charlotte Hornets,CHO,2025-03-11
+81,2025-04-11,7:30p,Boston Celtics,,,,,,,,,,Charlotte Hornets,CHO,2025-03-11
+82,2025-04-13,1:00p,Boston Celtics,,,,,,,,,,Charlotte Hornets,CHO,2025-03-11

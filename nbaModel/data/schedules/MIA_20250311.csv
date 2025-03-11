@@ -1,0 +1,87 @@
+G,Date,Start (ET),Opponent,Tm,Opp,W,L,Streak,Attend.,LOG,Notes,Result,Team,TeamAbbr,Scraped_Date
+1,2024-10-23,7:30p,Orlando Magic,97.0,116.0,0,1,L 1,19630,2:31,,L,Miami Heat,MIA,2025-03-11
+2,2024-10-26,7:00p,Charlotte Hornets,114.0,106.0,1,1,W 1,19102,2:23,,W,Miami Heat,MIA,2025-03-11
+3,2024-10-28,7:30p,Detroit Pistons,106.0,98.0,2,1,W 2,19626,2:18,,W,Miami Heat,MIA,2025-03-11
+4,2024-10-30,7:30p,New York Knicks,107.0,116.0,2,2,L 1,19620,2:10,,L,Miami Heat,MIA,2025-03-11
+5,2024-11-02,9:30p,Washington Wizards,118.0,98.0,3,2,W 1,20328,2:16,,W,Miami Heat,MIA,2025-03-11
+6,2024-11-04,8:15p,Sacramento Kings,110.0,111.0,3,3,L 1,19604,2:20,,L,Miami Heat,MIA,2025-03-11
+7,2024-11-06,9:00p,Phoenix Suns,112.0,115.0,3,4,L 2,17071,2:20,,L,Miami Heat,MIA,2025-03-11
+8,2024-11-08,9:00p,Denver Nuggets,122.0,135.0,3,5,L 3,19621,2:11,,L,Miami Heat,MIA,2025-03-11
+9,2024-11-10,7:00p,Minnesota Timberwolves,95.0,94.0,4,5,W 1,18978,2:28,,W,Miami Heat,MIA,2025-03-11
+10,2024-11-12,7:00p,Detroit Pistons,121.0,123.0,4,6,L 1,17806,2:36,In-Season Tournament,L,Miami Heat,MIA,2025-03-11
+11,2024-11-15,7:00p,Indiana Pacers,124.0,111.0,5,6,W 1,17274,2:10,In-Season Tournament,W,Miami Heat,MIA,2025-03-11
+12,2024-11-17,5:00p,Indiana Pacers,110.0,119.0,5,7,L 1,16184,2:15,,L,Miami Heat,MIA,2025-03-11
+13,2024-11-18,7:30p,Philadelphia 76ers,106.0,89.0,6,7,W 1,19608,2:10,,W,Miami Heat,MIA,2025-03-11
+14,2024-11-24,6:00p,Dallas Mavericks,123.0,118.0,7,7,W 2,19714,2:30,,W,Miami Heat,MIA,2025-03-11
+15,2024-11-26,7:30p,Milwaukee Bucks,103.0,106.0,7,8,L 1,19622,2:21,In-Season Tournament,L,Miami Heat,MIA,2025-03-11
+16,2024-11-27,7:00p,Charlotte Hornets,98.0,94.0,8,8,W 1,17710,2:14,,W,Miami Heat,MIA,2025-03-11
+17,2024-11-29,8:00p,Toronto Raptors,121.0,111.0,9,8,W 2,19607,2:13,In-Season Tournament,W,Miami Heat,MIA,2025-03-11
+18,2024-12-01,6:00p,Toronto Raptors,116.0,119.0,9,9,L 1,18153,2:16,,L,Miami Heat,MIA,2025-03-11
+19,2024-12-02,7:30p,Boston Celtics,89.0,108.0,9,10,L 2,19156,2:02,,L,Miami Heat,MIA,2025-03-11
+20,2024-12-04,7:30p,Los Angeles Lakers,134.0,93.0,10,10,W 1,19657,1:59,,W,Miami Heat,MIA,2025-03-11
+G,,Start (ET),Opponent,,,W,L,Streak,Attend.,LOG,Notes,,Miami Heat,MIA,2025-03-11
+21,2024-12-07,8:00p,Phoenix Suns,121.0,111.0,11,10,W 2,19600,2:13,,W,Miami Heat,MIA,2025-03-11
+22,2024-12-08,6:00p,Cleveland Cavaliers,122.0,113.0,12,10,W 3,19600,,,W,Miami Heat,MIA,2025-03-11
+23,2024-12-12,7:30p,Toronto Raptors,114.0,104.0,13,10,W 4,19600,2:14,,W,Miami Heat,MIA,2025-03-11
+24,2024-12-16,7:00p,Detroit Pistons,124.0,125.0,13,11,L 1,17810,2:35,,L,Miami Heat,MIA,2025-03-11
+25,2024-12-20,8:00p,Oklahoma City Thunder,97.0,104.0,13,12,L 2,19801,2:17,,L,Miami Heat,MIA,2025-03-11
+26,2024-12-21,7:00p,Orlando Magic,114.0,121.0,13,13,L 3,18080,2:32,,L,Miami Heat,MIA,2025-03-11
+27,2024-12-23,7:30p,Brooklyn Nets,110.0,95.0,14,13,W 1,19832,2:10,,W,Miami Heat,MIA,2025-03-11
+28,2024-12-26,7:00p,Orlando Magic,89.0,88.0,15,13,W 2,18846,2:11,,W,Miami Heat,MIA,2025-03-11
+29,2024-12-28,3:00p,Atlanta Hawks,110.0,120.0,15,14,L 1,17856,2:09,,L,Miami Heat,MIA,2025-03-11
+30,2024-12-29,7:00p,Houston Rockets,104.0,100.0,16,14,W 1,18055,2:19,,W,Miami Heat,MIA,2025-03-11
+31,2025-01-01,7:30p,New Orleans Pelicans,119.0,108.0,17,14,W 2,20013,2:10,,W,Miami Heat,MIA,2025-03-11
+32,2025-01-02,7:30p,Indiana Pacers,115.0,128.0,17,15,L 1,19959,2:05,,L,Miami Heat,MIA,2025-03-11
+33,2025-01-04,8:00p,Utah Jazz,100.0,136.0,17,16,L 2,19934,2:07,,L,Miami Heat,MIA,2025-03-11
+34,2025-01-06,10:00p,Sacramento Kings,118.0,123.0,17,17,L 3,17832,2:43,,L,Miami Heat,MIA,2025-03-11
+35,2025-01-07,10:00p,Golden State Warriors,114.0,98.0,18,17,W 1,18064,2:01,,W,Miami Heat,MIA,2025-03-11
+36,2025-01-09,9:00p,Utah Jazz,97.0,92.0,19,17,W 2,18175,2:11,,W,Miami Heat,MIA,2025-03-11
+37,2025-01-11,10:00p,Portland Trail Blazers,119.0,98.0,20,17,W 3,17505,2:08,,W,Miami Heat,MIA,2025-03-11
+38,2025-01-13,10:30p,Los Angeles Clippers,98.0,109.0,20,18,L 1,13119,2:02,,L,Miami Heat,MIA,2025-03-11
+39,2025-01-15,10:00p,Los Angeles Lakers,108.0,117.0,20,19,L 2,17005,2:03,,L,Miami Heat,MIA,2025-03-11
+40,2025-01-17,8:00p,Denver Nuggets,113.0,133.0,20,20,L 3,19828,2:01,,L,Miami Heat,MIA,2025-03-11
+G,,Start (ET),Opponent,,,W,L,Streak,Attend.,LOG,Notes,,Miami Heat,MIA,2025-03-11
+41,2025-01-19,3:00p,San Antonio Spurs,128.0,107.0,21,20,W 1,19828,2:00,,W,Miami Heat,MIA,2025-03-11
+42,2025-01-21,7:30p,Portland Trail Blazers,107.0,116.0,21,21,L 1,19600,2:08,,L,Miami Heat,MIA,2025-03-11
+43,2025-01-23,8:30p,Milwaukee Bucks,96.0,125.0,21,22,L 2,17341,2:16,,L,Miami Heat,MIA,2025-03-11
+44,2025-01-25,6:00p,Brooklyn Nets,106.0,97.0,22,22,W 1,17962,2:49,,W,Miami Heat,MIA,2025-03-11
+45,2025-01-27,7:30p,Orlando Magic,125.0,119.0,23,22,W 2,19600,2:41,,W,Miami Heat,MIA,2025-03-11
+46,2025-01-29,7:30p,Cleveland Cavaliers,106.0,126.0,23,23,L 1,19600,2:00,,L,Miami Heat,MIA,2025-03-11
+47,2025-02-01,8:30p,San Antonio Spurs,105.0,103.0,24,23,W 1,18354,2:09,,W,Miami Heat,MIA,2025-03-11
+48,2025-02-04,8:00p,Chicago Bulls,124.0,133.0,24,24,L 1,19389,2:11,,L,Miami Heat,MIA,2025-03-11
+49,2025-02-05,7:30p,Philadelphia 76ers,108.0,101.0,25,24,W 1,19770,2:18,,W,Miami Heat,MIA,2025-03-11
+50,2025-02-07,7:30p,Brooklyn Nets,86.0,102.0,25,25,L 1,17926,2:11,,L,Miami Heat,MIA,2025-03-11
+51,2025-02-10,7:30p,Boston Celtics,85.0,103.0,25,26,L 2,19961,1:53,,L,Miami Heat,MIA,2025-03-11
+52,2025-02-12,8:00p,Oklahoma City Thunder,101.0,115.0,25,27,L 3,17835,2:10,,L,Miami Heat,MIA,2025-03-11
+53,2025-02-13,8:30p,Dallas Mavericks,113.0,118.0,25,28,L 4,19935,2:11,,L,Miami Heat,MIA,2025-03-11
+54,2025-02-21,7:30p,Toronto Raptors,120.0,111.0,26,28,W 1,19584,2:19,,W,Miami Heat,MIA,2025-03-11
+55,2025-02-23,6:00p,Milwaukee Bucks,113.0,120.0,26,29,L 1,17442,2:18,,L,Miami Heat,MIA,2025-03-11
+56,2025-02-24,7:30p,Atlanta Hawks,86.0,98.0,26,30,L 2,16189,2:14,,L,Miami Heat,MIA,2025-03-11
+57,2025-02-26,7:30p,Atlanta Hawks,131.0,109.0,27,30,W 1,19600,2:02,,W,Miami Heat,MIA,2025-03-11
+58,2025-02-28,8:00p,Indiana Pacers,125.0,120.0,28,30,W 2,19850,2:07,,W,Miami Heat,MIA,2025-03-11
+59,2025-03-02,6:00p,New York Knicks,112.0,116.0,28,31,L 1,19725,2:32,,L,Miami Heat,MIA,2025-03-11
+60,2025-03-03,7:30p,Washington Wizards,106.0,90.0,29,31,W 1,19600,2:09,,W,Miami Heat,MIA,2025-03-11
+G,,Start (ET),Opponent,,,W,L,Streak,Attend.,LOG,Notes,,Miami Heat,MIA,2025-03-11
+61,2025-03-05,7:00p,Cleveland Cavaliers,107.0,112.0,29,32,L 1,19432,2:19,,L,Miami Heat,MIA,2025-03-11
+62,2025-03-07,8:00p,Minnesota Timberwolves,104.0,106.0,29,33,L 2,19700,2:11,,L,Miami Heat,MIA,2025-03-11
+63,2025-03-08,8:00p,Chicago Bulls,109.0,114.0,29,34,L 3,19700,2:13,,L,Miami Heat,MIA,2025-03-11
+64,2025-03-10,7:30p,Charlotte Hornets,102.0,105.0,29,35,L 4,19600,2:15,,L,Miami Heat,MIA,2025-03-11
+65,2025-03-12,8:00p,Los Angeles Clippers,,,,,,,,,,Miami Heat,MIA,2025-03-11
+66,2025-03-14,7:00p,Boston Celtics,,,,,,,,,,Miami Heat,MIA,2025-03-11
+67,2025-03-15,8:00p,Memphis Grizzlies,,,,,,,,,,Miami Heat,MIA,2025-03-11
+68,2025-03-17,7:30p,New York Knicks,,,,,,,,,,Miami Heat,MIA,2025-03-11
+69,2025-03-19,7:30p,Detroit Pistons,,,,,,,,,,Miami Heat,MIA,2025-03-11
+70,2025-03-21,8:00p,Houston Rockets,,,,,,,,,,Miami Heat,MIA,2025-03-11
+71,2025-03-23,6:00p,Charlotte Hornets,,,,,,,,,,Miami Heat,MIA,2025-03-11
+72,2025-03-25,7:30p,Golden State Warriors,,,,,,,,,,Miami Heat,MIA,2025-03-11
+73,2025-03-27,7:30p,Atlanta Hawks,,,,,,,,,,Miami Heat,MIA,2025-03-11
+74,2025-03-29,7:30p,Philadelphia 76ers,,,,,,,,,,Miami Heat,MIA,2025-03-11
+75,2025-03-31,7:00p,Washington Wizards,,,,,,,,,,Miami Heat,MIA,2025-03-11
+76,2025-04-02,7:30p,Boston Celtics,,,,,,,,,,Miami Heat,MIA,2025-03-11
+77,2025-04-03,7:30p,Memphis Grizzlies,,,,,,,,,,Miami Heat,MIA,2025-03-11
+78,2025-04-05,8:00p,Milwaukee Bucks,,,,,,,,,,Miami Heat,MIA,2025-03-11
+79,2025-04-07,7:30p,Philadelphia 76ers,,,,,,,,,,Miami Heat,MIA,2025-03-11
+80,2025-04-09,8:00p,Chicago Bulls,,,,,,,,,,Miami Heat,MIA,2025-03-11
+G,,Start (ET),Opponent,,,W,L,Streak,Attend.,LOG,Notes,,Miami Heat,MIA,2025-03-11
+81,2025-04-11,8:00p,New Orleans Pelicans,,,,,,,,,,Miami Heat,MIA,2025-03-11
+82,2025-04-13,1:00p,Washington Wizards,,,,,,,,,,Miami Heat,MIA,2025-03-11

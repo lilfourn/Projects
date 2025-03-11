@@ -1,0 +1,87 @@
+G,Date,Start (ET),Opponent,Tm,Opp,W,L,Streak,Attend.,LOG,Notes,Result,Team,TeamAbbr,Scraped_Date
+1,2024-10-23,8:00p,Chicago Bulls,123.0,111.0,1,0,W 1,18581,2:11,,W,New Orleans Pelicans,NOP,2025-03-11
+2,2024-10-25,10:00p,Portland Trail Blazers,105.0,103.0,2,0,W 2,16190,2:23,,W,New Orleans Pelicans,NOP,2025-03-11
+3,2024-10-27,6:00p,Portland Trail Blazers,103.0,125.0,2,1,L 1,16138,2:09,,L,New Orleans Pelicans,NOP,2025-03-11
+4,2024-10-29,10:00p,Golden State Warriors,106.0,124.0,2,2,L 2,18064,2:20,,L,New Orleans Pelicans,NOP,2025-03-11
+5,2024-10-30,10:00p,Golden State Warriors,89.0,104.0,2,3,L 3,18064,2:19,,L,New Orleans Pelicans,NOP,2025-03-11
+6,2024-11-01,8:00p,Indiana Pacers,125.0,118.0,3,3,W 1,15133,2:10,,W,New Orleans Pelicans,NOP,2025-03-11
+7,2024-11-03,7:00p,Atlanta Hawks,111.0,126.0,3,4,L 1,15505,2:07,,L,New Orleans Pelicans,NOP,2025-03-11
+8,2024-11-04,9:30p,Portland Trail Blazers,100.0,118.0,3,5,L 2,14932,2:07,,L,New Orleans Pelicans,NOP,2025-03-11
+9,2024-11-06,8:00p,Cleveland Cavaliers,122.0,131.0,3,6,L 3,15694,2:11,,L,New Orleans Pelicans,NOP,2025-03-11
+10,2024-11-08,7:00p,Orlando Magic,88.0,115.0,3,7,L 4,18565,2:07,,L,New Orleans Pelicans,NOP,2025-03-11
+11,2024-11-11,8:00p,Brooklyn Nets,105.0,107.0,3,8,L 5,16895,2:18,,L,New Orleans Pelicans,NOP,2025-03-11
+12,2024-11-13,7:30p,Oklahoma City Thunder,88.0,106.0,3,9,L 6,17180,2:12,,L,New Orleans Pelicans,NOP,2025-03-11
+13,2024-11-15,8:00p,Denver Nuggets,101.0,94.0,4,9,W 1,16137,2:04,In-Season Tournament,W,New Orleans Pelicans,NOP,2025-03-11
+14,2024-11-16,8:00p,Los Angeles Lakers,99.0,104.0,4,10,L 1,18761,2:12,,L,New Orleans Pelicans,NOP,2025-03-11
+15,2024-11-19,8:30p,Dallas Mavericks,91.0,132.0,4,11,L 2,20077,2:08,In-Season Tournament,L,New Orleans Pelicans,NOP,2025-03-11
+16,2024-11-20,7:30p,Cleveland Cavaliers,100.0,128.0,4,12,L 3,19432,1:59,,L,New Orleans Pelicans,NOP,2025-03-11
+17,2024-11-22,7:30p,Golden State Warriors,108.0,112.0,4,13,L 4,16820,2:28,In-Season Tournament,L,New Orleans Pelicans,NOP,2025-03-11
+18,2024-11-25,7:00p,Indiana Pacers,110.0,114.0,4,14,L 5,16059,2:10,,L,New Orleans Pelicans,NOP,2025-03-11
+19,2024-11-27,8:00p,Toronto Raptors,93.0,119.0,4,15,L 6,17307,2:00,,L,New Orleans Pelicans,NOP,2025-03-11
+20,2024-11-29,5:00p,Memphis Grizzlies,109.0,120.0,4,16,L 7,17014,2:09,In-Season Tournament,L,New Orleans Pelicans,NOP,2025-03-11
+G,,Start (ET),Opponent,,,W,L,Streak,Attend.,LOG,Notes,,New Orleans Pelicans,NOP,2025-03-11
+21,2024-12-01,6:00p,New York Knicks,85.0,118.0,4,17,L 8,19812,2:03,,L,New Orleans Pelicans,NOP,2025-03-11
+22,2024-12-02,7:30p,Atlanta Hawks,112.0,124.0,4,18,L 9,15034,2:12,,L,New Orleans Pelicans,NOP,2025-03-11
+23,2024-12-05,8:00p,Phoenix Suns,126.0,124.0,5,18,W 1,16365,2:21,,W,New Orleans Pelicans,NOP,2025-03-11
+24,2024-12-07,7:00p,Oklahoma City Thunder,109.0,119.0,5,19,L 1,15718,2:17,,L,New Orleans Pelicans,NOP,2025-03-11
+25,2024-12-08,7:00p,San Antonio Spurs,116.0,121.0,5,20,L 2,16840,2:20,,L,New Orleans Pelicans,NOP,2025-03-11
+26,2024-12-12,8:00p,Sacramento Kings,109.0,111.0,5,21,L 3,15488,2:12,,L,New Orleans Pelicans,NOP,2025-03-11
+27,2024-12-15,5:00p,Indiana Pacers,104.0,119.0,5,22,L 4,16792,2:08,,L,New Orleans Pelicans,NOP,2025-03-11
+28,2024-12-19,8:00p,Houston Rockets,113.0,133.0,5,23,L 5,18055,2:13,,L,New Orleans Pelicans,NOP,2025-03-11
+29,2024-12-21,8:00p,New York Knicks,93.0,104.0,5,24,L 6,16696,2:07,,L,New Orleans Pelicans,NOP,2025-03-11
+30,2024-12-22,7:00p,Denver Nuggets,129.0,132.0,5,25,L 7,17474,2:39,,L,New Orleans Pelicans,NOP,2025-03-11
+31,2024-12-26,8:00p,Houston Rockets,111.0,128.0,5,26,L 8,16052,2:03,,L,New Orleans Pelicans,NOP,2025-03-11
+32,2024-12-27,8:00p,Memphis Grizzlies,124.0,132.0,5,27,L 9,17328,2:24,,L,New Orleans Pelicans,NOP,2025-03-11
+33,2024-12-30,8:00p,Los Angeles Clippers,113.0,116.0,5,28,L 10,17303,2:27,,L,New Orleans Pelicans,NOP,2025-03-11
+34,2025-01-01,7:30p,Miami Heat,108.0,119.0,5,29,L 11,20013,2:10,,L,New Orleans Pelicans,NOP,2025-03-11
+35,2025-01-03,8:00p,Washington Wizards,132.0,120.0,6,29,W 1,17307,2:17,,W,New Orleans Pelicans,NOP,2025-03-11
+36,2025-01-05,6:00p,Washington Wizards,110.0,98.0,7,29,W 2,15451,2:08,,W,New Orleans Pelicans,NOP,2025-03-11
+37,2025-01-07,8:00p,Minnesota Timberwolves,97.0,104.0,7,30,L 1,16282,2:18,,L,New Orleans Pelicans,NOP,2025-03-11
+38,2025-01-08,8:00p,Portland Trail Blazers,100.0,119.0,7,31,L 2,16425,1:58,,L,New Orleans Pelicans,NOP,2025-03-11
+39,2025-01-10,7:00p,Philadelphia 76ers,123.0,115.0,8,31,W 1,19779,2:12,,W,New Orleans Pelicans,NOP,2025-03-11
+40,2025-01-12,6:00p,Boston Celtics,119.0,120.0,8,32,L 1,19156,2:15,,L,New Orleans Pelicans,NOP,2025-03-11
+G,,Start (ET),Opponent,,,W,L,Streak,Attend.,LOG,Notes,,New Orleans Pelicans,NOP,2025-03-11
+41,2025-01-14,8:00p,Chicago Bulls,119.0,113.0,9,32,W 1,17210,2:11,,W,New Orleans Pelicans,NOP,2025-03-11
+42,2025-01-15,8:00p,Dallas Mavericks,119.0,116.0,10,32,W 2,16488,2:13,,W,New Orleans Pelicans,NOP,2025-03-11
+43,2025-01-17,8:00p,Utah Jazz,136.0,123.0,11,32,W 3,18321,2:23,,W,New Orleans Pelicans,NOP,2025-03-11
+44,2025-01-20,8:00p,Utah Jazz,123.0,119.0,12,32,W 4,14830,2:30,,W,New Orleans Pelicans,NOP,2025-03-11
+45,2025-01-24,8:00p,Memphis Grizzlies,126.0,139.0,12,33,L 1,16495,2:06,,L,New Orleans Pelicans,NOP,2025-03-11
+46,2025-01-25,7:00p,Charlotte Hornets,92.0,123.0,12,34,L 2,18461,2:07,,L,New Orleans Pelicans,NOP,2025-03-11
+47,2025-01-27,7:30p,Toronto Raptors,104.0,113.0,12,35,L 3,18054,2:17,,L,New Orleans Pelicans,NOP,2025-03-11
+48,2025-01-29,8:00p,Dallas Mavericks,136.0,137.0,12,36,L 4,15656,2:14,,L,New Orleans Pelicans,NOP,2025-03-11
+49,2025-01-31,8:00p,Boston Celtics,116.0,118.0,12,37,L 5,16432,2:16,,L,New Orleans Pelicans,NOP,2025-03-11
+50,2025-02-03,9:00p,Denver Nuggets,113.0,125.0,12,38,L 6,19587,2:09,,L,New Orleans Pelicans,NOP,2025-03-11
+51,2025-02-05,9:00p,Denver Nuggets,119.0,144.0,12,39,L 7,19526,2:06,,L,New Orleans Pelicans,NOP,2025-03-11
+52,2025-02-08,10:00p,Sacramento Kings,118.0,123.0,12,40,L 8,17832,2:25,,L,New Orleans Pelicans,NOP,2025-03-11
+53,2025-02-10,8:00p,Oklahoma City Thunder,101.0,137.0,12,41,L 9,17340,2:09,,L,New Orleans Pelicans,NOP,2025-03-11
+54,2025-02-12,8:00p,Sacramento Kings,111.0,119.0,12,42,L 10,17444,2:14,,L,New Orleans Pelicans,NOP,2025-03-11
+55,2025-02-13,8:00p,Sacramento Kings,140.0,133.0,13,42,W 1,16686,2:39,,W,New Orleans Pelicans,NOP,2025-03-11
+56,2025-02-21,8:30p,Dallas Mavericks,103.0,111.0,13,43,L 1,20125,2:15,,L,New Orleans Pelicans,NOP,2025-03-11
+57,2025-02-23,7:00p,San Antonio Spurs,114.0,96.0,14,43,W 1,17399,2:16,,W,New Orleans Pelicans,NOP,2025-03-11
+58,2025-02-25,8:00p,San Antonio Spurs,109.0,103.0,15,43,W 2,16767,2:20,,W,New Orleans Pelicans,NOP,2025-03-11
+59,2025-02-27,9:00p,Phoenix Suns,124.0,116.0,16,43,W 3,17071,1:58,,W,New Orleans Pelicans,NOP,2025-03-11
+60,2025-02-28,9:00p,Phoenix Suns,108.0,125.0,16,44,L 1,17071,2:03,,L,New Orleans Pelicans,NOP,2025-03-11
+G,,Start (ET),Opponent,,,W,L,Streak,Attend.,LOG,Notes,,New Orleans Pelicans,NOP,2025-03-11
+61,2025-03-02,8:00p,Utah Jazz,128.0,121.0,17,44,W 1,18175,2:10,,W,New Orleans Pelicans,NOP,2025-03-11
+62,2025-03-04,10:30p,Los Angeles Lakers,115.0,136.0,17,45,L 1,18997,2:10,,L,New Orleans Pelicans,NOP,2025-03-11
+63,2025-03-06,8:00p,Houston Rockets,97.0,109.0,17,46,L 2,17636,2:21,,L,New Orleans Pelicans,NOP,2025-03-11
+64,2025-03-08,7:00p,Houston Rockets,117.0,146.0,17,47,L 3,18055,2:06,,L,New Orleans Pelicans,NOP,2025-03-11
+65,2025-03-09,7:00p,Memphis Grizzlies,104.0,107.0,17,48,L 4,17435,2:20,,L,New Orleans Pelicans,NOP,2025-03-11
+66,2025-03-11,8:00p,Los Angeles Clippers,,,,,,,,,,New Orleans Pelicans,NOP,2025-03-11
+67,2025-03-13,8:00p,Orlando Magic,,,,,,,,,,New Orleans Pelicans,NOP,2025-03-11
+68,2025-03-15,8:30p,San Antonio Spurs,,,,,,,,,,New Orleans Pelicans,NOP,2025-03-11
+69,2025-03-17,8:00p,Detroit Pistons,,,,,,,,,,New Orleans Pelicans,NOP,2025-03-11
+70,2025-03-19,7:30p,Minnesota Timberwolves,,,,,,,,,,New Orleans Pelicans,NOP,2025-03-11
+71,2025-03-21,8:00p,Minnesota Timberwolves,,,,,,,,,,New Orleans Pelicans,NOP,2025-03-11
+72,2025-03-23,3:00p,Detroit Pistons,,,,,,,,,,New Orleans Pelicans,NOP,2025-03-11
+73,2025-03-24,8:00p,Philadelphia 76ers,,,,,,,,,,New Orleans Pelicans,NOP,2025-03-11
+74,2025-03-28,8:00p,Golden State Warriors,,,,,,,,,,New Orleans Pelicans,NOP,2025-03-11
+75,2025-03-30,7:00p,Charlotte Hornets,,,,,,,,,,New Orleans Pelicans,NOP,2025-03-11
+76,2025-04-02,10:00p,Los Angeles Clippers,,,,,,,,,,New Orleans Pelicans,NOP,2025-03-11
+77,2025-04-04,10:30p,Los Angeles Lakers,,,,,,,,,,New Orleans Pelicans,NOP,2025-03-11
+78,2025-04-06,8:30p,Milwaukee Bucks,,,,,,,,,,New Orleans Pelicans,NOP,2025-03-11
+79,2025-04-08,7:30p,Brooklyn Nets,,,,,,,,,,New Orleans Pelicans,NOP,2025-03-11
+80,2025-04-10,8:00p,Milwaukee Bucks,,,,,,,,,,New Orleans Pelicans,NOP,2025-03-11
+G,,Start (ET),Opponent,,,W,L,Streak,Attend.,LOG,Notes,,New Orleans Pelicans,NOP,2025-03-11
+81,2025-04-11,8:00p,Miami Heat,,,,,,,,,,New Orleans Pelicans,NOP,2025-03-11
+82,2025-04-13,3:30p,Oklahoma City Thunder,,,,,,,,,,New Orleans Pelicans,NOP,2025-03-11
