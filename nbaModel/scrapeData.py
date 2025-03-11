@@ -8,6 +8,8 @@ import logging      # For better error tracking
 from datetime import datetime  # For date handling
 import glob         # For finding files with patterns
 import argparse     # For command-line argument parsing
+import sys
+import traceback
 
 # Configure logging
 logging.basicConfig(
@@ -102,60 +104,57 @@ def throttled_request(url, max_retries=5, base_delay=3):
     logging.error(f"Max retries exceeded. Could not retrieve data from {url}")
     return None
 
-def scrape_nba_standings():
+def scrape_standings(start_season=2023, end_season=2024):
     """
     Scrape NBA standings data from Basketball Reference website.
     
+    Args:
+        start_season (int): Starting season year (default: 2023)
+        end_season (int): Ending season year (default: 2024)
+        
     Returns:
         dict: Dictionary with dataframes for different standings tables
     """
-    # NBA standings URL
-    url = "https://www.basketball-reference.com/leagues/NBA_2025_ratings.html"
-    
-    # Make the throttled request
-    response = throttled_request(url)
-    if not response:
-        return None
-    
-    # Parse HTML content
-    soup = BeautifulSoup(response.content, 'html.parser')
-
-    # Dictionary to store the standings data
     standings_data = {}
-
-    try:
-        # Get Team Ratings
-        team_ratings_table = soup.find("table", {'id': 'ratings'})
-        if team_ratings_table:
-            # Use StringIO to avoid FutureWarning
-            from io import StringIO
-            ratings_html = StringIO(str(team_ratings_table))
-            ratings_df = pd.read_html(ratings_html)[0]
-            
-            # Handle multi-level columns if present
-            if isinstance(ratings_df.columns, pd.MultiIndex):
-                ratings_df.columns = ratings_df.columns.droplevel(0)
-            ratings_df = clean_standings_data(ratings_df)
-            
-            # Add timestamp for when this data was collected
-            ratings_df['Scraped_Date'] = datetime.now().strftime('%Y-%m-%d')
-            
-            standings_data['team_ratings'] = ratings_df
-            logging.info("Successfully scraped Team Ratings")
-        
-        # Check if any tables were found
-        if not standings_data:
-            logging.warning("No ratings table found. The website structure might have changed.")
-            # List available tables for debugging
-            all_tables = soup.find_all('table')
-            logging.info(f"Found {len(all_tables)} tables on the page.")
-            for i, table in enumerate(all_tables):
-                table_id = table.get('id', 'No ID')
-                logging.info(f"Table {i+1}: ID = {table_id}")
     
-    except Exception as e:
-        logging.error(f"Error while scraping data: {str(e)}")
-        return None
+    for season in range(start_season, end_season + 1):
+        logging.info(f"Scraping standings data for {season}-{season+1} season...")
+        
+        # NBA standings URL
+        url = f"https://www.basketball-reference.com/leagues/NBA_{season}_standings.html"
+        
+        # Make the throttled request
+        response = throttled_request(url)
+        if not response:
+            logging.warning(f"Failed to retrieve standings data for {season} season.")
+            continue
+        
+        # Parse HTML content
+        soup = BeautifulSoup(response.content, 'html.parser')
+
+        try:
+            # Get Team Ratings
+            team_ratings_table = soup.find("table", {'id': 'standings'})
+            if team_ratings_table:
+                # Use StringIO to avoid FutureWarning
+                from io import StringIO
+                ratings_html = StringIO(str(team_ratings_table))
+                ratings_df = pd.read_html(ratings_html)[0]
+                
+                # Handle multi-level columns if present
+                if isinstance(ratings_df.columns, pd.MultiIndex):
+                    ratings_df.columns = ratings_df.columns.droplevel(0)
+                ratings_df = clean_standings_data(ratings_df)
+                
+                # Add timestamp for when this data was collected
+                ratings_df['Scraped_Date'] = datetime.now().strftime('%Y-%m-%d')
+                
+                standings_data[f"{season}-{season+1}"] = ratings_df
+                logging.info(f"Successfully scraped standings for {season}-{season+1} season.")
+        
+        except Exception as e:
+            logging.error(f"Error while scraping standings data for {season} season: {str(e)}")
+            continue
     
     return standings_data
     
@@ -334,7 +333,7 @@ def scrape_team_schedules(team_abbrs=None):
                     logging.info(f"Extracting game location data for {team_name}")
                     # Extract game locations
                     game_locations = []
-                    rows = games_table.find('tbody').find_all('tr')
+                    rows = games_table.find_all('tr')
                     for row in rows:
                         # Skip header rows
                         if 'class' in row.attrs and any(c in ' '.join(row.attrs['class']) for c in ['thead', 'divider']):
@@ -567,6 +566,26 @@ def scrape_player_averages(start_season=2015, end_season=2025):
                 stats_html = StringIO(str(player_stats_table))
                 stats_df = pd.read_html(stats_html)[0]
                 
+                # Extract team abbreviations directly from HTML since pandas read_html doesn't preserve data-stat attributes
+                team_abbrs = []
+                rows = player_stats_table.find_all('tr')
+                
+                for row in rows:
+                    # Skip header rows
+                    if row.get('class') and 'thead' in row.get('class'):
+                        continue
+                    
+                    # Find the team abbreviation cell (data-stat="team_name_abbr")
+                    team_cell = row.find('td', {'data-stat': 'team_id'}) or row.find('td', {'data-stat': 'team_name_abbr'})
+                    if team_cell:
+                        team_abbrs.append(team_cell.text.strip())
+                    else:
+                        team_abbrs.append(None)  # Add None if not found
+                
+                # Add team abbreviations to dataframe if we have the right number
+                if len(team_abbrs) == len(stats_df):
+                    stats_df['Team_Abbr'] = team_abbrs
+                
                 # Clean the data
                 stats_df = clean_player_averages_data(stats_df, season)
                 
@@ -585,6 +604,26 @@ def scrape_player_averages(start_season=2015, end_season=2025):
                         from io import StringIO
                         stats_html = StringIO(str(table))
                         stats_df = pd.read_html(stats_html)[0]
+                        
+                        # Extract team abbreviations directly from HTML
+                        team_abbrs = []
+                        rows = table.find_all('tr')
+                        
+                        for row in rows:
+                            # Skip header rows
+                            if row.get('class') and 'thead' in row.get('class'):
+                                continue
+                            
+                            # Find the team abbreviation cell (data-stat="team_name_abbr")
+                            team_cell = row.find('td', {'data-stat': 'team_id'}) or row.find('td', {'data-stat': 'team_name_abbr'})
+                            if team_cell:
+                                team_abbrs.append(team_cell.text.strip())
+                            else:
+                                team_abbrs.append(None)  # Add None if not found
+                        
+                        # Add team abbreviations to dataframe if we have the right number
+                        if len(team_abbrs) == len(stats_df):
+                            stats_df['Team_Abbr'] = team_abbrs
                         
                         # Clean the data
                         stats_df = clean_player_averages_data(stats_df, season)
@@ -629,6 +668,15 @@ def clean_player_averages_data(df, season):
     # Reset index after removing rows
     df = df.reset_index(drop=True)
     
+    # Handle team column - prioritize our custom Team_Abbr if it exists
+    if 'Team_Abbr' in df.columns:
+        # Rename to standard column name
+        df['Tm'] = df['Team_Abbr']
+        df = df.drop(columns=['Team_Abbr'])
+    elif 'Tm' not in df.columns and 'Team' in df.columns:
+        # If we have 'Team' but not 'Tm', rename it
+        df = df.rename(columns={'Team': 'Tm'})
+    
     # Convert numeric columns to float, but first identify non-numeric columns
     non_numeric_cols = ['Player', 'Pos', 'Tm']
     # Only use columns that actually exist in the dataframe
@@ -647,6 +695,769 @@ def clean_player_averages_data(df, season):
     df['Scraped_Date'] = datetime.now().strftime('%Y-%m-%d')
     
     return df
+
+def scrape_player_per36_minutes(start_season=2015, end_season=2025):
+    """
+    Scrape NBA player averages per 36 minutes from Basketball Reference website.
+    
+    Args:
+        start_season (int): Starting season year (default: 2015)
+        end_season (int): Ending season year (default: 2025)
+        
+    Returns:
+        dict: Dictionary with player per 36 minutes dataframes for each season
+    """
+    player_per36 = {}
+    
+    for season in range(start_season, end_season + 1):
+        logging.info(f"Scraping player per 36 minutes for {season}-{season+1} season...")
+        
+        # NBA player per 36 minutes URL
+        url = f"https://www.basketball-reference.com/leagues/NBA_{season}_per_minute.html"
+        
+        # Make the throttled request
+        response = throttled_request(url, max_retries=5)
+        if not response:
+            logging.warning(f"Failed to retrieve player per 36 minutes for {season} season.")
+            continue
+        
+        # Parse HTML content
+        soup = BeautifulSoup(response.content, 'html.parser')
+
+        try:
+            # Get Player Per 36 Minutes table - first try with the specific ID
+            player_stats_table = soup.find("table", {'id': 'per_minute_stats'})
+            
+            if player_stats_table:
+                # Use StringIO to avoid FutureWarning
+                from io import StringIO
+                stats_html = StringIO(str(player_stats_table))
+                stats_df = pd.read_html(stats_html)[0]
+                
+                # Extract team abbreviations directly from HTML since pandas read_html doesn't preserve data-stat attributes
+                team_abbrs = []
+                rows = player_stats_table.find_all('tr')
+                
+                for row in rows:
+                    # Skip header rows
+                    if row.get('class') and 'thead' in row.get('class'):
+                        continue
+                    
+                    # Find the team abbreviation cell (data-stat="team_name_abbr")
+                    team_cell = row.find('td', {'data-stat': 'team_id'}) or row.find('td', {'data-stat': 'team_name_abbr'})
+                    if team_cell:
+                        team_abbrs.append(team_cell.text.strip())
+                    else:
+                        team_abbrs.append(None)  # Add None if not found
+                
+                # Add team abbreviations to dataframe if we have the right number
+                if len(team_abbrs) == len(stats_df):
+                    stats_df['Team_Abbr'] = team_abbrs
+                
+                # Clean the data
+                stats_df = clean_player_per36_data(stats_df, season)
+                
+                # Add to dictionary
+                player_per36[season] = stats_df
+                logging.info(f"Successfully scraped player per 36 minutes for {season} season. Found {len(stats_df)} player records.")
+            else:
+                # Try alternative approach - look for any table with per minute stats
+                tables = soup.find_all("table")
+                found = False
+                
+                for i, table in enumerate(tables):
+                    # Check if this looks like a player stats table
+                    if table.find('th', text='PTS') and table.find('th', text='Player'):
+                        logging.info(f"Found alternative player per 36 minutes table (index {i})")
+                        from io import StringIO
+                        stats_html = StringIO(str(table))
+                        stats_df = pd.read_html(stats_html)[0]
+                        
+                        # Extract team abbreviations directly from HTML
+                        team_abbrs = []
+                        rows = table.find_all('tr')
+                        
+                        for row in rows:
+                            # Skip header rows
+                            if row.get('class') and 'thead' in row.get('class'):
+                                continue
+                            
+                            # Find the team abbreviation cell (data-stat="team_name_abbr")
+                            team_cell = row.find('td', {'data-stat': 'team_id'}) or row.find('td', {'data-stat': 'team_name_abbr'})
+                            if team_cell:
+                                team_abbrs.append(team_cell.text.strip())
+                            else:
+                                team_abbrs.append(None)  # Add None if not found
+                        
+                        # Add team abbreviations to dataframe if we have the right number
+                        if len(team_abbrs) == len(stats_df):
+                            stats_df['Team_Abbr'] = team_abbrs
+                        
+                        # Clean the data
+                        stats_df = clean_player_per36_data(stats_df, season)
+                        
+                        # Add to dictionary
+                        player_per36[season] = stats_df
+                        logging.info(f"Successfully scraped player per 36 minutes for {season} season. Found {len(stats_df)} player records.")
+                        found = True
+                        break
+                
+                if not found:
+                    logging.warning(f"No player per 36 minutes table found for {season} season. The website structure might have changed.")
+        
+        except Exception as e:
+            logging.error(f"Error while scraping player per 36 minutes for {season} season: {str(e)}")
+            continue
+    
+    return player_per36
+
+def clean_player_per36_data(df, season):
+    """
+    Clean and format the player per 36 minutes dataframe.
+    
+    Args:
+        df (pandas.DataFrame): Raw player per 36 minutes dataframe
+        season (int): Season year
+        
+    Returns:
+        pandas.DataFrame: Cleaned dataframe with formatted columns
+    """
+    # Handle potential header rows - first check if 'Rk' column exists
+    if 'Rk' in df.columns:
+        # Convert 'Rk' to string first to safely use str methods
+        df['Rk'] = df['Rk'].astype(str)
+        # Remove header rows that get included as data
+        df = df[~df['Rk'].str.contains('Rk', na=False)]
+    
+    # Handle multi-level columns if present
+    if isinstance(df.columns, pd.MultiIndex):
+        df.columns = df.columns.droplevel(0)
+    
+    # Reset index after removing rows
+    df = df.reset_index(drop=True)
+    
+    # Handle team column - prioritize our custom Team_Abbr if it exists
+    if 'Team_Abbr' in df.columns:
+        # Rename to standard column name
+        df['Tm'] = df['Team_Abbr']
+        df = df.drop(columns=['Team_Abbr'])
+    elif 'Tm' not in df.columns and 'Team' in df.columns:
+        # If we have 'Team' but not 'Tm', rename it
+        df = df.rename(columns={'Team': 'Tm'})
+    
+    # Convert numeric columns to float, but first identify non-numeric columns
+    non_numeric_cols = ['Player', 'Pos', 'Tm']
+    # Only use columns that actually exist in the dataframe
+    existing_non_numeric = [col for col in non_numeric_cols if col in df.columns]
+    
+    # Convert numeric columns to float
+    numeric_cols = df.columns.difference(existing_non_numeric)
+    for col in numeric_cols:
+        df[col] = pd.to_numeric(df[col], errors='coerce')
+    
+    # Add season information
+    df['Season'] = f"{season}-{str(season+1)[-2:]}"
+    df['Season_Year'] = season
+    
+    # Add timestamp for when this data was collected
+    df['Scraped_Date'] = datetime.now().strftime('%Y-%m-%d')
+    
+    return df
+
+def scrape_player_per100_possessions(start_season=2015, end_season=2025):
+    """
+    Scrape NBA player averages per 100 possessions from Basketball Reference website.
+    
+    Args:
+        start_season (int): Starting season year (default: 2015)
+        end_season (int): Ending season year (default: 2025)
+        
+    Returns:
+        dict: Dictionary with player per 100 possessions dataframes for each season
+    """
+    player_per100 = {}
+    
+    for season in range(start_season, end_season + 1):
+        logging.info(f"Scraping player per 100 possessions for {season}-{season+1} season...")
+        
+        # NBA player per 100 possessions URL
+        url = f"https://www.basketball-reference.com/leagues/NBA_{season}_per_poss.html"
+        
+        # Make the throttled request
+        response = throttled_request(url, max_retries=5)
+        if not response:
+            logging.warning(f"Failed to retrieve player per 100 possessions for {season} season.")
+            continue
+        
+        # Parse HTML content
+        soup = BeautifulSoup(response.content, 'html.parser')
+
+        try:
+            # Get Player Per 100 Possessions table - first try with the specific ID
+            player_stats_table = soup.find("table", {'id': 'per_poss_stats'})
+            
+            if player_stats_table:
+                # Use StringIO to avoid FutureWarning
+                from io import StringIO
+                stats_html = StringIO(str(player_stats_table))
+                stats_df = pd.read_html(stats_html)[0]
+                
+                # Extract team abbreviations directly from HTML since pandas read_html doesn't preserve data-stat attributes
+                team_abbrs = []
+                rows = player_stats_table.find_all('tr')
+                
+                for row in rows:
+                    # Skip header rows
+                    if row.get('class') and 'thead' in row.get('class'):
+                        continue
+                    
+                    # Find the team abbreviation cell (data-stat="team_name_abbr")
+                    team_cell = row.find('td', {'data-stat': 'team_id'}) or row.find('td', {'data-stat': 'team_name_abbr'})
+                    if team_cell:
+                        team_abbrs.append(team_cell.text.strip())
+                    else:
+                        team_abbrs.append(None)  # Add None if not found
+                
+                # Add team abbreviations to dataframe if we have the right number
+                if len(team_abbrs) == len(stats_df):
+                    stats_df['Team_Abbr'] = team_abbrs
+                
+                # Clean the data
+                stats_df = clean_player_per100_data(stats_df, season)
+                
+                # Add to dictionary
+                player_per100[season] = stats_df
+                logging.info(f"Successfully scraped player per 100 possessions for {season} season. Found {len(stats_df)} player records.")
+            else:
+                # Try alternative approach - look for any table with per possession stats
+                tables = soup.find_all("table")
+                found = False
+                
+                for i, table in enumerate(tables):
+                    # Check if this looks like a player stats table
+                    if table.find('th', text='PTS') and table.find('th', text='Player'):
+                        logging.info(f"Found alternative player per 100 possessions table (index {i})")
+                        from io import StringIO
+                        stats_html = StringIO(str(table))
+                        stats_df = pd.read_html(stats_html)[0]
+                        
+                        # Extract team abbreviations directly from HTML
+                        team_abbrs = []
+                        rows = table.find_all('tr')
+                        
+                        for row in rows:
+                            # Skip header rows
+                            if row.get('class') and 'thead' in row.get('class'):
+                                continue
+                            
+                            # Find the team abbreviation cell (data-stat="team_name_abbr")
+                            team_cell = row.find('td', {'data-stat': 'team_id'}) or row.find('td', {'data-stat': 'team_name_abbr'})
+                            if team_cell:
+                                team_abbrs.append(team_cell.text.strip())
+                            else:
+                                team_abbrs.append(None)  # Add None if not found
+                        
+                        # Add team abbreviations to dataframe if we have the right number
+                        if len(team_abbrs) == len(stats_df):
+                            stats_df['Team_Abbr'] = team_abbrs
+                        
+                        # Clean the data
+                        stats_df = clean_player_per100_data(stats_df, season)
+                        
+                        # Add to dictionary
+                        player_per100[season] = stats_df
+                        logging.info(f"Successfully scraped player per 100 possessions for {season} season. Found {len(stats_df)} player records.")
+                        found = True
+                        break
+                
+                if not found:
+                    logging.warning(f"No player per 100 possessions table found for {season} season. The website structure might have changed.")
+        
+        except Exception as e:
+            logging.error(f"Error while scraping player per 100 possessions for {season} season: {str(e)}")
+            continue
+    
+    return player_per100
+
+def clean_player_per100_data(df, season):
+    """
+    Clean and format the player per 100 possessions dataframe.
+    
+    Args:
+        df (pandas.DataFrame): Raw player per 100 possessions dataframe
+        season (int): Season year
+        
+    Returns:
+        pandas.DataFrame: Cleaned dataframe with formatted columns
+    """
+    # Handle potential header rows - first check if 'Rk' column exists
+    if 'Rk' in df.columns:
+        # Convert 'Rk' to string first to safely use str methods
+        df['Rk'] = df['Rk'].astype(str)
+        # Remove header rows that get included as data
+        df = df[~df['Rk'].str.contains('Rk', na=False)]
+    
+    # Handle multi-level columns if present
+    if isinstance(df.columns, pd.MultiIndex):
+        df.columns = df.columns.droplevel(0)
+    
+    # Reset index after removing rows
+    df = df.reset_index(drop=True)
+    
+    # Handle team column - prioritize our custom Team_Abbr if it exists
+    if 'Team_Abbr' in df.columns:
+        # Rename to standard column name
+        df['Tm'] = df['Team_Abbr']
+        df = df.drop(columns=['Team_Abbr'])
+    elif 'Tm' not in df.columns and 'Team' in df.columns:
+        # If we have 'Team' but not 'Tm', rename it
+        df = df.rename(columns={'Team': 'Tm'})
+    
+    # Convert numeric columns to float, but first identify non-numeric columns
+    non_numeric_cols = ['Player', 'Pos', 'Tm']
+    # Only use columns that actually exist in the dataframe
+    existing_non_numeric = [col for col in non_numeric_cols if col in df.columns]
+    
+    # Convert numeric columns to float
+    numeric_cols = df.columns.difference(existing_non_numeric)
+    for col in numeric_cols:
+        df[col] = pd.to_numeric(df[col], errors='coerce')
+    
+    # Add season information
+    df['Season'] = f"{season}-{str(season+1)[-2:]}"
+    df['Season_Year'] = season
+    
+    # Add timestamp for when this data was collected
+    df['Scraped_Date'] = datetime.now().strftime('%Y-%m-%d')
+    
+    return df
+
+def scrape_player_advanced_stats(start_season=2015, end_season=2025):
+    """
+    Scrape NBA player advanced statistics from Basketball Reference website.
+    
+    Args:
+        start_season (int): Starting season year (default: 2015)
+        end_season (int): Ending season year (default: 2025)
+        
+    Returns:
+        dict: Dictionary with player advanced statistics dataframes for each season
+    """
+    player_advanced = {}
+    
+    for season in range(start_season, end_season + 1):
+        logging.info(f"Scraping player advanced statistics for {season}-{season+1} season...")
+        
+        # NBA player advanced statistics URL
+        url = f"https://www.basketball-reference.com/leagues/NBA_{season}_advanced.html"
+        
+        # Make the throttled request
+        response = throttled_request(url, max_retries=5)
+        if not response:
+            logging.warning(f"Failed to retrieve player advanced statistics for {season} season.")
+            continue
+        
+        # Parse HTML content
+        soup = BeautifulSoup(response.content, 'html.parser')
+
+        try:
+            # Get Player Advanced Stats table - first try with the specific ID
+            player_stats_table = soup.find("table", {'id': 'advanced_stats'})
+            
+            if player_stats_table:
+                # Use StringIO to avoid FutureWarning
+                from io import StringIO
+                stats_html = StringIO(str(player_stats_table))
+                stats_df = pd.read_html(stats_html)[0]
+                
+                # Extract team abbreviations directly from HTML since pandas read_html doesn't preserve data-stat attributes
+                team_abbrs = []
+                rows = player_stats_table.find_all('tr')
+                
+                for row in rows:
+                    # Skip header rows
+                    if row.get('class') and 'thead' in row.get('class'):
+                        continue
+                    
+                    # Find the team abbreviation cell (data-stat="team_name_abbr")
+                    team_cell = row.find('td', {'data-stat': 'team_id'}) or row.find('td', {'data-stat': 'team_name_abbr'})
+                    if team_cell:
+                        team_abbrs.append(team_cell.text.strip())
+                    else:
+                        team_abbrs.append(None)  # Add None if not found
+                
+                # Add team abbreviations to dataframe if we have the right number
+                if len(team_abbrs) == len(stats_df):
+                    stats_df['Team_Abbr'] = team_abbrs
+                
+                # Clean the data
+                stats_df = clean_player_advanced_data(stats_df, season)
+                
+                # Add to dictionary
+                player_advanced[season] = stats_df
+                logging.info(f"Successfully scraped player advanced statistics for {season} season. Found {len(stats_df)} player records.")
+            else:
+                # Try alternative approach - look for any table with advanced stats
+                tables = soup.find_all("table")
+                found = False
+                
+                for i, table in enumerate(tables):
+                    # Check if this looks like a player stats table
+                    if table.find('th', text='PER') or table.find('th', text='WS') or table.find('th', text='VORP'):
+                        logging.info(f"Found alternative player advanced statistics table (index {i})")
+                        from io import StringIO
+                        stats_html = StringIO(str(table))
+                        stats_df = pd.read_html(stats_html)[0]
+                        
+                        # Extract team abbreviations directly from HTML
+                        team_abbrs = []
+                        rows = table.find_all('tr')
+                        
+                        for row in rows:
+                            # Skip header rows
+                            if row.get('class') and 'thead' in row.get('class'):
+                                continue
+                            
+                            # Find the team abbreviation cell (data-stat="team_name_abbr")
+                            team_cell = row.find('td', {'data-stat': 'team_id'}) or row.find('td', {'data-stat': 'team_name_abbr'})
+                            if team_cell:
+                                team_abbrs.append(team_cell.text.strip())
+                            else:
+                                team_abbrs.append(None)  # Add None if not found
+                        
+                        # Add team abbreviations to dataframe if we have the right number
+                        if len(team_abbrs) == len(stats_df):
+                            stats_df['Team_Abbr'] = team_abbrs
+                        
+                        # Clean the data
+                        stats_df = clean_player_advanced_data(stats_df, season)
+                        
+                        # Add to dictionary
+                        player_advanced[season] = stats_df
+                        logging.info(f"Successfully scraped player advanced statistics for {season} season. Found {len(stats_df)} player records.")
+                        found = True
+                        break
+                
+                if not found:
+                    logging.warning(f"No player advanced statistics table found for {season} season. The website structure might have changed.")
+        
+        except Exception as e:
+            logging.error(f"Error while scraping player advanced statistics for {season} season: {str(e)}")
+            continue
+    
+    return player_advanced
+
+def clean_player_advanced_data(df, season):
+    """
+    Clean and format the player advanced statistics dataframe.
+    
+    Args:
+        df (pandas.DataFrame): Raw player advanced statistics dataframe
+        season (int): Season year
+        
+    Returns:
+        pandas.DataFrame: Cleaned dataframe with formatted columns
+    """
+    # Handle potential header rows - first check if 'Rk' column exists
+    if 'Rk' in df.columns:
+        # Convert 'Rk' to string first to safely use str methods
+        df['Rk'] = df['Rk'].astype(str)
+        # Remove header rows that get included as data
+        df = df[~df['Rk'].str.contains('Rk', na=False)]
+    
+    # Handle multi-level columns if present
+    if isinstance(df.columns, pd.MultiIndex):
+        df.columns = df.columns.droplevel(0)
+    
+    # Reset index after removing rows
+    df = df.reset_index(drop=True)
+    
+    # Handle team column - prioritize our custom Team_Abbr if it exists
+    if 'Team_Abbr' in df.columns:
+        # Rename to standard column name
+        df['Tm'] = df['Team_Abbr']
+        df = df.drop(columns=['Team_Abbr'])
+    elif 'Tm' not in df.columns and 'Team' in df.columns:
+        # If we have 'Team' but not 'Tm', rename it
+        df = df.rename(columns={'Team': 'Tm'})
+    
+    # Convert numeric columns to float, but first identify non-numeric columns
+    non_numeric_cols = ['Player', 'Pos', 'Tm']
+    # Only use columns that actually exist in the dataframe
+    existing_non_numeric = [col for col in non_numeric_cols if col in df.columns]
+    
+    # Convert numeric columns to float
+    numeric_cols = df.columns.difference(existing_non_numeric)
+    for col in numeric_cols:
+        df[col] = pd.to_numeric(df[col], errors='coerce')
+    
+    # Add season information
+    df['Season'] = f"{season}-{str(season+1)[-2:]}"
+    df['Season_Year'] = season
+    
+    # Add timestamp for when this data was collected
+    df['Scraped_Date'] = datetime.now().strftime('%Y-%m-%d')
+    
+    return df
+
+def normalize_stats_by_usage(player_averages):
+    """
+    Normalize player statistics by their usage rate.
+    
+    Args:
+        player_averages (dict): Dictionary of player averages dataframes by season
+        
+    Returns:
+        dict: Dictionary of player averages dataframes with normalized stats by usage rate
+    """
+    normalized_player_averages = {}
+    
+    # Process each season
+    for season, df in player_averages.items():
+        # Create a copy of the dataframe to avoid modifying the original
+        normalized_df = df.copy()
+        
+        # Check if 'USG%' column exists
+        if 'USG%' not in normalized_df.columns:
+            logging.warning(f"USG% column not found for {season} season. Skipping normalization.")
+            normalized_player_averages[season] = normalized_df
+            continue
+        
+        # Convert USG% to a decimal (e.g., 25.0 -> 0.25) for easier calculations
+        # Replace zeros and NaNs with a small value to avoid division by zero
+        normalized_df['USG_decimal'] = normalized_df['USG%'].fillna(0) / 100.0
+        normalized_df['USG_decimal'] = normalized_df['USG_decimal'].replace(0, 0.001)  # Minimum usage rate to avoid division by zero
+        
+        # Define the stats to normalize (basic box score stats)
+        stats_to_normalize = ['PTS', 'TRB', 'AST', 'STL', 'BLK', 'TOV', 'FG', 'FGA', '3P', '3PA', 'FT', 'FTA']
+        
+        # Normalize each stat by usage rate
+        for stat in stats_to_normalize:
+            if stat in normalized_df.columns:
+                # Create a new column with the normalized stat
+                # Handle NaN values in the stat column
+                normalized_df[f'{stat}/USG'] = normalized_df[stat].fillna(0) / normalized_df['USG_decimal']
+                logging.debug(f"Created {stat}/USG column for {season} season.")
+        
+        # Remove the temporary USG_decimal column
+        normalized_df = normalized_df.drop(columns=['USG_decimal'])
+        
+        # Add to the normalized dictionary
+        normalized_player_averages[season] = normalized_df
+        
+        logging.info(f"Normalized player statistics by usage rate for {season} season.")
+    
+    return normalized_player_averages
+
+def enhance_player_averages_with_advanced(player_averages, player_advanced):
+    """
+    Enhance player averages dataframe with advanced statistics.
+    
+    Args:
+        player_averages (dict): Dictionary of player averages dataframes by season
+        player_advanced (dict): Dictionary of player advanced statistics dataframes by season
+        
+    Returns:
+        dict: Dictionary of enhanced player averages dataframes by season
+    """
+    enhanced_player_averages = {}
+    
+    # Process each season
+    for season in player_averages.keys():
+        if season not in player_advanced:
+            logging.warning(f"No advanced statistics data available for {season} season. Skipping enhancement.")
+            enhanced_player_averages[season] = player_averages[season]
+            continue
+        
+        # Get dataframes for the current season
+        avg_df = player_averages[season]
+        advanced_df = player_advanced[season]
+        
+        # Create a copy of the averages dataframe to avoid modifying the original
+        enhanced_df = avg_df.copy()
+        
+        # Create a mapping key for matching players (Player + Team + Season)
+        enhanced_df['match_key'] = enhanced_df['Player'] + '|' + enhanced_df['Tm'] + '|' + enhanced_df['Season']
+        advanced_df['match_key'] = advanced_df['Player'] + '|' + advanced_df['Tm'] + '|' + advanced_df['Season']
+        
+        # Identify the stats columns to add (excluding non-stat columns)
+        exclude_cols = ['Rk', 'Player', 'Age', 'Tm', 'Pos', 'G', 'GS', 'MP', 
+                        'Season', 'Season_Year', 'Scraped_Date', 'match_key']
+        advanced_stat_cols = [col for col in advanced_df.columns if col not in exclude_cols]
+        
+        # Create a dictionary to store advanced statistics for each player
+        advanced_stats = {}
+        for _, row in advanced_df.iterrows():
+            advanced_stats[row['match_key']] = row
+        
+        # Add advanced statistics to the enhanced dataframe
+        for stat_col in advanced_stat_cols:
+            enhanced_df[stat_col] = None  # Initialize the column
+            
+            # Fill in the advanced statistics for each player
+            for i, row in enhanced_df.iterrows():
+                if row['match_key'] in advanced_stats:
+                    enhanced_df.at[i, stat_col] = advanced_stats[row['match_key']][stat_col]
+        
+        # Remove the temporary match_key column
+        enhanced_df = enhanced_df.drop(columns=['match_key'])
+        
+        # Add to the enhanced dictionary
+        enhanced_player_averages[season] = enhanced_df
+        
+        logging.info(f"Enhanced player averages with advanced statistics for {season} season.")
+    
+    return enhanced_player_averages
+
+def enhance_player_averages_with_per36(player_averages, player_per36):
+    """
+    Enhance player averages dataframe with per 36 minutes statistics.
+    
+    Args:
+        player_averages (dict): Dictionary of player averages dataframes by season
+        player_per36 (dict): Dictionary of player per 36 minutes dataframes by season
+        
+    Returns:
+        dict: Dictionary of enhanced player averages dataframes by season
+    """
+    enhanced_player_averages = {}
+    
+    # Process each season
+    for season in player_averages.keys():
+        if season not in player_per36:
+            logging.warning(f"No per 36 minutes data available for {season} season. Skipping enhancement.")
+            enhanced_player_averages[season] = player_averages[season]
+            continue
+        
+        # Get dataframes for the current season
+        avg_df = player_averages[season]
+        per36_df = player_per36[season]
+        
+        # Create a copy of the averages dataframe to avoid modifying the original
+        enhanced_df = avg_df.copy()
+        
+        # Create a mapping key for matching players (Player + Team + Season)
+        enhanced_df['match_key'] = enhanced_df['Player'] + '|' + enhanced_df['Tm'] + '|' + enhanced_df['Season']
+        per36_df['match_key'] = per36_df['Player'] + '|' + per36_df['Tm'] + '|' + per36_df['Season']
+        
+        # Identify the stats columns to add (excluding non-stat columns)
+        exclude_cols = ['Rk', 'Player', 'Age', 'Tm', 'Pos', 'G', 'GS', 'MP', 
+                        'Season', 'Season_Year', 'Scraped_Date', 'match_key']
+        per36_stat_cols = [col for col in per36_df.columns if col not in exclude_cols]
+        
+        # Create a dictionary to store per 36 minutes stats for each player
+        per36_stats = {}
+        for _, row in per36_df.iterrows():
+            per36_stats[row['match_key']] = row
+        
+        # Add per 36 minutes stats to the enhanced dataframe
+        for stat_col in per36_stat_cols:
+            per36_col_name = f"{stat_col}/36 mins"
+            enhanced_df[per36_col_name] = None  # Initialize the column
+            
+            # Fill in the per 36 minutes stats for each player
+            for i, row in enhanced_df.iterrows():
+                if row['match_key'] in per36_stats:
+                    enhanced_df.at[i, per36_col_name] = per36_stats[row['match_key']][stat_col]
+        
+        # Remove the temporary match_key column
+        enhanced_df = enhanced_df.drop(columns=['match_key'])
+        
+        # Add to the enhanced dictionary
+        enhanced_player_averages[season] = enhanced_df
+        
+        logging.info(f"Enhanced player averages with per 36 minutes stats for {season} season.")
+    
+    return enhanced_player_averages
+
+def enhance_player_averages_with_per100(player_averages, player_per100):
+    """
+    Enhance player averages dataframe with per 100 possessions statistics.
+    
+    Args:
+        player_averages (dict): Dictionary of player averages dataframes by season
+        player_per100 (dict): Dictionary of player per 100 possessions dataframes by season
+        
+    Returns:
+        dict: Dictionary of enhanced player averages dataframes by season
+    """
+    enhanced_player_averages = {}
+    
+    # Process each season
+    for season in player_averages.keys():
+        if season not in player_per100:
+            logging.warning(f"No per 100 possessions data available for {season} season. Skipping enhancement.")
+            enhanced_player_averages[season] = player_averages[season]
+            continue
+        
+        # Get dataframes for the current season
+        avg_df = player_averages[season]
+        per100_df = player_per100[season]
+        
+        # Create a copy of the averages dataframe to avoid modifying the original
+        enhanced_df = avg_df.copy()
+        
+        # Create a mapping key for matching players (Player + Team + Season)
+        enhanced_df['match_key'] = enhanced_df['Player'] + '|' + enhanced_df['Tm'] + '|' + enhanced_df['Season']
+        per100_df['match_key'] = per100_df['Player'] + '|' + per100_df['Tm'] + '|' + per100_df['Season']
+        
+        # Identify the stats columns to add (excluding non-stat columns)
+        exclude_cols = ['Rk', 'Player', 'Age', 'Tm', 'Pos', 'G', 'GS', 'MP', 
+                        'Season', 'Season_Year', 'Scraped_Date', 'match_key']
+        per100_stat_cols = [col for col in per100_df.columns if col not in exclude_cols]
+        
+        # Create a dictionary to store per 100 possessions stats for each player
+        per100_stats = {}
+        for _, row in per100_df.iterrows():
+            per100_stats[row['match_key']] = row
+        
+        # Add per 100 possessions stats to the enhanced dataframe
+        for stat_col in per100_stat_cols:
+            per100_col_name = f"{stat_col}/100 poss"
+            enhanced_df[per100_col_name] = None  # Initialize the column
+            
+            # Fill in the per 100 possessions stats for each player
+            for i, row in enhanced_df.iterrows():
+                if row['match_key'] in per100_stats:
+                    enhanced_df.at[i, per100_col_name] = per100_stats[row['match_key']][stat_col]
+        
+        # Remove the temporary match_key column
+        enhanced_df = enhanced_df.drop(columns=['match_key'])
+        
+        # Add to the enhanced dictionary
+        enhanced_player_averages[season] = enhanced_df
+        
+        logging.info(f"Enhanced player averages with per 100 possessions stats for {season} season.")
+    
+    return enhanced_player_averages
+
+def enhance_player_averages_with_all_stats(player_averages, player_per36, player_per100, player_advanced):
+    """
+    Enhance player averages dataframe with per 36 minutes, per 100 possessions, 
+    and advanced statistics.
+    
+    Args:
+        player_averages (dict): Dictionary of player averages dataframes by season
+        player_per36 (dict): Dictionary of player per 36 minutes dataframes by season
+        player_per100 (dict): Dictionary of player per 100 possessions dataframes by season
+        player_advanced (dict): Dictionary of player advanced statistics dataframes by season
+        
+    Returns:
+        dict: Dictionary of enhanced player averages dataframes by season
+    """
+    # First enhance with per 36 minutes stats
+    enhanced_with_per36 = enhance_player_averages_with_per36(player_averages, player_per36)
+    
+    # Then enhance with per 100 possessions stats
+    enhanced_with_per100 = enhance_player_averages_with_per100(enhanced_with_per36, player_per100)
+    
+    # Then enhance with advanced stats
+    enhanced_with_advanced = enhance_player_averages_with_advanced(enhanced_with_per100, player_advanced)
+    
+    # Finally normalize stats by usage rate
+    fully_enhanced = normalize_stats_by_usage(enhanced_with_advanced)
+    
+    return fully_enhanced
 
 def save_player_averages_to_csv(player_averages, output_dir='./data'):
     """
@@ -681,86 +1492,119 @@ def save_player_averages_to_csv(player_averages, output_dir='./data'):
 
 # Run when script is executed directly
 if __name__ == "__main__":
-    import argparse
-    
-    # Set up command-line argument parsing
-    parser = argparse.ArgumentParser(description='NBA Data Scraper - Collect data from Basketball Reference')
-    parser.add_argument('--standings', action='store_true', help='Scrape team standings')
-    parser.add_argument('--schedules', action='store_true', help='Scrape team schedules')
-    parser.add_argument('--players', action='store_true', help='Scrape player averages')
-    parser.add_argument('--all', action='store_true', help='Scrape all data (standings, schedules, and player averages)')
-    parser.add_argument('--start-season', type=int, default=2015, help='Starting season year for player averages (default: 2015)')
-    parser.add_argument('--end-season', type=int, default=2025, help='Ending season year for player averages (default: 2025)')
-    parser.add_argument('--output-dir', type=str, default='./data', help='Directory to save data (default: ./data)')
-    
-    args = parser.parse_args()
-    
-    # If no specific data type is selected, default to all
-    if not (args.standings or args.schedules or args.players):
-        args.all = True
-    
-    logging.info("Starting NBA data scraping...")
-    
-    # Create output directory if it doesn't exist
-    os.makedirs(args.output_dir, exist_ok=True)
-    
-    # Scrape team standings if requested
-    if args.standings or args.all:
-        logging.info("Scraping team standings...")
-        standings_data = scrape_nba_standings()
-        if standings_data:
-            # Display sample of the data
-            logging.info("\nTEAM_RATINGS STANDINGS:")
-            if 'team_ratings' in standings_data and not standings_data['team_ratings'].empty:
-                logging.info(standings_data['team_ratings'].head())
+    try:
+        # Set up argument parser
+        parser = argparse.ArgumentParser(description='Scrape NBA data from Basketball Reference')
+        parser.add_argument('--output-dir', type=str, default='./data', help='Output directory for data files')
+        parser.add_argument('--start-season', type=int, default=2023, help='Starting season year (e.g., 2023 for 2023-24 season)')
+        parser.add_argument('--end-season', type=int, default=2024, help='Ending season year (e.g., 2024 for 2024-25 season)')
+        parser.add_argument('--standings', action='store_true', help='Scrape standings data')
+        parser.add_argument('--player-stats', action='store_true', help='Scrape player statistics')
+        parser.add_argument('--all', action='store_true', help='Scrape all available data')
+        
+        args = parser.parse_args()
+        
+        # Create output directory if it doesn't exist
+        os.makedirs(args.output_dir, exist_ok=True)
+        os.makedirs(os.path.join(args.output_dir, 'standings'), exist_ok=True)
+        os.makedirs(os.path.join(args.output_dir, 'player_stats'), exist_ok=True)
+        
+        # Configure logging
+        logging.basicConfig(
+            level=logging.INFO,
+            format='%(asctime)s - %(levelname)s - %(message)s',
+            handlers=[
+                logging.FileHandler(os.path.join(args.output_dir, 'scrape_log.txt')),
+                logging.StreamHandler()
+            ]
+        )
+        
+        # Log script start
+        logging.info("NBA Data Scraping Script Started")
+        logging.info(f"Output Directory: {args.output_dir}")
+        logging.info(f"Seasons: {args.start_season}-{args.end_season}")
+        
+        # Scrape standings if requested
+        if args.standings or args.all:
+            logging.info("\nScraping standings data...")
+            standings_data = scrape_standings(start_season=args.start_season, end_season=args.end_season)
             
-            # Save to CSV
-            save_standings_to_csv(standings_data, args.output_dir)
-        else:
-            logging.warning("Failed to scrape team standings.")
-    
-    # Scrape team schedules if requested
-    if args.schedules or args.all:
-        logging.info("\nScraping team schedules...")
-        team_schedules = scrape_team_schedules()
-        if team_schedules:
-            # Save to CSV
-            save_schedules_to_csv(team_schedules, args.output_dir)
-        else:
-            logging.warning("Failed to scrape team schedules.")
-    
-    # Scrape player averages if requested
-    if args.players or args.all:
-        logging.info("\nScraping player averages...")
-        player_averages = scrape_player_averages(start_season=args.start_season, end_season=args.end_season)
-        if player_averages:
-            # Save to CSV
-            save_player_averages_to_csv(player_averages, args.output_dir)
+            if standings_data:
+                save_standings_to_csv(standings_data, args.output_dir)
+                logging.info(f"Standings data saved to {os.path.join(args.output_dir, 'standings')}")
+            else:
+                logging.warning("No standings data was scraped.")
+        
+        # Scrape player statistics if requested
+        if args.player_stats or args.all:
+            logging.info("\nScraping player averages per game...")
+            player_averages = scrape_player_averages(start_season=args.start_season, end_season=args.end_season)
+            
+            if not player_averages:
+                logging.error("Failed to scrape player averages. Exiting.")
+                sys.exit(1)
+            
+            logging.info("\nScraping player per 36 minutes...")
+            player_per36 = scrape_player_per36_minutes(start_season=args.start_season, end_season=args.end_season)
+            
+            logging.info("\nScraping player per 100 possessions...")
+            player_per100 = scrape_player_per100_possessions(start_season=args.start_season, end_season=args.end_season)
+            
+            logging.info("\nScraping player advanced statistics...")
+            player_advanced = scrape_player_advanced_stats(start_season=args.start_season, end_season=args.end_season)
+            
+            if player_per36 and player_per100 and player_advanced:
+                # Enhance player averages with all stats
+                logging.info("\nEnhancing player averages with per 36 minutes, per 100 possessions, and advanced statistics...")
+                enhanced_player_averages = enhance_player_averages_with_all_stats(player_averages, player_per36, player_per100, player_advanced)
+                
+                # Save enhanced player averages to CSV
+                save_player_averages_to_csv(enhanced_player_averages, args.output_dir)
+            elif player_per36 and player_per100:
+                # If only per 36 minutes and per 100 possessions scraping succeeded
+                logging.warning("Failed to scrape player advanced statistics. Enhancing with per 36 minutes and per 100 possessions only.")
+                enhanced_player_averages = enhance_player_averages_with_per100(enhance_player_averages_with_per36(player_averages, player_per36), player_per100)
+                save_player_averages_to_csv(enhanced_player_averages, args.output_dir)
+            elif player_per36 and player_advanced:
+                # If only per 36 minutes and advanced statistics scraping succeeded
+                logging.warning("Failed to scrape player per 100 possessions. Enhancing with per 36 minutes and advanced statistics only.")
+                enhanced_player_averages = enhance_player_averages_with_advanced(enhance_player_averages_with_per36(player_averages, player_per36), player_advanced)
+                save_player_averages_to_csv(enhanced_player_averages, args.output_dir)
+            elif player_per100 and player_advanced:
+                # If only per 100 possessions and advanced statistics scraping succeeded
+                logging.warning("Failed to scrape player per 36 minutes. Enhancing with per 100 possessions and advanced statistics only.")
+                enhanced_player_averages = enhance_player_averages_with_advanced(enhance_player_averages_with_per100(player_averages, player_per100), player_advanced)
+                save_player_averages_to_csv(enhanced_player_averages, args.output_dir)
+            elif player_per36:
+                # If only per 36 minutes scraping succeeded
+                logging.warning("Failed to scrape player per 100 possessions and advanced statistics. Enhancing with per 36 minutes only.")
+                enhanced_player_averages = enhance_player_averages_with_per36(player_averages, player_per36)
+                save_player_averages_to_csv(enhanced_player_averages, args.output_dir)
+            elif player_per100:
+                # If only per 100 possessions scraping succeeded
+                logging.warning("Failed to scrape player per 36 minutes and advanced statistics. Enhancing with per 100 possessions only.")
+                enhanced_player_averages = enhance_player_averages_with_per100(player_averages, player_per100)
+                save_player_averages_to_csv(enhanced_player_averages, args.output_dir)
+            elif player_advanced:
+                # If only advanced statistics scraping succeeded
+                logging.warning("Failed to scrape player per 36 minutes and per 100 possessions. Enhancing with advanced statistics only.")
+                enhanced_player_averages = enhance_player_averages_with_advanced(player_averages, player_advanced)
+                save_player_averages_to_csv(enhanced_player_averages, args.output_dir)
+            else:
+                # If all additional scraping failed
+                logging.warning("Failed to scrape player per 36 minutes, per 100 possessions, and advanced statistics. Saving original player averages.")
+                save_player_averages_to_csv(player_averages, args.output_dir)
             
             # Display sample of the data for the first season
-            first_season = min(player_averages.keys()) if player_averages else None
-            if first_season and not player_averages[first_season].empty:
-                logging.info(f"\nPLAYER AVERAGES FOR {first_season} SEASON:")
-                logging.info(player_averages[first_season].head())
-        else:
-            logging.warning("Failed to scrape player averages.")
+            if args.start_season in player_averages:
+                logging.info("\nSample of player averages data:")
+                sample_df = player_averages[args.start_season].head(5)
+                logging.info(f"\n{sample_df}")
+        
+        # Log script completion
+        logging.info("\nNBA Data Scraping Script Completed Successfully")
     
-    # Show latest files
-    logging.info("\nLatest standings files:")
-    latest_standings = find_latest_data_files("team_ratings_*.csv", args.output_dir)
-    for file in latest_standings[:3]:  # Show top 3
-        logging.info(f" - {os.path.basename(file)}")
-    
-    logging.info("\nLatest schedule files:")
-    latest_schedules = find_latest_data_files("*_[0-9]*.csv", args.output_dir)
-    latest_schedules = [f for f in latest_schedules if not f.startswith(os.path.join(args.output_dir, "team_ratings"))]
-    latest_schedules = [f for f in latest_schedules if not os.path.dirname(f).endswith("player_stats")]
-    for file in latest_schedules[:3]:  # Show top 3
-        logging.info(f" - {os.path.basename(file)}")
-    
-    logging.info("\nLatest player averages files:")
-    latest_player_stats = find_latest_data_files("player_averages*.csv", os.path.join(args.output_dir, "player_stats"))
-    for file in latest_player_stats[:3]:  # Show top 3
-        logging.info(f" - {os.path.basename(file)}")
-    
-    logging.info("NBA data scraping completed successfully!")
+    except Exception as e:
+        logging.error(f"An error occurred: {str(e)}")
+        logging.error(traceback.format_exc())
+        sys.exit(1)
