@@ -1,130 +1,121 @@
-# NBA Data Scraper - Instructions
+# NBA Data Scraper - Usage Instructions
 
-This document provides instructions for using the NBA data scraper script (`scrapeData.py`), which collects data from Basketball Reference.
+This document provides instructions on how to use the NBA data scraping tool (`scrapeData.py`). The script scrapes NBA data from Basketball Reference, including team standings, player statistics, and more.
 
-## Overview
+## Prerequisites
 
-The NBA data scraper is a Python script that can collect the following types of data:
+- Python 3.x
+- Required packages: pandas, requests, beautifulsoup4, etc. (see requirements.txt)
 
-1. **Team Standings**: Current NBA team standings and ratings
-2. **Team Schedules**: Game schedules for all NBA teams
-3. **Player Averages**: Per-game statistics for NBA players across multiple seasons
+## Basic Usage
 
-## Command-Line Arguments
-
-The script supports various command-line arguments to customize its behavior:
-
-| Argument | Description |
-|----------|-------------|
-| `--standings` | Scrape only team standings |
-| `--schedules` | Scrape only team schedules |
-| `--players` | Scrape only player averages |
-| `--all` | Scrape all data types (default if no flags are specified) |
-| `--start-season` | Starting season year for player averages (default: 2015) |
-| `--end-season` | Ending season year for player averages (default: 2025) |
-| `--output-dir` | Directory to save data (default: ./data) |
-| `-h, --help` | Show help message and exit |
-
-## Usage Examples
-
-### Get Help
+The script can be run from the command line with various flags to customize the data scraping process:
 
 ```bash
-python3 scrapeData.py --help
+python3 scrapeData.py [flags]
 ```
 
-### Scrape All Data (Default)
+## Available Command-Line Flags
 
-```bash
-python3 scrapeData.py
-```
+### Core Parameters
 
-or explicitly:
+| Flag | Description | Default | Example |
+|------|-------------|---------|---------|
+| `--output-dir` | Directory where scraped data will be saved | `./data` | `--output-dir=./nba_data` |
+| `--start-season` | Starting season year (e.g., 2023 for 2023-24 season) | 2023 | `--start-season=2020` |
+| `--end-season` | Ending season year (e.g., 2024 for 2024-25 season) | 2024 | `--end-season=2023` |
 
-```bash
-python3 scrapeData.py --all
-```
+### Data Selection Flags
 
-### Scrape Only Team Standings
+| Flag | Description | Default | Example |
+|------|-------------|---------|---------|
+| `--standings` | Scrape NBA standings data | False | `--standings` |
+| `--player-stats` | Scrape player statistics (includes per game, per 36 min, per 100 possessions, and advanced stats) | False | `--player-stats` |
+| `--all` | Scrape all available data (standings and player stats) | False | `--all` |
+
+## Examples
+
+### Scrape Current Season Standings
+
+To scrape only the standings data for the current season:
 
 ```bash
 python3 scrapeData.py --standings
 ```
 
-### Scrape Only Team Schedules
+### Scrape Player Statistics
+
+To scrape player statistics for the current season:
 
 ```bash
-python3 scrapeData.py --schedules
+python3 scrapeData.py --player-stats
 ```
 
-### Scrape Only Player Averages
+### Scrape All Data for Multiple Seasons
+
+To scrape all data (standings and player statistics) for seasons from 2020-21 to 2023-24:
 
 ```bash
-python3 scrapeData.py --players
+python3 scrapeData.py --all --start-season=2020 --end-season=2023
 ```
 
-### Scrape Player Averages for Specific Seasons
+### Custom Output Directory
+
+To save the scraped data to a custom directory:
 
 ```bash
-python3 scrapeData.py --players --start-season 2020 --end-season 2025
-```
-
-### Scrape Multiple Data Types
-
-```bash
-python3 scrapeData.py --standings --schedules
-```
-
-### Specify Custom Output Directory
-
-```bash
-python3 scrapeData.py --all --output-dir /path/to/custom/directory
+python3 scrapeData.py --all --output-dir=./my_nba_data
 ```
 
 ## Output Files
 
-The script saves data to the following locations (relative to the output directory):
+The script creates the following directory structure and files:
 
-1. **Team Standings**: `./data/team_ratings_YYYYMMDD.csv`
-2. **Team Schedules**: `./data/TEAM_YYYYMMDD.csv` (one file per team)
-3. **Player Averages**: `./data/player_stats/player_averages_YYYYMMDD.csv` (unified file with all seasons)
+```
+[output-dir]/
+├── standings/
+│   └── team_ratings_[date].csv
+├── player_stats/
+│   └── player_averages_[date].csv
+└── scrape_log.txt
+```
 
-Where `YYYYMMDD` is the current date in the format year-month-day.
+- `team_ratings_[date].csv`: Contains team standings and ratings data
+- `player_averages_[date].csv`: Contains comprehensive player statistics
+- `scrape_log.txt`: Log file with details about the scraping process
 
-## Data Structure
+## Data Details
 
-### Team Standings
+### Standings Data
 
-The team standings data includes:
-- Team rankings
-- Conference and division information
+The standings data includes:
+- Team names
 - Win-loss records
 - Offensive and defensive ratings
 - Net ratings
 - Margin of victory
+- Adjusted ratings
 
-### Team Schedules
+### Player Statistics
 
-Each team's schedule includes:
-- Game dates
-- Opponent information
-- Home/away status
-- Game results (for completed games)
-- Score information
-
-### Player Averages
-
-The player averages data includes:
-- Player names and positions
-- Games played and started
-- Minutes per game
-- Scoring statistics (points, field goals, free throws)
-- Rebounding statistics (offensive, defensive, total)
-- Assist, steal, and block statistics
-- Season information
+The player statistics include:
+- Per game averages (points, rebounds, assists, etc.)
+- Per 36 minutes statistics
+- Per 100 possessions statistics
+- Advanced statistics (PER, TS%, Usage%, etc.)
+- Usage-normalized statistics
 
 ## Notes
 
-- The script uses random delays between requests to avoid overloading the Basketball Reference servers.
-- Data is automatically timestamped with the scrape date.
-- For player averages, a unified CSV file is created with a 'Season' column indicating which season the stats are from.
+- The script implements throttling and random delays to avoid being blocked by the website
+- User agent rotation is used to mimic different browsers
+- Error handling with exponential backoff for retries
+- Data is automatically cleaned and formatted for analysis
+
+## Troubleshooting
+
+If you encounter any issues:
+1. Check the `scrape_log.txt` file for error messages
+2. Ensure you have a stable internet connection
+3. Try running with fewer data types (e.g., only `--standings` instead of `--all`)
+4. For persistent issues, try with a smaller date range

@@ -10,12 +10,19 @@ import glob         # For finding files with patterns
 import argparse     # For command-line argument parsing
 import sys
 import traceback
+from tqdm import tqdm  # For progress bars
 
-# Configure logging
+# Configure logging - more concise with less output
 logging.basicConfig(
     level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s'
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.StreamHandler()  # Only log to console
+    ]
 )
+
+# Set console handler to only show INFO and above for less verbosity
+logging.getLogger().handlers[0].setLevel(logging.INFO)
 
 # User agent list for rotation - helps avoid detection as a bot
 USER_AGENTS = [
@@ -37,91 +44,101 @@ def get_random_user_agent():
     """
     return random.choice(USER_AGENTS)
 
-def throttled_request(url, max_retries=5, base_delay=3):
+def throttled_request(url, session=None, initial_delay=1.0, base_delay=2.0, max_retries=3):
     """
-    Make a throttled HTTP request with automatic retries and exponential backoff.
+    Make a throttled HTTP request with exponential backoff for retries.
     
     Args:
-        url (str): The URL to request
-        max_retries (int): Maximum number of retry attempts
-        base_delay (int): Base delay between retries in seconds
+        url (str): URL to request
+        session (requests.Session, optional): Session to use for the request
+        initial_delay (float, optional): Initial delay before first request in seconds (default: 1.0)
+        base_delay (float, optional): Base delay for exponential backoff in seconds (default: 2.0)
+        max_retries (int, optional): Maximum number of retry attempts (default: 3)
         
     Returns:
         requests.Response or None: Response object if successful, None otherwise
     """
-    # Rotate user agent for each request to avoid detection patterns
+    # Create a new session if one wasn't provided
+    if session is None:
+        session = requests.Session()
+    
+    # Set up headers to mimic a browser
     headers = {
-        "User-Agent": get_random_user_agent(),
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
-        "Accept-Language": "en-US,en;q=0.5",
-        "Connection": "keep-alive",
-        "Upgrade-Insecure-Requests": "1",
-        "Cache-Control": "max-age=0"
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+        'Accept-Language': 'en-US,en;q=0.5',
+        'Connection': 'keep-alive',
+        'Upgrade-Insecure-Requests': '1',
+        'Cache-Control': 'max-age=0',
     }
     
-    # Add initial random delay (1-3 seconds) to simulate human browsing
-    initial_delay = 1 + random.random() * 2
-    logging.info(f"Waiting {initial_delay:.2f} seconds before requesting {url}...")
+    # Initial delay before first request
     time.sleep(initial_delay)
     
-    # Try making the request with exponential backoff for retries
-    for attempt in range(max_retries):
-        try:
-            logging.info(f"Requesting {url} (attempt {attempt+1}/{max_retries})...")
-            response = session.get(url, headers=headers, timeout=30)
-            
-            # Success case
-            if response.status_code == 200:
-                return response
+    # Create a progress bar for the request attempts
+    with tqdm(total=max_retries, desc=f"Request {url.split('/')[-1]}", leave=False) as pbar:
+        # Try making the request with exponential backoff for retries
+        for attempt in range(max_retries):
+            try:
+                logging.debug(f"Requesting {url} (attempt {attempt+1}/{max_retries})...")
+                response = session.get(url, headers=headers, timeout=30)
+                pbar.update(1)
                 
-            # Handle different status codes
-            elif response.status_code == 404:  # Not Found - page doesn't exist
-                logging.warning(f"Page not found (404): {url}")
-                # No need to retry for 404s, just return None
-                return None
-            elif response.status_code == 429:  # Too Many Requests
-                wait_time = base_delay * (2 ** attempt)  # Exponential backoff
-                # Add jitter to prevent synchronized requests
-                jitter = random.uniform(0.5, 1.5)
-                wait_time = wait_time * jitter
-                logging.warning(f"Rate limited (429). Waiting {wait_time:.2f} seconds before retry.")
-                time.sleep(wait_time)
-            elif response.status_code == 403:  # Forbidden
-                logging.error(f"Access forbidden (403). The site may have blocked requests.")
-                # Add a much longer delay for 403 errors
-                time.sleep(60 + random.random() * 60)  # 1-2 minute delay
-            else:
-                logging.error(f"Failed to retrieve data: Status code: {response.status_code}")
+                # Success case
+                if response.status_code == 200:
+                    return response
+                    
+                # Handle different status codes
+                elif response.status_code == 404:  # Not Found - page doesn't exist
+                    logging.warning(f"Page not found (404): {url}")
+                    # No need to retry for 404s, just return None
+                    return None
+                elif response.status_code == 429:  # Too Many Requests
+                    wait_time = base_delay * (2 ** attempt)  # Exponential backoff
+                    # Add jitter to prevent synchronized requests
+                    jitter = random.uniform(0.5, 1.5)
+                    wait_time = wait_time * jitter
+                    logging.warning(f"Rate limited (429). Waiting {wait_time:.2f} seconds before retry.")
+                    time.sleep(wait_time)
+                elif response.status_code == 403:  # Forbidden
+                    logging.error(f"Access forbidden (403). The site may have blocked requests.")
+                    # Add a much longer delay for 403 errors
+                    time.sleep(60 + random.random() * 60)  # 1-2 minute delay
+                else:
+                    logging.error(f"Failed to retrieve data: Status code: {response.status_code}")
+                    wait_time = base_delay * (2 ** attempt)
+                    time.sleep(wait_time)
+                    
+            except requests.exceptions.RequestException as e:
+                logging.error(f"Request error: {str(e)}")
                 wait_time = base_delay * (2 ** attempt)
                 time.sleep(wait_time)
-                
-        except requests.exceptions.RequestException as e:
-            logging.error(f"Request error: {str(e)}")
-            wait_time = base_delay * (2 ** attempt)
-            time.sleep(wait_time)
+                pbar.update(1)
     
     # If all retries fail
     logging.error(f"Max retries exceeded. Could not retrieve data from {url}")
     return None
 
-def scrape_standings(start_season=2023, end_season=2024):
+def scrape_standings(start_season=2024, end_season=2025):
     """
     Scrape NBA standings data from Basketball Reference website.
     
     Args:
-        start_season (int): Starting season year (default: 2023)
-        end_season (int): Ending season year (default: 2024)
+        start_season (int): Starting season year (default: 2024)
+        end_season (int): Ending season year (default: 2025)
         
     Returns:
         dict: Dictionary with dataframes for different standings tables
     """
     standings_data = {}
     
-    for season in range(start_season, end_season + 1):
-        logging.info(f"Scraping standings data for {season}-{season+1} season...")
+    # Create a progress bar for the seasons
+    seasons = list(range(start_season, end_season + 1))
+    for season in tqdm(seasons, desc="Scraping Standings"):
+        logging.debug(f"Scraping standings data for {season}-{season+1} season...")
         
-        # NBA standings URL
-        url = f"https://www.basketball-reference.com/leagues/NBA_{season}_standings.html"
+        # NBA ratings URL - use the specific ratings endpoint
+        url = f"https://www.basketball-reference.com/leagues/NBA_2025_ratings.html"
         
         # Make the throttled request
         response = throttled_request(url)
@@ -134,7 +151,7 @@ def scrape_standings(start_season=2023, end_season=2024):
 
         try:
             # Get Team Ratings
-            team_ratings_table = soup.find("table", {'id': 'standings'})
+            team_ratings_table = soup.find("table", {'id': 'ratings'})
             if team_ratings_table:
                 # Use StringIO to avoid FutureWarning
                 from io import StringIO
@@ -150,7 +167,7 @@ def scrape_standings(start_season=2023, end_season=2024):
                 ratings_df['Scraped_Date'] = datetime.now().strftime('%Y-%m-%d')
                 
                 standings_data[f"{season}-{season+1}"] = ratings_df
-                logging.info(f"Successfully scraped standings for {season}-{season+1} season.")
+                logging.debug(f"Successfully scraped standings for {season}-{season+1} season.")
         
         except Exception as e:
             logging.error(f"Error while scraping standings data for {season} season: {str(e)}")
@@ -177,17 +194,42 @@ def clean_standings_data(df):
     
     return df
 
-def save_standings_to_csv(standings_data, output_dir='./data'):
+def save_standings_to_csv(standings_data, output_dir='/Users/lukesmac/Projects/nbaModel/data'):
     """
-    Save the standings data to CSV files with update support for existing files.
+    Save the standings data to a team_ratings CSV file.
     
     Args:
         standings_data (dict): Dictionary of standings dataframes
-        output_dir (str): Directory to save the CSV files (default: './data')
+        output_dir (str): Directory to save the CSV files (default: '/Users/lukesmac/Projects/nbaModel/data')
     """
     # Create output directory if it doesn't exist
     os.makedirs(output_dir, exist_ok=True)
-
+    
+    # Create standings directory if it doesn't exist
+    standings_dir = os.path.join(output_dir, 'standings')
+    os.makedirs(standings_dir, exist_ok=True)
+    
+    # Remove old team ratings CSV files
+    logging.info("Removing old team ratings CSV files...")
+    old_ratings_files = glob.glob(os.path.join(standings_dir, "team_ratings_*.csv"))
+    if old_ratings_files:
+        for old_file in tqdm(old_ratings_files, desc="Removing old team ratings files"):
+            try:
+                os.remove(old_file)
+                logging.info(f"Removed old file: {old_file}")
+            except Exception as e:
+                logging.error(f"Error removing file {old_file}: {str(e)}")
+    
+    # Also remove any team standings files
+    old_standings_files = glob.glob(os.path.join(standings_dir, "team_standings_*.csv"))
+    if old_standings_files:
+        for old_file in tqdm(old_standings_files, desc="Removing team standings files"):
+            try:
+                os.remove(old_file)
+                logging.info(f"Removed file: {old_file}")
+            except Exception as e:
+                logging.error(f"Error removing file {old_file}: {str(e)}")
+    
     # Column mapping for more readable headers
     column_mapping = {
         'MOV': 'Margin_of_Victory',
@@ -199,45 +241,32 @@ def save_standings_to_csv(standings_data, output_dir='./data'):
         'DRtg/A': 'Defensive_Rating_Adjusted',
         'NRtg/A': 'Net_Rating_Adjusted'
     }
-
-    # Today's date for filename and data tracking
-    today_str = datetime.now().strftime('%Y%m%d')
     
-    # Save each dataframe to a CSV file
-    for name, df in standings_data.items():
-        # Create a copy of the dataframe to avoid modifying the original
-        df_to_save = df.copy()
-        
-        # Rename columns for better readability
+    # For creating the team_ratings file
+    latest_season_df = None
+    latest_season = None
+    
+    for season, df in tqdm(standings_data.items(), desc="Processing standings data"):
+        # Apply column mapping if columns exist
         for old_col, new_col in column_mapping.items():
-            if old_col in df_to_save.columns:
-                df_to_save.rename(columns={old_col: new_col}, inplace=True)
+            if old_col in df.columns:
+                df = df.rename(columns={old_col: new_col})
         
-        # Create output path
-        output_path = os.path.join(output_dir, f"{name}_{today_str}.csv")
+        # Keep track of the latest season for the team_ratings file
+        season_year = int(season.split('-')[0])
+        if latest_season is None or season_year > latest_season:
+            latest_season = season_year
+            latest_season_df = df.copy()
+    
+    # Create a team_ratings file with the latest season data
+    if latest_season_df is not None:
+        today_date = datetime.now().strftime('%Y%m%d')
+        ratings_filename = f"team_ratings_{today_date}.csv"
+        ratings_file_path = os.path.join(standings_dir, ratings_filename)
         
-        # Check if file already exists and handle it
-        if os.path.exists(output_path):
-            # Read existing file
-            logging.info(f"Found existing file {output_path}. Updating with new data...")
-            existing_df = pd.read_csv(output_path)
-            
-            # Combine with new data (giving priority to new data)
-            # Use 'Team' as the key for merging if it exists
-            if 'Team' in existing_df.columns and 'Team' in df_to_save.columns:
-                # Remove rows with same teams in existing data (to be replaced with new data)
-                existing_teams = df_to_save['Team'].unique()
-                existing_df = existing_df[~existing_df['Team'].isin(existing_teams)]
-                # Combine old and new data
-                df_to_save = pd.concat([existing_df, df_to_save], ignore_index=True)
-                logging.info(f"Updated {len(existing_teams)} teams with fresh data.")
-            else:
-                # If no 'Team' column for merging, just overwrite with new data
-                logging.info("No common key for merging. Replacing file with new data.")
-            
-        # Save to CSV
-        df_to_save.to_csv(output_path, index=False)
-        logging.info(f"Saved {name} to {output_path}")
+        # Save the team ratings file
+        latest_season_df.to_csv(ratings_file_path, index=False)
+        logging.info(f"Created new team ratings file: {ratings_filename}")
 
 def scrape_team_schedules(team_abbrs=None):
     """
@@ -289,7 +318,7 @@ def scrape_team_schedules(team_abbrs=None):
     team_schedules = {}
     
     # Scrape schedule for each team
-    for abbr, team_name in team_abbrs.items():
+    for abbr, team_name in tqdm(team_abbrs.items(), desc="Scraping Team Schedules"):
         try:
             # Construct URL for team schedule
             url = f"https://www.basketball-reference.com/teams/{abbr}/2025_games.html"
@@ -443,13 +472,13 @@ def clean_schedule_data(df):
     
     return df
 
-def save_schedules_to_csv(schedules, output_dir='./data'):
+def save_schedules_to_csv(schedules, output_dir='/Users/lukesmac/Projects/nbaModel/data'):
     """
     Save team schedules to CSV files with update support for existing files.
     
     Args:
         schedules (dict): Dictionary of team schedule dataframes
-        output_dir (str): Directory to save the CSV files (default: './data')
+        output_dir (str): Directory to save the CSV files (default: '/Users/lukesmac/Projects/nbaModel/data')
     """
     # Create output directory if it doesn't exist
     os.makedirs(output_dir, exist_ok=True)
@@ -457,17 +486,17 @@ def save_schedules_to_csv(schedules, output_dir='./data'):
     # Today's date for filename
     today_str = datetime.now().strftime('%Y%m%d')
     
-    # Process each team's schedule
-    for abbr, schedule_df in schedules.items():
+    # Process each team's schedule with progress bar
+    for abbr, schedule_df in tqdm(schedules.items(), desc="Saving team schedules"):
         # Create a copy of the dataframe to avoid modifying the original
         df_to_save = schedule_df.copy()
         
         # Create output path
-        output_path = os.path.join(output_dir, f"{abbr}_{today_str}.csv")
+        output_path = os.path.join(output_dir, f"{abbr}_schedule_{today_str}.csv")
         
         # Check if this team's schedule file already exists for today and handle it
         if os.path.exists(output_path):
-            logging.info(f"Found existing file {output_path}. Updating with new data...")
+            logging.debug(f"Found existing file {output_path}. Updating with new data...")
             existing_df = pd.read_csv(output_path)
             
             # Convert date column for proper merging
@@ -488,16 +517,16 @@ def save_schedules_to_csv(schedules, output_dir='./data'):
                 if 'Date' in df_to_save.columns:
                     df_to_save = df_to_save.sort_values('Date')
                     
-                logging.info(f"Updated with fresh data for {len(existing_dates)} game dates.")
+                logging.debug(f"Updated with fresh data for {len(existing_dates)} game dates.")
             else:
                 # If no 'Date' column for merging, just use the new data
-                logging.info("No common key for merging. Replacing file with new data.")
+                logging.debug("No common key for merging. Replacing file with new data.")
         
         # Save to CSV
         df_to_save.to_csv(output_path, index=False)
-        logging.info(f"Saved {abbr} schedule to {output_path}")
+        logging.debug(f"Saved {abbr} schedule to {output_path}")
 
-def find_latest_data_files(pattern, data_dir='./data'):
+def find_latest_data_files(pattern, data_dir='/Users/lukesmac/Projects/nbaModel/data'):
     """
     Find the latest data files matching a pattern.
     
@@ -541,14 +570,14 @@ def scrape_player_averages(start_season=2015, end_season=2025):
     """
     player_averages = {}
     
-    for season in range(start_season, end_season + 1):
-        logging.info(f"Scraping player averages for {season}-{season+1} season...")
+    for season in tqdm(range(start_season, end_season + 1), desc="Scraping Player Averages"):
+        logging.debug(f"Scraping player averages for {season}-{season+1} season...")
         
         # NBA player averages URL
         url = f"https://www.basketball-reference.com/leagues/NBA_{season}_per_game.html"
         
         # Make the throttled request
-        response = throttled_request(url, max_retries=5)
+        response = throttled_request(url)
         if not response:
             logging.warning(f"Failed to retrieve player averages for {season} season.")
             continue
@@ -591,7 +620,7 @@ def scrape_player_averages(start_season=2015, end_season=2025):
                 
                 # Add to dictionary
                 player_averages[season] = stats_df
-                logging.info(f"Successfully scraped player averages for {season} season. Found {len(stats_df)} player records.")
+                logging.debug(f"Successfully scraped player averages for {season} season. Found {len(stats_df)} player records.")
             else:
                 # Try alternative approach - look for any table with per game stats
                 tables = soup.find_all("table")
@@ -630,7 +659,7 @@ def scrape_player_averages(start_season=2015, end_season=2025):
                         
                         # Add to dictionary
                         player_averages[season] = stats_df
-                        logging.info(f"Successfully scraped player averages for {season} season. Found {len(stats_df)} player records.")
+                        logging.debug(f"Successfully scraped player averages for {season} season. Found {len(stats_df)} player records.")
                         found = True
                         break
                 
@@ -709,14 +738,14 @@ def scrape_player_per36_minutes(start_season=2015, end_season=2025):
     """
     player_per36 = {}
     
-    for season in range(start_season, end_season + 1):
+    for season in tqdm(range(start_season, end_season + 1), desc="Scraping Player Per 36 Minutes"):
         logging.info(f"Scraping player per 36 minutes for {season}-{season+1} season...")
         
         # NBA player per 36 minutes URL
         url = f"https://www.basketball-reference.com/leagues/NBA_{season}_per_minute.html"
         
         # Make the throttled request
-        response = throttled_request(url, max_retries=5)
+        response = throttled_request(url)
         if not response:
             logging.warning(f"Failed to retrieve player per 36 minutes for {season} season.")
             continue
@@ -877,14 +906,14 @@ def scrape_player_per100_possessions(start_season=2015, end_season=2025):
     """
     player_per100 = {}
     
-    for season in range(start_season, end_season + 1):
-        logging.info(f"Scraping player per 100 possessions for {season}-{season+1} season...")
+    for season in tqdm(range(start_season, end_season + 1), desc="Scraping Player Per 100 Possessions"):
+        logging.debug(f"Scraping player per 100 possessions for {season}-{season+1} season...")
         
         # NBA player per 100 possessions URL
         url = f"https://www.basketball-reference.com/leagues/NBA_{season}_per_poss.html"
         
         # Make the throttled request
-        response = throttled_request(url, max_retries=5)
+        response = throttled_request(url)
         if not response:
             logging.warning(f"Failed to retrieve player per 100 possessions for {season} season.")
             continue
@@ -927,7 +956,7 @@ def scrape_player_per100_possessions(start_season=2015, end_season=2025):
                 
                 # Add to dictionary
                 player_per100[season] = stats_df
-                logging.info(f"Successfully scraped player per 100 possessions for {season} season. Found {len(stats_df)} player records.")
+                logging.debug(f"Successfully scraped player per 100 possessions for {season} season. Found {len(stats_df)} player records.")
             else:
                 # Try alternative approach - look for any table with per possession stats
                 tables = soup.find_all("table")
@@ -966,7 +995,7 @@ def scrape_player_per100_possessions(start_season=2015, end_season=2025):
                         
                         # Add to dictionary
                         player_per100[season] = stats_df
-                        logging.info(f"Successfully scraped player per 100 possessions for {season} season. Found {len(stats_df)} player records.")
+                        logging.debug(f"Successfully scraped player per 100 possessions for {season} season. Found {len(stats_df)} player records.")
                         found = True
                         break
                 
@@ -1045,14 +1074,14 @@ def scrape_player_advanced_stats(start_season=2015, end_season=2025):
     """
     player_advanced = {}
     
-    for season in range(start_season, end_season + 1):
-        logging.info(f"Scraping player advanced statistics for {season}-{season+1} season...")
+    for season in tqdm(range(start_season, end_season + 1), desc="Scraping Player Advanced Statistics"):
+        logging.debug(f"Scraping player advanced statistics for {season}-{season+1} season...")
         
         # NBA player advanced statistics URL
         url = f"https://www.basketball-reference.com/leagues/NBA_{season}_advanced.html"
         
         # Make the throttled request
-        response = throttled_request(url, max_retries=5)
+        response = throttled_request(url)
         if not response:
             logging.warning(f"Failed to retrieve player advanced statistics for {season} season.")
             continue
@@ -1095,7 +1124,7 @@ def scrape_player_advanced_stats(start_season=2015, end_season=2025):
                 
                 # Add to dictionary
                 player_advanced[season] = stats_df
-                logging.info(f"Successfully scraped player advanced statistics for {season} season. Found {len(stats_df)} player records.")
+                logging.debug(f"Successfully scraped player advanced statistics for {season} season. Found {len(stats_df)} player records.")
             else:
                 # Try alternative approach - look for any table with advanced stats
                 tables = soup.find_all("table")
@@ -1134,7 +1163,7 @@ def scrape_player_advanced_stats(start_season=2015, end_season=2025):
                         
                         # Add to dictionary
                         player_advanced[season] = stats_df
-                        logging.info(f"Successfully scraped player advanced statistics for {season} season. Found {len(stats_df)} player records.")
+                        logging.debug(f"Successfully scraped player advanced statistics for {season} season. Found {len(stats_df)} player records.")
                         found = True
                         break
                 
@@ -1459,13 +1488,13 @@ def enhance_player_averages_with_all_stats(player_averages, player_per36, player
     
     return fully_enhanced
 
-def save_player_averages_to_csv(player_averages, output_dir='./data'):
+def save_player_averages_to_csv(player_averages, output_dir='/Users/lukesmac/Projects/nbaModel/data'):
     """
     Save the player averages data to a single unified CSV file.
     
     Args:
         player_averages (dict): Dictionary of player averages dataframes by season
-        output_dir (str): Directory to save the CSV file (default: './data')
+        output_dir (str): Directory to save the CSV file (default: '/Users/lukesmac/Projects/nbaModel/data')
     """
     # Create output directory for player stats if it doesn't exist
     player_stats_dir = os.path.join(output_dir, 'player_stats')
@@ -1474,30 +1503,86 @@ def save_player_averages_to_csv(player_averages, output_dir='./data'):
     # Today's date for filename
     today_str = datetime.now().strftime('%Y%m%d')
     
+    # Output path for the CSV file
+    output_path = os.path.join(player_stats_dir, f"player_averages_{today_str}.csv")
+    
     # Combine all seasons into a single dataframe
     if player_averages:
-        all_seasons_df = pd.concat(player_averages.values(), ignore_index=True)
+        seasons = list(player_averages.keys())
+        all_dfs = []
         
-        # Save the combined dataframe
-        output_path = os.path.join(player_stats_dir, f"player_averages_{today_str}.csv")
-        all_seasons_df.to_csv(output_path, index=False)
-        logging.info(f"Saved unified player averages for all seasons to {output_path}")
+        # Use tqdm to show progress while combining dataframes
+        for season in tqdm(seasons, desc="Combining player stats across seasons"):
+            all_dfs.append(player_averages[season])
         
-        # Display sample of the data
-        if not all_seasons_df.empty:
-            logging.info(f"\nPLAYER AVERAGES SAMPLE (showing first 5 rows):")
-            logging.info(all_seasons_df.head())
+        all_seasons_df = pd.concat(all_dfs, ignore_index=True)
+        
+        # Check if the file already exists
+        if os.path.exists(output_path):
+            logging.debug(f"Found existing player averages file at {output_path}")
+            
+            # Read existing data
+            try:
+                existing_df = pd.read_csv(output_path)
+                logging.debug(f"Existing data has {len(existing_df)} rows")
+                
+                # Create a unique identifier for each player-season combination
+                if 'Player' in existing_df.columns and 'Season_Year' in existing_df.columns and 'Tm' in existing_df.columns:
+                    existing_df['player_season_team'] = existing_df['Player'] + '_' + existing_df['Season_Year'].astype(str) + '_' + existing_df['Tm']
+                    all_seasons_df['player_season_team'] = all_seasons_df['Player'] + '_' + all_seasons_df['Season_Year'].astype(str) + '_' + all_seasons_df['Tm']
+                    
+                    # Filter out rows that already exist in the existing data
+                    existing_keys = set(existing_df['player_season_team'])
+                    new_rows = all_seasons_df[~all_seasons_df['player_season_team'].isin(existing_keys)]
+                    
+                    # Drop the temporary column
+                    new_rows = new_rows.drop(columns=['player_season_team'])
+                    
+                    if len(new_rows) > 0:
+                        # Append only new data to existing data
+                        existing_df = existing_df.drop(columns=['player_season_team'])
+                        combined_df = pd.concat([existing_df, new_rows], ignore_index=True)
+                        
+                        # Save the combined dataframe with progress bar
+                        with tqdm(total=1, desc="Saving updated player stats") as pbar:
+                            combined_df.to_csv(output_path, index=False)
+                            pbar.update(1)
+                        
+                        logging.debug(f"Added {len(new_rows)} new player records to {output_path}")
+                    else:
+                        logging.debug("No new player data to add.")
+                else:
+                    logging.warning("Existing file does not have expected columns. Creating a new file.")
+                    with tqdm(total=1, desc="Saving player stats") as pbar:
+                        all_seasons_df.to_csv(output_path, index=False)
+                        pbar.update(1)
+                    logging.debug(f"Saved unified player averages for all seasons to {output_path}")
+            except Exception as e:
+                logging.error(f"Error reading existing file: {str(e)}. Creating a new file.")
+                with tqdm(total=1, desc="Saving player stats") as pbar:
+                    all_seasons_df.to_csv(output_path, index=False)
+                    pbar.update(1)
+                logging.debug(f"Saved unified player averages for all seasons to {output_path}")
+        else:
+            # Save new data with progress bar
+            with tqdm(total=1, desc="Saving player stats") as pbar:
+                all_seasons_df.to_csv(output_path, index=False)
+                pbar.update(1)
+            logging.debug(f"Saved unified player averages for all seasons to {output_path}")
+            
+        return output_path
     else:
         logging.warning("No player averages data to save.")
+        return None
 
 # Run when script is executed directly
 if __name__ == "__main__":
     try:
         # Set up argument parser
         parser = argparse.ArgumentParser(description='Scrape NBA data from Basketball Reference')
-        parser.add_argument('--output-dir', type=str, default='./data', help='Output directory for data files')
-        parser.add_argument('--start-season', type=int, default=2023, help='Starting season year (e.g., 2023 for 2023-24 season)')
-        parser.add_argument('--end-season', type=int, default=2024, help='Ending season year (e.g., 2024 for 2024-25 season)')
+        parser.add_argument('--output-dir', type=str, default='/Users/lukesmac/Projects/nbaModel/data', help='Output directory for data files')
+        parser.add_argument('--start-season', type=int, default=2024, help='Starting season year (e.g., 2024 for 2024-25 season)')
+        parser.add_argument('--end-season', type=int, default=2025, help='Ending season year (e.g., 2025 for 2025-26 season)')
         parser.add_argument('--standings', action='store_true', help='Scrape standings data')
         parser.add_argument('--player-stats', action='store_true', help='Scrape player statistics')
         parser.add_argument('--all', action='store_true', help='Scrape all available data')
@@ -1508,103 +1593,92 @@ if __name__ == "__main__":
         os.makedirs(args.output_dir, exist_ok=True)
         os.makedirs(os.path.join(args.output_dir, 'standings'), exist_ok=True)
         os.makedirs(os.path.join(args.output_dir, 'player_stats'), exist_ok=True)
-        
-        # Configure logging
-        logging.basicConfig(
-            level=logging.INFO,
-            format='%(asctime)s - %(levelname)s - %(message)s',
-            handlers=[
-                logging.FileHandler(os.path.join(args.output_dir, 'scrape_log.txt')),
-                logging.StreamHandler()
-            ]
-        )
+        os.makedirs(os.path.join(args.output_dir, 'schedules'), exist_ok=True)
         
         # Log script start
         logging.info("NBA Data Scraping Script Started")
         logging.info(f"Output Directory: {args.output_dir}")
         logging.info(f"Seasons: {args.start_season}-{args.end_season}")
         
-        # Scrape standings if requested
-        if args.standings or args.all:
-            logging.info("\nScraping standings data...")
-            standings_data = scrape_standings(start_season=args.start_season, end_season=args.end_season)
-            
-            if standings_data:
-                save_standings_to_csv(standings_data, args.output_dir)
-                logging.info(f"Standings data saved to {os.path.join(args.output_dir, 'standings')}")
-            else:
-                logging.warning("No standings data was scraped.")
+        # Print minimal info to console
+        print(f"NBA Data Scraping: {args.start_season}-{args.end_season} seasons")
         
-        # Scrape player statistics if requested
+        # Create a list of tasks to run based on arguments
+        tasks = []
+        if args.standings or args.all:
+            tasks.append("standings")
         if args.player_stats or args.all:
-            logging.info("\nScraping player averages per game...")
-            player_averages = scrape_player_averages(start_season=args.start_season, end_season=args.end_season)
+            tasks.append("player_stats")
+        
+        # If no specific tasks are selected, default to all
+        if not tasks:
+            tasks = ["standings", "player_stats"]
             
-            if not player_averages:
-                logging.error("Failed to scrape player averages. Exiting.")
-                sys.exit(1)
-            
-            logging.info("\nScraping player per 36 minutes...")
-            player_per36 = scrape_player_per36_minutes(start_season=args.start_season, end_season=args.end_season)
-            
-            logging.info("\nScraping player per 100 possessions...")
-            player_per100 = scrape_player_per100_possessions(start_season=args.start_season, end_season=args.end_season)
-            
-            logging.info("\nScraping player advanced statistics...")
-            player_advanced = scrape_player_advanced_stats(start_season=args.start_season, end_season=args.end_season)
-            
-            if player_per36 and player_per100 and player_advanced:
-                # Enhance player averages with all stats
-                logging.info("\nEnhancing player averages with per 36 minutes, per 100 possessions, and advanced statistics...")
-                enhanced_player_averages = enhance_player_averages_with_all_stats(player_averages, player_per36, player_per100, player_advanced)
+        # Use tqdm for overall progress
+        with tqdm(total=len(tasks), desc="Overall Progress", position=0) as overall_pbar:
+            for task in tasks:
+                if task == "standings":
+                    # Use tqdm.write to avoid interfering with progress bars
+                    tqdm.write("\nScraping standings data...")
+                    standings_data = scrape_standings(start_season=args.start_season, end_season=args.end_season)
+                    
+                    if standings_data:
+                        save_standings_to_csv(standings_data, args.output_dir)
+                        tqdm.write(f"✓ Standings data saved to {os.path.join(args.output_dir, 'standings')}")
+                    else:
+                        tqdm.write("✗ No standings data was scraped.")
                 
-                # Save enhanced player averages to CSV
-                save_player_averages_to_csv(enhanced_player_averages, args.output_dir)
-            elif player_per36 and player_per100:
-                # If only per 36 minutes and per 100 possessions scraping succeeded
-                logging.warning("Failed to scrape player advanced statistics. Enhancing with per 36 minutes and per 100 possessions only.")
-                enhanced_player_averages = enhance_player_averages_with_per100(enhance_player_averages_with_per36(player_averages, player_per36), player_per100)
-                save_player_averages_to_csv(enhanced_player_averages, args.output_dir)
-            elif player_per36 and player_advanced:
-                # If only per 36 minutes and advanced statistics scraping succeeded
-                logging.warning("Failed to scrape player per 100 possessions. Enhancing with per 36 minutes and advanced statistics only.")
-                enhanced_player_averages = enhance_player_averages_with_advanced(enhance_player_averages_with_per36(player_averages, player_per36), player_advanced)
-                save_player_averages_to_csv(enhanced_player_averages, args.output_dir)
-            elif player_per100 and player_advanced:
-                # If only per 100 possessions and advanced statistics scraping succeeded
-                logging.warning("Failed to scrape player per 36 minutes. Enhancing with per 100 possessions and advanced statistics only.")
-                enhanced_player_averages = enhance_player_averages_with_advanced(enhance_player_averages_with_per100(player_averages, player_per100), player_advanced)
-                save_player_averages_to_csv(enhanced_player_averages, args.output_dir)
-            elif player_per36:
-                # If only per 36 minutes scraping succeeded
-                logging.warning("Failed to scrape player per 100 possessions and advanced statistics. Enhancing with per 36 minutes only.")
-                enhanced_player_averages = enhance_player_averages_with_per36(player_averages, player_per36)
-                save_player_averages_to_csv(enhanced_player_averages, args.output_dir)
-            elif player_per100:
-                # If only per 100 possessions scraping succeeded
-                logging.warning("Failed to scrape player per 36 minutes and advanced statistics. Enhancing with per 100 possessions only.")
-                enhanced_player_averages = enhance_player_averages_with_per100(player_averages, player_per100)
-                save_player_averages_to_csv(enhanced_player_averages, args.output_dir)
-            elif player_advanced:
-                # If only advanced statistics scraping succeeded
-                logging.warning("Failed to scrape player per 36 minutes and per 100 possessions. Enhancing with advanced statistics only.")
-                enhanced_player_averages = enhance_player_averages_with_advanced(player_averages, player_advanced)
-                save_player_averages_to_csv(enhanced_player_averages, args.output_dir)
-            else:
-                # If all additional scraping failed
-                logging.warning("Failed to scrape player per 36 minutes, per 100 possessions, and advanced statistics. Saving original player averages.")
-                save_player_averages_to_csv(player_averages, args.output_dir)
-            
-            # Display sample of the data for the first season
-            if args.start_season in player_averages:
-                logging.info("\nSample of player averages data:")
-                sample_df = player_averages[args.start_season].head(5)
-                logging.info(f"\n{sample_df}")
+                elif task == "player_stats":
+                    tqdm.write("\nScraping player statistics...")
+                    
+                    # Create a progress bar for the player stats scraping steps
+                    player_stats_steps = ["averages", "per36", "per100", "advanced", "processing"]
+                    with tqdm(total=len(player_stats_steps), desc="Player Stats Progress", position=1, leave=False) as player_stats_pbar:
+                        # Scrape player averages
+                        player_stats_pbar.set_description("Scraping player averages")
+                        player_averages = scrape_player_averages(start_season=args.start_season, end_season=args.end_season)
+                        player_stats_pbar.update(1)
+                        
+                        if not player_averages:
+                            tqdm.write("✗ Failed to scrape player averages.")
+                            continue
+                        
+                        # Scrape per 36 minutes stats
+                        player_stats_pbar.set_description("Scraping per 36 minutes stats")
+                        player_per36 = scrape_player_per36_minutes(start_season=args.start_season, end_season=args.end_season)
+                        player_stats_pbar.update(1)
+                        
+                        # Scrape per 100 possessions stats
+                        player_stats_pbar.set_description("Scraping per 100 possessions stats")
+                        player_per100 = scrape_player_per100_possessions(start_season=args.start_season, end_season=args.end_season)
+                        player_stats_pbar.update(1)
+                        
+                        # Scrape advanced stats
+                        player_stats_pbar.set_description("Scraping advanced stats")
+                        player_advanced = scrape_player_advanced_stats(start_season=args.start_season, end_season=args.end_season)
+                        player_stats_pbar.update(1)
+                        
+                        # Enhance player averages with all stats
+                        player_stats_pbar.set_description("Processing player statistics")
+                        enhanced_player_averages = enhance_player_averages_with_all_stats(
+                            player_averages, player_per36, player_per100, player_advanced
+                        )
+                        player_stats_pbar.update(1)
+                        
+                        # Save enhanced player averages
+                        output_path = save_player_averages_to_csv(enhanced_player_averages, args.output_dir)
+                        if output_path:
+                            tqdm.write(f"✓ Player statistics saved to {output_path}")
+                
+                # Update the overall progress bar
+                overall_pbar.update(1)
         
         # Log script completion
-        logging.info("\nNBA Data Scraping Script Completed Successfully")
+        print("\n✓ NBA Data Scraping Script Completed Successfully")
+        logging.info("NBA Data Scraping Script Completed Successfully")
     
     except Exception as e:
+        print(f"\n✗ Error: {str(e)}")
         logging.error(f"An error occurred: {str(e)}")
         logging.error(traceback.format_exc())
         sys.exit(1)
