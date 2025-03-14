@@ -71,7 +71,7 @@ except ImportError:
 
 
 def train_specific_target(target_name, use_ensemble=True, use_time_series=True, gap=3, test_size=0.2, 
-                  remove_redundant_features=True, validate_features=True):
+                  remove_redundant_features=True, validate_features=True, model_type='random_forest'):
     """Train a model for a specific target variable
     
     Args:
@@ -232,7 +232,7 @@ def train_specific_target(target_name, use_ensemble=True, use_time_series=True, 
     # Train model
     model_result = train_model(
         X, y, 
-        model_type='random_forest',
+        model_type=model_type,
         use_ensemble_stacking=use_ensemble
     )
     
@@ -321,6 +321,9 @@ def main():
                         help="Test size for train/test split (default: 0.2)")
     parser.add_argument("--process-data", action="store_true",
                         help="Run data processing before training")
+    parser.add_argument("--model-type", type=str, default="random_forest",
+                        choices=["random_forest", "xgboost", "gradient_boosting", "decision_tree", "lightgbm", "stacked"],
+                        help="Type of model to train (default: random_forest)")
                         
     # Feature engineering options
     feature_group = parser.add_argument_group('Feature Engineering Options')
@@ -367,7 +370,8 @@ def main():
             gap=args.gap,
             test_size=args.test_size,
             remove_redundant_features=args.optimize_features,
-            validate_features=args.validate_features
+            validate_features=args.validate_features,
+            model_type=args.model_type
         )
         
         results[target] = {

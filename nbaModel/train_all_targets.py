@@ -24,7 +24,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 # Target variables to train models for
 TARGET_VARIABLES = ['pts', 'reb', 'ast', 'fgm', 'fga', 'tptfgm', 'tptfga']
 
-def train_all_models(use_ensemble=False, use_time_series=True, process_data=True, sequential=False):
+def train_all_models(use_ensemble=False, use_time_series=True, process_data=True, sequential=False, model_type="random_forest"):
     """
     Train models for all target variables
     
@@ -58,6 +58,9 @@ def train_all_models(use_ensemble=False, use_time_series=True, process_data=True
             if process_data and target == TARGET_VARIABLES[0]:  # Only process data for first target
                 cmd.append("--process-data")
             
+            # Add model type
+            cmd.extend(["--model-type", model_type])
+            
             # Log the command
             logging.info(f"Running command: {' '.join(cmd)}")
             
@@ -88,6 +91,9 @@ def train_all_models(use_ensemble=False, use_time_series=True, process_data=True
             cmd.append("--no-time-series")
         if process_data:
             cmd.append("--process-data")
+            
+        # Add model type
+        cmd.extend(["--model-type", model_type])
         
         # Log the command
         logging.info(f"Running command: {' '.join(cmd)}")
@@ -128,6 +134,9 @@ if __name__ == "__main__":
                         help="Specific targets to train (default: all targets)")
     parser.add_argument("--sequential", action="store_true",
                         help="Train models one by one (helps with memory issues)")
+    parser.add_argument("--model-type", type=str, default="random_forest",
+                        choices=["random_forest", "xgboost", "gradient_boosting", "decision_tree", "lightgbm", "stacked"],
+                        help="Type of model to train (default: random_forest)")
     
     args = parser.parse_args()
     
@@ -148,7 +157,8 @@ if __name__ == "__main__":
         use_ensemble=args.ensemble,
         use_time_series=not args.no_time_series,
         process_data=process_data,
-        sequential=args.sequential
+        sequential=args.sequential,
+        model_type=args.model_type
     )
     
     if success:

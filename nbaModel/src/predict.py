@@ -355,10 +355,32 @@ def predict_performance(player_data, model=None, feature_names=None, target_name
     # Create simplified feature matrix - we'll handle the features manually
     df = engineered_data.copy()
     
-    # Get the actual model feature names if available
-    model_features = getattr(model, 'feature_names_in_', None)
+    # Get the actual model feature names if available, handling different model types
+    model_features = None
+    
+    # Special handling for ensemble models which may not be fitted
+    if hasattr(model, 'estimators') and not hasattr(model, 'estimators_'):
+        # This is an unfitted ensemble model
+        logging.warning("Using ensemble model that wasn't pre-fitted. Using first base estimator instead.")
+        # Use the first base estimator instead
+        if hasattr(model, 'estimators') and len(model.estimators) > 0:
+            estimator_name, base_estimator = model.estimators[0]
+            logging.info(f"Using base estimator: {estimator_name}")
+            model = base_estimator
+    
+    # Check for scikit-learn style feature names
+    if hasattr(model, 'feature_names_in_'):
+        model_features = model.feature_names_in_
+    # Check for XGBoost style feature names
+    elif hasattr(model, 'feature_names'):
+        model_features = model.feature_names
+    # Check for XGBoost booster feature names
+    elif hasattr(model, 'get_booster') and hasattr(model.get_booster(), 'feature_names'):
+        model_features = model.get_booster().feature_names
+        
     if model_features is not None:
         feature_names = model_features
+        logging.debug(f"Using model's native feature names (count: {len(feature_names)})")
     
     # Create a DataFrame with all required features initialized to 0
     X = pd.DataFrame(0, index=df.index, columns=feature_names)
@@ -660,7 +682,7 @@ def load_opponent_strength(opponent):
         logging.error(f"Error loading team ratings: {str(e)}")
         return None
 
-def predict_player_performance(player_id=None, player_name=None, team=None, opponent=None):
+def predict_player_performance(player_id=None, player_name=None, team=None, opponent=None, model_type="random_forest"):
     """
     End-to-end function to predict a player's performance
     
@@ -669,6 +691,7 @@ def predict_player_performance(player_id=None, player_name=None, team=None, oppo
         player_name (str, optional): Player name
         team (str, optional): Player's team
         opponent (str, optional): Opponent team
+        model_type (str, optional): Type of model to use (default: random_forest)
         
     Returns:
         dict: Dictionary containing player info and predicted stats
@@ -712,8 +735,95 @@ def predict_player_performance(player_id=None, player_name=None, team=None, oppo
         'game_date': game_date
     }
     
-    # Load model and metadata
-    model = load_model()
+    # Load model and metadata for the specified model type
+    logging.info(f"Using {model_type} model for prediction")
+    
+    # Look for the latest model files
+    models_dir = "/Users/lukesmac/Projects/nbaModel/models"
+    
+    # Find model files based on model type
+    model_path = None
+    
+    if model_type == "xgboost":
+        # Look for XGBoost model files directly
+        xgb_files = glob.glob(os.path.join(models_dir, "nba_*_xgboost_*.joblib"))
+        
+        if xgb_files:
+            xgb_files.sort(reverse=True)  # Sort by date, newest first
+            model_path = xgb_files[0]
+            
+    elif model_type == "ensemble" or model_type == "voting":
+        # Look for ensemble model files
+        ensemble_files = glob.glob(os.path.join(models_dir, "nba_*_voting_ensemble_*.joblib"))
+        
+        if ensemble_files:
+            ensemble_files.sort(reverse=True)  # Sort by date, newest first
+            model_path = ensemble_files[0]
+            
+    elif model_type == "stacked" or model_type == "stacking":
+        # Look for stacking ensemble model files
+        stacking_files = glob.glob(os.path.join(models_dir, "nba_*_stacking_ensemble_*.joblib"))
+        
+        if stacking_files:
+            stacking_files.sort(reverse=True)  # Sort by date, newest first
+            model_path = stacking_files[0]
+    
+    elif model_type == "random_forest":
+        # Look for Random Forest models directly
+        rf_files = glob.glob(os.path.join(models_dir, "nba_*_random_forest_*.joblib"))
+        if not rf_files:
+            # Try alternate pattern
+            rf_files = glob.glob(os.path.join(models_dir, "nba_*_random_forest.joblib"))
+            
+        if rf_files:
+            rf_files.sort(reverse=True)
+            model_path = rf_files[0]
+    
+    elif model_type == "gradient_boosting":
+        # Look for Gradient Boosting models
+        gb_files = glob.glob(os.path.join(models_dir, "nba_*_gradient_boosting_*.joblib"))
+        if gb_files:
+            gb_files.sort(reverse=True)
+            model_path = gb_files[0]
+    
+    elif model_type == "lightgbm":
+        # Look for LightGBM models
+        lgbm_files = glob.glob(os.path.join(models_dir, "nba_*_lightgbm_*.joblib"))
+        if lgbm_files:
+            lgbm_files.sort(reverse=True)
+            model_path = lgbm_files[0]
+    
+    elif model_type == "optimized" or model_type == "best":
+        # Try ensembles first (best performance)
+        ensemble_files = glob.glob(os.path.join(models_dir, "nba_*_voting_ensemble_*.joblib"))
+        if ensemble_files:
+            ensemble_files.sort(reverse=True)
+            model_path = ensemble_files[0]
+        else:
+            # Try XGBoost next
+            xgb_files = glob.glob(os.path.join(models_dir, "nba_*_xgboost_*.joblib"))
+            if xgb_files:
+                xgb_files.sort(reverse=True)
+                model_path = xgb_files[0]
+    
+    # If model path is found, load the model
+    if model_path:
+        logging.info(f"Loading {model_type} model from {model_path}")
+        try:
+            model = joblib.load(model_path)
+            # Verify the model type
+            if model_type == "xgboost" and not hasattr(model, 'get_booster'):
+                logging.warning(f"Model at {model_path} is not an XGBoost model. Falling back to default model.")
+                model = load_model()
+        except Exception as e:
+            logging.error(f"Error loading {model_type} model: {str(e)}")
+            logging.warning("Falling back to default model")
+            model = load_model()
+    else:
+        # No specific model found, fall back to default
+        logging.warning(f"No specific {model_type} model found, falling back to default model")
+        model = load_model()
+    
     feature_names, target_names = load_model_metadata()
     
     if model is None or feature_names is None or target_names is None:

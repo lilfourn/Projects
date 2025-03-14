@@ -185,13 +185,19 @@ def train_model(X_train, y_train, model_type='random_forest', hyperparams=None, 
             }
         elif model_type == 'xgboost' and XGBOOST_AVAILABLE:
             hyperparams = {
-                'n_estimators': 25 if low_resource_mode else 50,
-                'max_depth': 3 if low_resource_mode else 4,
+                'n_estimators': 50 if low_resource_mode else 150,
+                'max_depth': 4 if low_resource_mode else 6,
                 'learning_rate': 0.1,
                 'random_state': 42,
-                'subsample': 0.7 if low_resource_mode else 0.8,
+                'subsample': 0.8,
                 'colsample_bytree': 0.8,
-                'n_jobs': 1  # Only use 1 parallel job
+                'n_jobs': -1,  # Use all available cores
+                'tree_method': 'hist',  # More efficient algorithm
+                'objective': 'reg:squarederror',
+                'booster': 'gbtree',
+                'gamma': 0,
+                'min_child_weight': 1,
+                'eval_metric': 'rmse'
             }
         elif model_type == 'lightgbm' and LIGHTGBM_AVAILABLE:
             hyperparams = {
@@ -670,35 +676,43 @@ def tune_model_hyperparameters(X_train, y_train, model_type='random_forest', cv=
             }
             
     elif model_type == 'xgboost' and XGBOOST_AVAILABLE:
-        base_model = xgb.XGBRegressor(random_state=42, n_jobs=1)
+        base_model = xgb.XGBRegressor(random_state=42, n_jobs=-1, tree_method='hist')
         
         if use_bayesian and BAYESIAN_OPT_AVAILABLE:
             param_space = {
-                'estimator__n_estimators': Integer(20, 100),
-                'estimator__max_depth': Integer(2, 6),
-                'estimator__learning_rate': Real(0.01, 0.3, prior='log-uniform'),
-                'estimator__subsample': Real(0.5, 1.0),
-                'estimator__colsample_bytree': Real(0.5, 1.0)
+                'estimator__n_estimators': Integer(50, 200),
+                'estimator__max_depth': Integer(3, 7),
+                'estimator__learning_rate': Real(0.01, 0.2, prior='log-uniform'),
+                'estimator__subsample': Real(0.7, 1.0),
+                'estimator__colsample_bytree': Real(0.7, 1.0),
+                'estimator__min_child_weight': Integer(1, 5),
+                'estimator__gamma': Real(0, 0.2)
             } if is_multioutput else {
-                'n_estimators': Integer(20, 100),
-                'max_depth': Integer(2, 6),
-                'learning_rate': Real(0.01, 0.3, prior='log-uniform'),
-                'subsample': Real(0.5, 1.0),
-                'colsample_bytree': Real(0.5, 1.0)
+                'n_estimators': Integer(50, 200),
+                'max_depth': Integer(3, 7),
+                'learning_rate': Real(0.01, 0.2, prior='log-uniform'),
+                'subsample': Real(0.7, 1.0),
+                'colsample_bytree': Real(0.7, 1.0),
+                'min_child_weight': Integer(1, 5),
+                'gamma': Real(0, 0.2)
             }
         else:
             param_grid = {
-                'estimator__n_estimators': [25, 50, 75],
-                'estimator__max_depth': [3, 4, 5],
-                'estimator__learning_rate': [0.05, 0.1, 0.2],
+                'estimator__n_estimators': [50, 100, 150],
+                'estimator__max_depth': [3, 4, 6],
+                'estimator__learning_rate': [0.01, 0.05, 0.1],
                 'estimator__subsample': [0.7, 0.8, 0.9],
-                'estimator__colsample_bytree': [0.7, 0.8, 0.9]
+                'estimator__colsample_bytree': [0.7, 0.8, 0.9],
+                'estimator__min_child_weight': [1, 3],
+                'estimator__gamma': [0, 0.1]
             } if is_multioutput else {
-                'n_estimators': [25, 50, 75],
-                'max_depth': [3, 4, 5],
-                'learning_rate': [0.05, 0.1, 0.2],
+                'n_estimators': [50, 100, 150],
+                'max_depth': [3, 4, 6],
+                'learning_rate': [0.01, 0.05, 0.1],
                 'subsample': [0.7, 0.8, 0.9],
-                'colsample_bytree': [0.7, 0.8, 0.9]
+                'colsample_bytree': [0.7, 0.8, 0.9],
+                'min_child_weight': [1, 3],
+                'gamma': [0, 0.1]
             }
             
     elif model_type == 'lightgbm' and LIGHTGBM_AVAILABLE:
