@@ -1,0 +1,653 @@
+{
+  "permutation_importance": {
+    "top_features": [
+      {
+        "feature": "PPS",
+        "importance_mean": 0.21655422227606413,
+        "importance_std": 0.0023106332733286543
+      },
+      {
+        "feature": "TS%",
+        "importance_mean": 0.1831529199139747,
+        "importance_std": 0.003183480069785581
+      },
+      {
+        "feature": "last10_pts_w_avg",
+        "importance_mean": 0.1332244172217507,
+        "importance_std": 0.001658194490620496
+      },
+      {
+        "feature": "std_fga",
+        "importance_mean": 0.1152557968489338,
+        "importance_std": 0.0015135429577608176
+      },
+      {
+        "feature": "eFG%",
+        "importance_mean": 0.039314374306688646,
+        "importance_std": 0.000496768750376338
+      },
+      {
+        "feature": "minutes_restriction",
+        "importance_mean": 0.020997021363761137,
+        "importance_std": 0.000914485232954067
+      },
+      {
+        "feature": "USG%",
+        "importance_mean": 0.019846286193512853,
+        "importance_std": 0.00043518234993137516
+      },
+      {
+        "feature": "MP",
+        "importance_mean": 0.01664592401392666,
+        "importance_std": 0.0008759176117003008
+      },
+      {
+        "feature": "last3_pts_w_avg",
+        "importance_mean": 0.01623821726604908,
+        "importance_std": 0.0007015437051669957
+      },
+      {
+        "feature": "mins_volatility",
+        "importance_mean": 0.009018410224227825,
+        "importance_std": 0.0003400716864309823
+      },
+      {
+        "feature": "TOV_y",
+        "importance_mean": 0.003357990678949685,
+        "importance_std": 0.00017651061439199594
+      },
+      {
+        "feature": "std_pts",
+        "importance_mean": 0.0028026464481725856,
+        "importance_std": 7.538481873569467e-05
+      },
+      {
+        "feature": "std_tptfga",
+        "importance_mean": 0.0027246021619449666,
+        "importance_std": 8.342722473440966e-05
+      },
+      {
+        "feature": "last10_pts_avg",
+        "importance_mean": 0.002601833829479494,
+        "importance_std": 2.3338013993867333e-05
+      },
+      {
+        "feature": "days_rest",
+        "importance_mean": 0.0024662972866467793,
+        "importance_std": 0.00012853910438925806
+      },
+      {
+        "feature": "pts_w_trend",
+        "importance_mean": 0.0023279463028780924,
+        "importance_std": 4.5657697357391566e-05
+      },
+      {
+        "feature": "last3_mins_w_avg",
+        "importance_mean": 0.0019157895823220584,
+        "importance_std": 0.00010931321435494822
+      },
+      {
+        "feature": "last10_TS%_w_avg",
+        "importance_mean": 0.0017088043977108614,
+        "importance_std": 5.119242808259596e-05
+      },
+      {
+        "feature": "std_tptfga_std",
+        "importance_mean": 0.0014669273243588465,
+        "importance_std": 3.3087657792606514e-05
+      },
+      {
+        "feature": "games_since_team_change",
+        "importance_mean": 0.0013657426144069618,
+        "importance_std": 2.053649116617631e-05
+      }
+    ],
+    "all_features": [
+      {
+        "feature": "PPS",
+        "importance_mean": 0.21655422227606413,
+        "importance_std": 0.0023106332733286543
+      },
+      {
+        "feature": "TS%",
+        "importance_mean": 0.1831529199139747,
+        "importance_std": 0.003183480069785581
+      },
+      {
+        "feature": "last10_pts_w_avg",
+        "importance_mean": 0.1332244172217507,
+        "importance_std": 0.001658194490620496
+      },
+      {
+        "feature": "std_fga",
+        "importance_mean": 0.1152557968489338,
+        "importance_std": 0.0015135429577608176
+      },
+      {
+        "feature": "eFG%",
+        "importance_mean": 0.039314374306688646,
+        "importance_std": 0.000496768750376338
+      },
+      {
+        "feature": "minutes_restriction",
+        "importance_mean": 0.020997021363761137,
+        "importance_std": 0.000914485232954067
+      },
+      {
+        "feature": "USG%",
+        "importance_mean": 0.019846286193512853,
+        "importance_std": 0.00043518234993137516
+      },
+      {
+        "feature": "MP",
+        "importance_mean": 0.01664592401392666,
+        "importance_std": 0.0008759176117003008
+      },
+      {
+        "feature": "last3_pts_w_avg",
+        "importance_mean": 0.01623821726604908,
+        "importance_std": 0.0007015437051669957
+      },
+      {
+        "feature": "mins_volatility",
+        "importance_mean": 0.009018410224227825,
+        "importance_std": 0.0003400716864309823
+      },
+      {
+        "feature": "TOV_y",
+        "importance_mean": 0.003357990678949685,
+        "importance_std": 0.00017651061439199594
+      },
+      {
+        "feature": "std_pts",
+        "importance_mean": 0.0028026464481725856,
+        "importance_std": 7.538481873569467e-05
+      },
+      {
+        "feature": "std_tptfga",
+        "importance_mean": 0.0027246021619449666,
+        "importance_std": 8.342722473440966e-05
+      },
+      {
+        "feature": "last10_pts_avg",
+        "importance_mean": 0.002601833829479494,
+        "importance_std": 2.3338013993867333e-05
+      },
+      {
+        "feature": "days_rest",
+        "importance_mean": 0.0024662972866467793,
+        "importance_std": 0.00012853910438925806
+      },
+      {
+        "feature": "pts_w_trend",
+        "importance_mean": 0.0023279463028780924,
+        "importance_std": 4.5657697357391566e-05
+      },
+      {
+        "feature": "last3_mins_w_avg",
+        "importance_mean": 0.0019157895823220584,
+        "importance_std": 0.00010931321435494822
+      },
+      {
+        "feature": "last10_TS%_w_avg",
+        "importance_mean": 0.0017088043977108614,
+        "importance_std": 5.119242808259596e-05
+      },
+      {
+        "feature": "std_tptfga_std",
+        "importance_mean": 0.0014669273243588465,
+        "importance_std": 3.3087657792606514e-05
+      },
+      {
+        "feature": "games_since_team_change",
+        "importance_mean": 0.0013657426144069618,
+        "importance_std": 2.053649116617631e-05
+      },
+      {
+        "feature": "last10_eFG%_w_avg",
+        "importance_mean": 0.0012783352733013453,
+        "importance_std": 2.5480791114864526e-05
+      },
+      {
+        "feature": "OBPM",
+        "importance_mean": 0.0012429109646816317,
+        "importance_std": 9.851982897424311e-05
+      },
+      {
+        "feature": "std_fgp_std",
+        "importance_mean": 0.001131953741458158,
+        "importance_std": 1.6532241109387962e-05
+      },
+      {
+        "feature": "mins_w_trend",
+        "importance_mean": 0.001088594531499698,
+        "importance_std": 4.564639216102364e-05
+      },
+      {
+        "feature": "AST_TO_ratio",
+        "importance_mean": 0.0010733966791548922,
+        "importance_std": 3.81704296543069e-05
+      },
+      {
+        "feature": "last3_pts_avg",
+        "importance_mean": 0.000994078626883632,
+        "importance_std": 2.084631377225491e-05
+      },
+      {
+        "feature": "std_fga_std",
+        "importance_mean": 0.0009757951894912686,
+        "importance_std": 2.224157153475825e-05
+      },
+      {
+        "feature": "last10_TS%_avg",
+        "importance_mean": 0.0009718815005338666,
+        "importance_std": 4.2159634334561157e-05
+      },
+      {
+        "feature": "last3_eFG%_w_avg",
+        "importance_mean": 0.0009648755298627742,
+        "importance_std": 3.722613801776349e-05
+      },
+      {
+        "feature": "BPM",
+        "importance_mean": 0.0009342636942353932,
+        "importance_std": 4.791497154482803e-05
+      },
+      {
+        "feature": "last3_eFG%_avg",
+        "importance_mean": 0.0009341878791002233,
+        "importance_std": 4.1372448441769615e-05
+      },
+      {
+        "feature": "std_mins_std",
+        "importance_mean": 0.0008897005178829298,
+        "importance_std": 3.322155644524393e-05
+      },
+      {
+        "feature": "std_OffReb_std",
+        "importance_mean": 0.0008384212635316413,
+        "importance_std": 4.8047014430757386e-05
+      },
+      {
+        "feature": "std_plusMinus_std",
+        "importance_mean": 0.0008373385208722883,
+        "importance_std": 2.307051334922098e-05
+      },
+      {
+        "feature": "std_ftm_std",
+        "importance_mean": 0.0008311179849608274,
+        "importance_std": 3.7164962736480155e-05
+      },
+      {
+        "feature": "AST_TO_ratio_w_trend",
+        "importance_mean": 0.0008061576010307547,
+        "importance_std": 1.379313251291048e-05
+      },
+      {
+        "feature": "last10_mins_avg",
+        "importance_mean": 0.0007894229398050845,
+        "importance_std": 2.0917093023617397e-05
+      },
+      {
+        "feature": "std_plusMinus",
+        "importance_mean": 0.0007785027761403329,
+        "importance_std": 2.3212882506806436e-05
+      },
+      {
+        "feature": "std_tptfgp_std",
+        "importance_mean": 0.0007755917554406854,
+        "importance_std": 3.8078244319973754e-05
+      },
+      {
+        "feature": "std_tptfgm",
+        "importance_mean": 0.0007716411671555123,
+        "importance_std": 2.5207610359761276e-05
+      },
+      {
+        "feature": "std_TOV",
+        "importance_mean": 0.0007711281423999905,
+        "importance_std": 1.2369183288541962e-05
+      },
+      {
+        "feature": "last10_mins_w_avg",
+        "importance_mean": 0.0007672181858583204,
+        "importance_std": 3.2411400381458204e-05
+      },
+      {
+        "feature": "std_PF",
+        "importance_mean": 0.0007464909658893015,
+        "importance_std": 3.508489301422235e-05
+      },
+      {
+        "feature": "TOV_x",
+        "importance_mean": 0.000730970838999756,
+        "importance_std": 1.2766737197600756e-05
+      },
+      {
+        "feature": "std_ftp",
+        "importance_mean": 0.0007191203089422782,
+        "importance_std": 3.081686068479387e-05
+      },
+      {
+        "feature": "std_tptfgp",
+        "importance_mean": 0.0007134495126058348,
+        "importance_std": 2.5483587337262803e-05
+      },
+      {
+        "feature": "reb_w_trend",
+        "importance_mean": 0.0007078400140323238,
+        "importance_std": 2.0768051776843567e-05
+      },
+      {
+        "feature": "opp_strength",
+        "importance_mean": 0.0007052479555737623,
+        "importance_std": 2.1720250332507885e-05
+      },
+      {
+        "feature": "TS%_trend",
+        "importance_mean": 0.0007000134149701242,
+        "importance_std": 2.899601772803851e-05
+      },
+      {
+        "feature": "std_mins",
+        "importance_mean": 0.0006954627136891878,
+        "importance_std": 2.7338674888247794e-05
+      },
+      {
+        "feature": "std_tptfgm_std",
+        "importance_mean": 0.0006744121038485762,
+        "importance_std": 3.514219991161533e-05
+      },
+      {
+        "feature": "std_DefReb_std",
+        "importance_mean": 0.000656457329722504,
+        "importance_std": 2.386626012112106e-05
+      },
+      {
+        "feature": "std_ftp_std",
+        "importance_mean": 0.000646417352577866,
+        "importance_std": 1.9662062949937112e-05
+      },
+      {
+        "feature": "std_ast",
+        "importance_mean": 0.0006272399925580485,
+        "importance_std": 2.6125810524275424e-05
+      },
+      {
+        "feature": "last10_eFG%_avg",
+        "importance_mean": 0.0006197504630555794,
+        "importance_std": 3.827542453170241e-05
+      },
+      {
+        "feature": "last3_TS%_w_avg",
+        "importance_mean": 0.00061588823329366,
+        "importance_std": 1.7333447902906182e-05
+      },
+      {
+        "feature": "std_blk",
+        "importance_mean": 0.0006126340895373338,
+        "importance_std": 3.647605355334007e-05
+      },
+      {
+        "feature": "std_stl",
+        "importance_mean": 0.0006126004385023087,
+        "importance_std": 3.066798567062402e-05
+      },
+      {
+        "feature": "std_TOV_std",
+        "importance_mean": 0.0006123984459619036,
+        "importance_std": 2.4843540917524706e-05
+      },
+      {
+        "feature": "ast_w_trend",
+        "importance_mean": 0.0006114500377431664,
+        "importance_std": 2.032033370106222e-05
+      },
+      {
+        "feature": "last10_AST_TO_ratio_w_avg",
+        "importance_mean": 0.0006113813301213522,
+        "importance_std": 3.951035185851783e-05
+      },
+      {
+        "feature": "reb_trend",
+        "importance_mean": 0.0006083744329187235,
+        "importance_std": 1.7670100218451215e-05
+      },
+      {
+        "feature": "std_PF_std",
+        "importance_mean": 0.000581352829900883,
+        "importance_std": 1.2228139797155862e-05
+      },
+      {
+        "feature": "std_fgp",
+        "importance_mean": 0.0005782626373962207,
+        "importance_std": 4.0490287337501266e-05
+      },
+      {
+        "feature": "ast_trend",
+        "importance_mean": 0.0005742260404840271,
+        "importance_std": 3.8346969971008836e-05
+      },
+      {
+        "feature": "WS/48",
+        "importance_mean": 0.0005691030204393099,
+        "importance_std": 3.079949502477363e-05
+      },
+      {
+        "feature": "eFG%_trend",
+        "importance_mean": 0.0005649012726031355,
+        "importance_std": 2.2682616474474605e-05
+      },
+      {
+        "feature": "std_fgm",
+        "importance_mean": 0.0005633423698008233,
+        "importance_std": 1.9662885242255472e-05
+      },
+      {
+        "feature": "std_ftm",
+        "importance_mean": 0.000560599505745274,
+        "importance_std": 2.7348547120012327e-05
+      },
+      {
+        "feature": "pts_trend",
+        "importance_mean": 0.0005529410579242055,
+        "importance_std": 3.9096236455301045e-05
+      },
+      {
+        "feature": "std_stl_std",
+        "importance_mean": 0.0005523942740999433,
+        "importance_std": 1.2034827677853133e-05
+      },
+      {
+        "feature": "last10_AST_TO_ratio_avg",
+        "importance_mean": 0.0005493258768129117,
+        "importance_std": 2.9567246913725428e-05
+      },
+      {
+        "feature": "std_fta_std",
+        "importance_mean": 0.0005482641843719271,
+        "importance_std": 4.215827006637403e-05
+      },
+      {
+        "feature": "last3_mins_avg",
+        "importance_mean": 0.0005471502565374431,
+        "importance_std": 3.059979203639475e-05
+      },
+      {
+        "feature": "eFG%_w_trend",
+        "importance_mean": 0.0005380116524198453,
+        "importance_std": 2.2048470921728784e-05
+      },
+      {
+        "feature": "last3_TS%_avg",
+        "importance_mean": 0.0005269785196160726,
+        "importance_std": 2.3696222444933185e-05
+      },
+      {
+        "feature": "std_fta",
+        "importance_mean": 0.0005217572369938583,
+        "importance_std": 2.2588637529701493e-05
+      },
+      {
+        "feature": "std_blk_std",
+        "importance_mean": 0.0005172603733343051,
+        "importance_std": 5.382534591490655e-06
+      },
+      {
+        "feature": "mins_trend",
+        "importance_mean": 0.000516166369726645,
+        "importance_std": 2.551153287804388e-05
+      },
+      {
+        "feature": "last3_reb_w_avg",
+        "importance_mean": 0.0004951891058950552,
+        "importance_std": 2.3542551530195076e-05
+      },
+      {
+        "feature": "TS%_w_trend",
+        "importance_mean": 0.0004873990819594276,
+        "importance_std": 2.4925048922372493e-05
+      },
+      {
+        "feature": "std_fgm_std",
+        "importance_mean": 0.0004803336622738241,
+        "importance_std": 1.5340118340005976e-05
+      },
+      {
+        "feature": "last10_ast_w_avg",
+        "importance_mean": 0.00047782593566969567,
+        "importance_std": 1.803493303283834e-05
+      },
+      {
+        "feature": "std_reb_std",
+        "importance_mean": 0.0004757304500997872,
+        "importance_std": 2.0747310633335704e-05
+      },
+      {
+        "feature": "last3_AST_TO_ratio_avg",
+        "importance_mean": 0.0004733975784189548,
+        "importance_std": 4.3265380074877183e-05
+      },
+      {
+        "feature": "last10_ast_avg",
+        "importance_mean": 0.0004720845024647202,
+        "importance_std": 5.360707578295803e-06
+      },
+      {
+        "feature": "last10_reb_w_avg",
+        "importance_mean": 0.00047124978366539503,
+        "importance_std": 5.426097445323797e-05
+      },
+      {
+        "feature": "std_pts_std",
+        "importance_mean": 0.00046906456111970305,
+        "importance_std": 2.4973931030518705e-05
+      },
+      {
+        "feature": "last10_reb_avg",
+        "importance_mean": 0.00046011551180811237,
+        "importance_std": 3.539514121068772e-05
+      },
+      {
+        "feature": "last3_AST_TO_ratio_w_avg",
+        "importance_mean": 0.000444279578716289,
+        "importance_std": 2.5595065812539244e-05
+      },
+      {
+        "feature": "AST_TO_ratio_trend",
+        "importance_mean": 0.00043180512311240536,
+        "importance_std": 1.6049351928317233e-05
+      },
+      {
+        "feature": "overall_consistency",
+        "importance_mean": 0.0004315717898390581,
+        "importance_std": 7.449397837244421e-05
+      },
+      {
+        "feature": "std_OffReb",
+        "importance_mean": 0.00042693456123894525,
+        "importance_std": 1.3123589294766076e-05
+      },
+      {
+        "feature": "std_reb",
+        "importance_mean": 0.0004062036127595148,
+        "importance_std": 2.264123878187909e-05
+      },
+      {
+        "feature": "std_ast_std",
+        "importance_mean": 0.00039452442244474194,
+        "importance_std": 2.342307832345609e-05
+      },
+      {
+        "feature": "Age",
+        "importance_mean": 0.0003820841616660964,
+        "importance_std": 7.591035133011593e-06
+      },
+      {
+        "feature": "last3_ast_w_avg",
+        "importance_mean": 0.0003378138702798239,
+        "importance_std": 1.2920723159173048e-05
+      },
+      {
+        "feature": "DBPM",
+        "importance_mean": 0.0003354534802549436,
+        "importance_std": 2.3775751109811204e-05
+      },
+      {
+        "feature": "pts_consistency",
+        "importance_mean": 0.0003289832487247013,
+        "importance_std": 2.9769427162101486e-05
+      },
+      {
+        "feature": "b2b_age_impact",
+        "importance_mean": 0.00030528130268252517,
+        "importance_std": 1.643370527208166e-05
+      },
+      {
+        "feature": "std_DefReb",
+        "importance_mean": 0.0002885923611562147,
+        "importance_std": 2.103328417478082e-05
+      },
+      {
+        "feature": "last3_ast_avg",
+        "importance_mean": 0.0002070250711767141,
+        "importance_std": 2.153276709675613e-05
+      },
+      {
+        "feature": "last3_reb_avg",
+        "importance_mean": 0.00015173140475976954,
+        "importance_std": 1.1091725948152875e-05
+      },
+      {
+        "feature": "team_changed",
+        "importance_mean": 0.00012574216607068588,
+        "importance_std": 1.9348956695637065e-06
+      },
+      {
+        "feature": "trade_adaptation_period",
+        "importance_mean": 1.3730078099549737e-05,
+        "importance_std": 7.536018408878265e-06
+      },
+      {
+        "feature": "home_game",
+        "importance_mean": 0.0,
+        "importance_std": 0.0
+      },
+      {
+        "feature": "returning_from_restriction",
+        "importance_mean": 0.0,
+        "importance_std": 0.0
+      },
+      {
+        "feature": "player_role_consistency",
+        "importance_mean": 0.0,
+        "importance_std": 0.0
+      }
+    ],
+    "summary": {
+      "top_feature": "PPS",
+      "top_importance": 0.21655422227606413,
+      "mean_importance": 0.007831448783149522
+    }
+  }
+}

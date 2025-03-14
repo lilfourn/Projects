@@ -1,0 +1,27 @@
+{
+  "output": {
+    "filePath": "codebase-summary.md",
+    "style": "markdown",
+    "parsableStyle": false,
+    "fileSummary": true,
+    "directoryStructure": true,
+    "removeComments": true,
+    "removeEmptyLines": true,
+    "compress": true,
+    "topFilesLength": 5,
+    "showLineNumbers": true,
+    "copyToClipboard": false
+  },
+  "include": [],
+  "ignore": {
+    "useGitignore": true,
+    "useDefaultPatterns": true,
+    "customPatterns": []
+  },
+  "security": {
+    "enableSecurityCheck": true
+  },
+  "tokenCount": {
+    "encoding": "o200k_base"
+  }
+}

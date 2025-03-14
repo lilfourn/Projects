@@ -15,7 +15,7 @@ load_dotenv(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file_
 
 # Global rate limiting variables
 REQUEST_QUEUE = queue.Queue()
-MAX_REQUESTS_PER_MINUTE = 100  # Adjust based on API limits
+MAX_REQUESTS_PER_MINUTE = 600  # Adjust based on API limits
 REQUEST_LOCK = threading.Lock()
 LAST_REQUEST_TIMES = []
 
